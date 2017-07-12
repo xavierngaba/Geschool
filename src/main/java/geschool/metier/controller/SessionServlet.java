@@ -76,7 +76,8 @@ public class SessionServlet extends HttpServlet {
                         request.setAttribute("text", "La session a été bien activée.");
                         this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
                     }
-                }   
+                }
+                //cette condition faut la modifier c'est à cause d'elle qu'il y a le bug
             }else if(s.getDateFin().compareTo(now) < 0 && now.getMonth() == 6){
                 s.setActif(1);
                 sDAO.modifSession(s);

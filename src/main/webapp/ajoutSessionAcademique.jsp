@@ -302,14 +302,7 @@
                                 <div class="alert alert-success alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                     <h4><i class="icon fa fa-check"></i> Success!</h4>
-                                    La sessin académique a été créée avec succès
-                                </div>
-                            </c:if>
-                            <c:if test="${message == 'warning'}">
-                                <div class="alert alert-warning alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    <h4><i class="icon fa fa-warning"></i>Warning</h4>
-                                    Une session existe déjà pour cette année!
+                                    La session académique a été créée avec succès
                                 </div>
                             </c:if>
                         </div>
