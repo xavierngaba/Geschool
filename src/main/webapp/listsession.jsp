@@ -102,7 +102,7 @@
                             <img src="img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Adminstrateur</p>
+                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -268,13 +268,13 @@
                                                         <td><fmt:formatDate value="${session.dateDebut}" pattern="dd-MM-yyyy" /></td>
                                                         <td><fmt:formatDate value="${session.dateFin}" pattern="dd-MM-yyyy" /></td>
                                                         <c:if test="${session.actif == 1}">
-                                                            <td>Oui</td>
+                                                            <td><i class="fa fa-circle text-success"></i></td>
                                                             <td>
-                                                                <a href="<c:url value="/SessionServlet?action=desactive&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-default"><i class="fa fa-check"></i></a>
+                                                                <a href="<c:url value="/SessionServlet?action=desactive&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-success"><i class="fa fa-check"></i></a>
                                                             </td>
                                                         </c:if>
                                                         <c:if test="${session.actif == 0}">
-                                                            <td>Non</td>
+                                                            <td><i class="fa fa-circle text-danger"></i></td>
                                                             <td>
                                                                 <a href="<c:url value="/SessionServlet?action=active&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-default"><i class="fa fa-check"></i></a>
                                                             </td>

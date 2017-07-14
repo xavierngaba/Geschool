@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class SessionValidationForm {
     @EJB
-    private SessionDAO sDAO;
-    private static final String CHAMP_DATE = "date";
+    private final SessionDAO sDAO;
+    private static final String CHAMP_DATE = "annee scolaire";
     
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
@@ -56,25 +54,27 @@ public final class SessionValidationForm {
             if(verifDate(lesDates) == true){
                 s.setDateDebut(lesDates.get(0));
                 s.setDateFin(lesDates.get(1));
+                
+                s.setAnneeDebut(lesAnnees.get(0));
+                s.setAnneFin(lesAnnees.get(1));
+                s.setActif(0);
+                try{
+                    s.setIdSession(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
+                }catch (Exception e) {
+                    setErreur("SessionId", e.getMessage());
+                }
+                try{
+                    sDAO.creerSession(s);
+                    resultat = "succes";
+                }catch (Exception e) {
+                    setErreur("echec", e.getMessage());
+                    resultat = "echec";
+                }
             }
         }catch (Exception e) {
             setErreur(CHAMP_DATE, e.getMessage());
         }
-        s.setAnneeDebut(lesAnnees.get(0));
-        s.setAnneFin(lesAnnees.get(1));
-        s.setActif(0);
-        try{
-            s.setIdSession(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
-        }catch (Exception e) {
-            setErreur("SessionId", e.getMessage());
-        }
-        try{
-            sDAO.creerSession(s);
-            resultat = "succes";
-        }catch (Exception e) {
-            setErreur("session", e.getMessage());
-            resultat = "echec";
-        }
+        
     }
     
     private boolean verifDate(List<Date> listDate)throws Exception{
@@ -82,10 +82,14 @@ public final class SessionValidationForm {
         Date d1 = listDate.get(0);
         Date d2 = listDate.get(1);
         
-        if(d1.compareTo(d2) < 0){
-            flags = true;
+        if(!(d1.compareTo(d2) == 0)){
+            if(d1.compareTo(d2) < 0){
+                flags = true;
+            }else{
+                throw new Exception("la date de début doit toujours être inférieure à la date de fin");
+            }
         }else{
-             throw new Exception("la date de début doit inférieur à la date de fin");
+             throw new Exception("la date de début et la date de fin sont égaux");
         }    
        return flags;
     }
