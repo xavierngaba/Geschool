@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class SessionValidationForm {
     @EJB
-    private SessionDAO sDAO;
-    private static final String CHAMP_DATE = "date";
+    private final SessionDAO sDAO;
+    private static final String CHAMP_DATE = "annee scolaire";
     
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
