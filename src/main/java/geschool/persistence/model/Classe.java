@@ -29,10 +29,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "classe", catalog = "gestschool", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Classe.findAll", query = "SELECT c FROM Classe c"),
-    @NamedQuery(name = "Classe.findByIdClasse", query = "SELECT c FROM Classe c WHERE c.idClasse = :idClasse"),
-    @NamedQuery(name = "Classe.findByDateCreationClasse", query = "SELECT c FROM Classe c WHERE c.dateCreationClasse = :dateCreationClasse"),
-    @NamedQuery(name = "Classe.findByNombreEleveMax", query = "SELECT c FROM Classe c WHERE c.nombreEleveMax = :nombreEleveMax")})
+    @NamedQuery(name = "Classe.rechercherToutesLesClasses", query = "SELECT c FROM Classe c"),
+    @NamedQuery(name = "Classe.rechercherClasseParId", query = "SELECT c FROM Classe c WHERE c.idClasse = :idClasse"),
+    @NamedQuery(name = "Classe.rechercherClasseParLibelleClasse", query = "SELECT c FROM Classe c WHERE c.libelleClasse = :libelleClasse"),
+    @NamedQuery(name = "Classe.rechercherLeNombreMaxEleveClasse", query = "SELECT c.nombreEleveMax FROM Classe c WHERE c.nombreEleveMax = :nombreEleveMax")})
 public class Classe implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,6 +41,8 @@ public class Classe implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "idClasse", nullable = false, length = 10)
     private String idClasse;
+    @Column(name = "libelleClasse", nullable = false, length = 25)
+    private String libelleClasse;
     @Column(name = "dateCreationClasse")
     @Temporal(TemporalType.DATE)
     private Date dateCreationClasse;
@@ -54,6 +56,11 @@ public class Classe implements Serializable {
 
     public Classe(String idClasse) {
         this.idClasse = idClasse;
+    }
+
+    public Classe(String idClasse, String libelleClasse) {
+        this.idClasse = idClasse;
+        this.libelleClasse = libelleClasse;
     }
 
     public String getIdClasse() {
@@ -86,6 +93,14 @@ public class Classe implements Serializable {
 
     public void setSessionclasseList(List<Sessionclasse> sessionclasseList) {
         this.sessionclasseList = sessionclasseList;
+    }
+
+    public String getLibelleClasse() {
+        return libelleClasse;
+    }
+
+    public void setLibelleClasse(String libelleClasse) {
+        this.libelleClasse = libelleClasse;
     }
 
     @Override
