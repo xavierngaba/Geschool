@@ -15,8 +15,8 @@ import javax.ejb.Local;
  */
 @Local
 public interface ClasseDAO {
-    void creerClasse(Classe c);
-    void modifierClasse(Classe c);
+    void creerClasse(Classe c)throws Exception;
+    void modifierClasse(Classe c)throws Exception;
     List<Classe> rechercherToutesLesClasses();
     Classe rechercherClasseParId (Integer id);
     Classe rechercherClasseParLibelleClasse(String l);

@@ -18,4 +18,8 @@ public final class AllUrl {
     public static final String URL_PAGE_AJOUT_SESSION_ACADEMIQUE = "/ajoutSessionAcademique.jsp";
     public static final String URL_PAGE_TABLEAU_SESSION = "/listsession.jsp";
     public static final String URL_ = "/";
+    public static final String URL_PAGE_TABLEAU_CLASSE="/listclasse.jsp";
+    public static final String URL_PAGE_TABLEAU_CLASSE_SESSION="/classeSession.jsp";
+    public static final String URL_PAGE_AJOUT_CLASSE="/ajoutclasse.jsp";
+    public static final String URL_PAGE_AJOUT_SESSION_CLASSE="/ajoutsessionclasse.jsp";
 }

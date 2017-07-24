@@ -25,21 +25,21 @@ public class ClasseDAOImpl implements ClasseDAO{
     private EntityManager em;
     
     @Override
-   public void creerClasse(Classe c){
+   public void creerClasse(Classe c)throws Exception{
        if (verifClasseExist(c.getLibelleClasse()) != true){
            em.persist(c);
        }else{
-           try {
-               throw new Exception("Cette Salle de classe existe déjà en Base de données");
-           } catch (Exception ex) {
-               Logger.getLogger(ClasseDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-           }
+           throw new NullPointerException("Cette Salle de classe existe déjà en Base de données");
        }
    }  
    
     @Override
-    public void modifierClasse(Classe u) {
-        em.merge(u);
+    public void modifierClasse(Classe c) throws Exception{
+       if (verifClasseExist(c.getLibelleClasse()) != true){
+           em.merge(c);
+       }else{
+           throw new NullPointerException("Cette Salle de classe existe déjà en Base de données");
+       }
     }
 
     @Override
