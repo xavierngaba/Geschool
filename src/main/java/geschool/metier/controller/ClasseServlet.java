@@ -6,13 +6,12 @@
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
-import geschool.metier.utils.SessionValidationForm;
+import geschool.metier.utils.ClasseValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.SessionClasseDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Classe;
 import static geschool.persistence.model.Classe_.idClasse;
-import geschool.persistence.model.Session;
 import geschool.persistence.model.Sessionclasse;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
@@ -68,7 +67,8 @@ public class ClasseServlet extends HttpServlet {
             List<Sessionclasse> listSessionClasse = sessClasseDAO.rechercherLesClassesParSession(sessionClasseId);
             request.setAttribute("Sessionclasse", listSessionClasse); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_CLASSE_SESSION ).forward( request, response );
-        }
+        }        
+           
     }
 
     /**
@@ -85,8 +85,25 @@ public class ClasseServlet extends HttpServlet {
         int sessionId = Integer.parseInt(request.getParameter("session"));
         HttpSession session = request.getSession();
         if(action.equals("ajoutclasse")){
-            
+       try {
+                ClasseValidationForm form = new ClasseValidationForm(cDAO);
+                Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
+                /* Traitement de la requête et récupération du bean en résultant */
+                form.ajoutClasse(request);
+                request.setAttribute( ATT_FORM, form );
+                 if ( form.getErreurs().isEmpty() ) {
+                     session.setAttribute( ATT_SESSION_USER, u );
+                     request.setAttribute(MESSAGE, "success");
+                     this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
+                 }else{
+                     request.setAttribute(MESSAGE, "error");
+                     this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
+                 }
+            } catch (Exception ex) {
+                Logger.getLogger(ClasseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+//////       
     }
 
     /**
@@ -96,7 +113,7 @@ public class ClasseServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+    return "Short description";
     }// </editor-fold>
 
 }

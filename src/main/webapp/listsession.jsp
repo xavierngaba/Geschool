@@ -143,21 +143,29 @@
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-building"></i>
-                                <span>Salle de Classe</span>
+                             <span>Salle de Classe</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-table"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
                                         <span>Liste de classes</span>
                                         <span class="pull-right-container">
-                                            <span class="label label-primary pull-right">4</span>
+                                            <span class="label label-primary pull-right">0</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="form2.html"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
+                                <li>
+                                    <a href="<c:url value="/AutoServlet?action=classeSession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
+                                        <span>Liste des Classes/Sessions</span>
+                                        <span class="pull-right-container">
+                                            <span class="label label-primary pull-right">0</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

@@ -5,8 +5,8 @@
  */
 package geschool.metier.utils;
 
-import geschool.persistence.interfaces.SessionDAO;
-import geschool.persistence.model.Session;
+import geschool.persistence.interfaces.ClasseDAO;
+import geschool.persistence.model.Classe;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,19 +17,22 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author Ines.G
+ * @author xavier_ng
  */
-public final class SessionValidationForm {
+    public final class ClasseValidationForm {
     @EJB
-    private final SessionDAO sDAO;
-    private static final String CHAMP_DATE = "annee scolaire";
+    private ClasseDAO cDAO;
+    private static String CHAMP_libelle ="libelleClasse";
+    private static final String CHAMP_DATE = "dateCreationClasse";
+    private static String CHAMP_NbrEleve ="nombreEleveMax";       
+    
     
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
-    private static final Logger LOG = Logger.getLogger(SessionValidationForm.class.getName());
+    private static final Logger LOG = Logger.getLogger(ClasseValidationForm.class.getName());
 
-    public SessionValidationForm(SessionDAO sDAO) {
-        this.sDAO = sDAO;
+    public ClasseValidationForm(ClasseDAO cDAO) {
+        this.cDAO = cDAO;
     }
 
     public String getResultat() {
@@ -44,55 +47,36 @@ public final class SessionValidationForm {
         erreurs.put(champ, message);
     }
     
-    public void ajoutSession(HttpServletRequest request) throws Exception{                                                                                                                                                                                                                              
+    public void ajoutClasse(HttpServletRequest request) throws Exception{                                                                                                                                                                                                                              
         String date = getValeurChamp(request, CHAMP_DATE);
-        Session s = new Session();
+        Classe c = new Classe();
         
         List<Date> lesDates = ConvertDateYear.DateTransform(date);
         List<Integer> lesAnnees = ConvertDateYear.YearTransform(lesDates);
         try{
             if(verifDate(lesDates) == true){
-                s.setDateDebut(lesDates.get(0));
-                s.setDateFin(lesDates.get(1));
+                c.setDateCreation(lesDates.get(0));
                 
-                s.setAnneeDebut(lesAnnees.get(0));
-                s.setAnneFin(lesAnnees.get(1));
-                s.setActif(0);
+                c.setDateCreation(lesAnnees.get(0));
                 try{
-                    s.setIdSession(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
+                    c.setIdClasse(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
                 }catch (Exception e) {
                     setErreur("SessionId", e.getMessage());
                 }
                 try{
-                    sDAO.creerSession(s);
+                    cDAO.creerClasse(c);
                     resultat = "succes";
                 }catch (Exception e) {
                     setErreur("echec", e.getMessage());
                     resultat = "echec";
                 }
             }
-        }catch (Exception e) {
-            setErreur(CHAMP_DATE, e.getMessage());
         }
         
     }
     
-    private boolean verifDate(List<Date> listDate)throws Exception{
-        boolean flags = false;
-        Date d1 = listDate.get(0);
-        Date d2 = listDate.get(1);
-        
-        if(!(d1.compareTo(d2) == 0)){
-            if(d1.compareTo(d2) < 0){
-                flags = true;
-            }else{
-                throw new Exception("la date de début doit toujours être inférieure à la date de fin");
-            }
-        }else{
-             throw new Exception("la date de début et la date de fin sont égaux");
-        }    
-       return flags;
-    }
+    
+    
     
     /*
      * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
@@ -106,4 +90,5 @@ public final class SessionValidationForm {
             return valeur;
         }
     }
-}
+    }
+

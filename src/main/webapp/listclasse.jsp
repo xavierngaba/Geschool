@@ -165,7 +165,15 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="<c:url value="/ClasseServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
+                                <li>
+                                    <a href="<c:url value="/ClasseServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
+                                        <span>Nouvelle Classe</span>
+                                        
+                                     </a>
+                               
+                                        
+                                        
+                                 </li>  
                             </ul>
                         </li>
                         <li class="treeview">
