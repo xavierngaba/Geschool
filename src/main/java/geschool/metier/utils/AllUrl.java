@@ -17,6 +17,9 @@ public final class AllUrl {
     public static final String URL_PAGE_LOCKSCREEN = "/lockscreen.jsp";
     public static final String URL_PAGE_AJOUT_SESSION_ACADEMIQUE = "/ajoutSessionAcademique.jsp";
     public static final String URL_PAGE_TABLEAU_SESSION = "/listsession.jsp";
+    public static final String URL_PAGE_TABLEAU_INSCRIPTION = "/listinscription.jsp";
+    public static final String URL_PAGE_AJOUT_INSCRIPTION = "/ajoutInscription.jsp";
+    public static final String URL_PAGE_MODIFIER_INSCRIPTION = "/modifierInscription.jsp";
     public static final String URL_ = "/";
     public static final String URL_PAGE_TABLEAU_CLASSE="/listclasse.jsp";
     public static final String URL_PAGE_TABLEAU_CLASSE_SESSION="/classeSession.jsp";
