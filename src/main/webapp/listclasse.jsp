@@ -165,6 +165,7 @@
                                         </span>
                                     </a>
                                 </li>
+<<<<<<< Updated upstream
                                 <li>
                                     <a href="<c:url value="/ClasseServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
                                         <span>Nouvelle Classe</span>
@@ -174,6 +175,9 @@
                                         
                                         
                                  </li>  
+=======
+                                <li><a href="<c:url value="/ClasseServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
+>>>>>>> Stashed changes
                             </ul>
                         </li>
                         <li class="treeview">

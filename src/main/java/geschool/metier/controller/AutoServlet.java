@@ -7,8 +7,10 @@ package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
 import geschool.persistence.interfaces.SessionDAO;
+
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.SessionClasseDAO;
+
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class AutoServlet extends HttpServlet {
      private UtilisateurDAO uDAO;
      @EJB
      private SessionDAO sDAO;
+
      @EJB
      private ClasseDAO cDAO;
      @EJB

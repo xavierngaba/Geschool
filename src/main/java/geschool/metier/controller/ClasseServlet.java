@@ -6,12 +6,15 @@
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
+
 import geschool.metier.utils.ClasseValidationForm;
+import geschool.metier.utils.SessionValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.SessionClasseDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Classe;
 import static geschool.persistence.model.Classe_.idClasse;
+import geschool.persistence.model.Session;
 import geschool.persistence.model.Sessionclasse;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
@@ -68,8 +71,8 @@ public class ClasseServlet extends HttpServlet {
             request.setAttribute("Sessionclasse", listSessionClasse); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_CLASSE_SESSION ).forward( request, response );
         }        
-           
-    }
+    }     
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -85,6 +88,7 @@ public class ClasseServlet extends HttpServlet {
         int sessionId = Integer.parseInt(request.getParameter("session"));
         HttpSession session = request.getSession();
         if(action.equals("ajoutclasse")){
+
        try {
                 ClasseValidationForm form = new ClasseValidationForm(cDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
@@ -103,8 +107,9 @@ public class ClasseServlet extends HttpServlet {
                 Logger.getLogger(ClasseServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//////       
-    }
+
+            
+       }
 
     /**
      * Returns a short description of the servlet.
@@ -115,5 +120,4 @@ public class ClasseServlet extends HttpServlet {
     public String getServletInfo() {
     return "Short description";
     }// </editor-fold>
-
 }
