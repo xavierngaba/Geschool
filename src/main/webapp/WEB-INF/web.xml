@@ -12,6 +12,10 @@
         <servlet-class>geschool.metier.controller.SessionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ClasseServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.ClasseServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AutoServlet</servlet-name>
         <servlet-class>geschool.metier.controller.AutoServlet</servlet-class>
     </servlet>
@@ -22,6 +26,10 @@
     <servlet-mapping>
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClasseServlet</servlet-name>
+        <url-pattern>/ClasseServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AutoServlet</servlet-name>

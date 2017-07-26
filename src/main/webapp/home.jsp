@@ -50,7 +50,6 @@
             <c:import url="vue/header.jsp"/>
             <!-- Left side column. contains the logo and sidebar -->
             <c:import url="vue/navbar.jsp"/>
-
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->

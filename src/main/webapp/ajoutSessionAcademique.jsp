@@ -1,7 +1,7 @@
 <%-- 
     Document   : ajoutSessionAcademique
     Created on : 6 juil. 2017, 00:11:32
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

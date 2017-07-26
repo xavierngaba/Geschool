@@ -6,6 +6,11 @@
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
+import geschool.persistence.interfaces.SessionDAO;
+
+import geschool.persistence.interfaces.ClasseDAO;
+import geschool.persistence.interfaces.SessionClasseDAO;
+
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
@@ -23,6 +28,13 @@ import javax.servlet.http.HttpSession;
 public class AutoServlet extends HttpServlet {
      @EJB
      private UtilisateurDAO uDAO;
+     @EJB
+     private SessionDAO sDAO;
+
+     @EJB
+     private ClasseDAO cDAO;
+     @EJB
+     private SessionClasseDAO scDAO;
      public static final String ATT_SESSION_USER = "sessionUtilisateur";
    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,8 +62,23 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("action", "listesession");
                 this.getServletContext().getRequestDispatcher( "/SessionServlet" ).forward( request, response );
             }
+            if(action.equals("listeclasse")){
+                request.setAttribute("action", "listeclasse");
+                this.getServletContext().getRequestDispatcher( "/ClasseServlet" ).forward( request, response );
+            }
+            if(action.equals("classeSession")){
+                request.setAttribute("action", "classeSession");
+                request.setAttribute("sessionClasse",sDAO.chercherSessionEnCours().getIdSession());
+                this.getServletContext().getRequestDispatcher( "/ClasseServlet" ).forward( request, response );
+            }
            if(action.equals("ajoutsession")){
                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_SESSION_ACADEMIQUE ).forward( request, response );
+           }
+           if(action.equals("ajoutclasse")){
+               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
+           }
+           if(action.equals("ajoutsessionclasse")){
+               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE ).forward( request, response );
            }
         }else{
             request.setAttribute( "action", "unlock" );

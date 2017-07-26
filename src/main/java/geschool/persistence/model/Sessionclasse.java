@@ -27,8 +27,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "sessionclasse", catalog = "gestschool", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Sessionclasse.findAll", query = "SELECT s FROM Sessionclasse s"),
-    @NamedQuery(name = "Sessionclasse.findByIdSessionClasse", query = "SELECT s FROM Sessionclasse s WHERE s.idSessionClasse = :idSessionClasse")})
+    @NamedQuery(name = "Sessionclasse.rechercherLesClassesParSession", query = "SELECT s FROM Sessionclasse s where s.sessionidSession.idSession = :idSession"),
+    @NamedQuery(name = "Sessionclasse.rechercherSessionClasseParId", query = "SELECT s FROM Sessionclasse s WHERE s.idSessionClasse = :idSessionClasse")})
 public class Sessionclasse implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,10 +48,6 @@ public class Sessionclasse implements Serializable {
     private List<Suivisessionclassematiere> suivisessionclassematiereList;
 
     public Sessionclasse() {
-    }
-
-    public Sessionclasse(Integer idSessionClasse) {
-        this.idSessionClasse = idSessionClasse;
     }
 
     public Integer getIdSessionClasse() {
