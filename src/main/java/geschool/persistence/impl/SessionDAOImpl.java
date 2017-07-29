@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines
  */
 @Stateless
 public class SessionDAOImpl implements SessionDAO{

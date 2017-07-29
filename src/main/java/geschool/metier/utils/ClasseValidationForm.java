@@ -5,6 +5,7 @@
  */
 package geschool.metier.utils;
 
+import geschool.persistence.impl.ClasseDAOImpl;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.model.Classe;
 import java.util.Date;
@@ -13,18 +14,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- *
- * @author xavier_ng
- */
+
 public final class ClasseValidationForm {
 
     @EJB
-    private ClasseDAO cDAO;
+    ClasseDAO cDAO;
+    
     private static String CHAMP_libelle = "libelleClasse";
-    private static final String CHAMP_DATE = "dateCreationClasse";
     private static String CHAMP_NbrEleve = "nombreEleveMax";
 
     private String resultat;
@@ -48,24 +48,39 @@ public final class ClasseValidationForm {
     }
 
     public void ajoutClasse(HttpServletRequest request) throws Exception {
-        String date = getValeurChamp(request, CHAMP_DATE);
+        String libelleClasse = getValeurChamp(request, CHAMP_libelle);
+        String nombreEleveMax = getValeurChamp(request, CHAMP_NbrEleve);
         Classe c = new Classe();
-
-        List<Date> lesDates = ConvertDateYear.DateTransform(date);
-        List<Integer> lesAnnees = ConvertDateYear.YearTransform(lesDates);
+        c.setLibelleClasse(libelleClasse);
+        c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
         c.setDateCreationClasse(new Date());
-        try {
-            c.setIdClasse(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
-        } catch (Exception e) {
-            setErreur("SessionId", e.getMessage());
+        if (cDAO.verifClasseExist(c.getLibelleClasse()) == 0) {
+            try {
+                cDAO.creerClasse(c);
+                resultat = "création de la classe "+c.getLibelleClasse()+" avec succès";
+            } catch (Exception e) {
+                setErreur("echec2", "Impossible de création la classe "+c.getLibelleClasse());
+                resultat = "echec";
+            }
+        }else{
+            setErreur("echec1", "La classe "+c.getLibelleClasse()+" existe déjà!");
+            resultat = "La classe "+c.getLibelleClasse()+" existe déjà!";
         }
-        try {
-            cDAO.creerClasse(c);
-            resultat = "succes";
-        } catch (Exception e) {
-            setErreur("echec", e.getMessage());
-            resultat = "echec";
-        }
+    }
+
+    public void modifClasse(HttpServletRequest request) throws Exception {
+        String libelleClasse = getValeurChamp(request, CHAMP_libelle);
+        String nombreEleveMax = getValeurChamp(request, CHAMP_NbrEleve);
+        Classe c = new Classe();
+        c.setLibelleClasse(libelleClasse);
+        c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
+            try {
+                cDAO.modifierClasse(c);
+                resultat = "modification de la classe "+c.getLibelleClasse()+" avec succès";
+            } catch (Exception e) {
+                setErreur("echec", "La classe "+c.getLibelleClasse()+" n'a pas été modifiée");
+                resultat = "La classe "+c.getLibelleClasse()+" n'a pas été modifiée";
+            }
     }
 
     /*

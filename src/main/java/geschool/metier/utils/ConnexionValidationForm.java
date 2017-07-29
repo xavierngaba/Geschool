@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 public final class ConnexionValidationForm {
 

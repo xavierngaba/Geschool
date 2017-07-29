@@ -66,7 +66,7 @@
                         <a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
                             <span>Liste de classes</span>
                             <span class="pull-right-container">
-                                <span class="label label-primary pull-right">0</span>
+                                <span class="label label-primary pull-right"><c:out value="${nblistclasse}"/></span>
                             </span>
                         </a>
                     </li>
@@ -78,8 +78,8 @@
                             </span>
                         </a>
                     </li>
-                    <li><a href="<c:url value="/ClasseServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
-                </ul>
+                   
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li></ul>
             </li>
             <li class="treeview">
                 <a href="#">

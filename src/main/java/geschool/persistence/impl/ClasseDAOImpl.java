@@ -21,25 +21,24 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ClasseDAOImpl implements ClasseDAO{
-    @PersistenceContext
+    @PersistenceContext(name="com.ines_Geschool_war_1.0PU")
     private EntityManager em;
     
     @Override
-   public void creerClasse(Classe c)throws Exception{
-       if (verifClasseExist(c.getLibelleClasse()) != true){
+   public void creerClasse(Classe c){
+         if(c != null){
            em.persist(c);
-       }else{
-           throw new NullPointerException("Cette Salle de classe existe déjà en Base de données");
-       }
    }  
+   }
    
     @Override
-    public void modifierClasse(Classe c) throws Exception{
-       if (verifClasseExist(c.getLibelleClasse()) != true){
-           em.merge(c);
-       }else{
-           throw new NullPointerException("Cette Salle de classe existe déjà en Base de données");
-       }
+    public void modifierClasse(Classe c){
+        String updateQuery = "UPDATE Classe SET libelleClasse = :libelleClasse, nombreEleveMax = :nombreEleveMax WHERE c.idClasse = :idClasse";
+        Query query = em.createNamedQuery(updateQuery);
+        query.setParameter("idClasse", c.getIdClasse());
+        query.setParameter("libelleClasse", c.getLibelleClasse());
+        query.setParameter("nombreEleveMax", c.getNombreEleveMax());
+        query.executeUpdate();
     }
 
     @Override
@@ -48,7 +47,7 @@ public class ClasseDAOImpl implements ClasseDAO{
     }
 
     @Override
-    public Classe rechercherClasseParId(Integer id) {
+    public Classe rechercherClasseParId(String id) {
         Query query = em.createNamedQuery("Classe.rechercherClasseParId");
         query.setParameter("idClasse", id);
         return (Classe) query.getSingleResult();
@@ -62,10 +61,10 @@ public class ClasseDAOImpl implements ClasseDAO{
     }
 
     @Override
-    public boolean verifClasseExist(String l) {
-        Query query = em.createNamedQuery("Classe.rechercherLeNombreMaxEleveClasse");
+    public Long verifClasseExist(String l) {
+        Query query = em.createNamedQuery("Classe.verifierLibelleClasse");
         query.setParameter("libelleClasse", l);
-        return query.getSingleResult() != null ?true:false; 
+        return (Long)query.getSingleResult(); 
     }
 
     @Override

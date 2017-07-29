@@ -7,7 +7,7 @@ package geschool.metier.utils;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 public final class CreerId {
 

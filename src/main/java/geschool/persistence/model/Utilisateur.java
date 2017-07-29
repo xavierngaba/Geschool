@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines
  */
 @Entity
 @Table(name = "utilisateur", catalog = "gestschool", schema = "", uniqueConstraints = {

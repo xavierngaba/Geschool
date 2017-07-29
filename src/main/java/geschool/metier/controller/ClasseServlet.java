@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 public class ClasseServlet extends HttpServlet {
     @EJB
@@ -70,7 +70,15 @@ public class ClasseServlet extends HttpServlet {
             List<Sessionclasse> listSessionClasse = sessClasseDAO.rechercherLesClassesParSession(sessionClasseId);
             request.setAttribute("Sessionclasse", listSessionClasse); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_CLASSE_SESSION ).forward( request, response );
-        }        
+        }
+        
+        if(action.equals("modifclasse")){
+            session.setAttribute( ATT_SESSION_USER, u );
+            String idclasse = request.getParameter("idclasse");
+            Classe c = cDAO.rechercherClasseParId(idclasse);
+            request.setAttribute("classe", c); 
+            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_MODIF_CLASSE ).forward( request, response );
+        }
     }     
 
 
@@ -88,12 +96,31 @@ public class ClasseServlet extends HttpServlet {
         int sessionId = Integer.parseInt(request.getParameter("session"));
         HttpSession session = request.getSession();
         if(action.equals("ajoutclasse")){
-
-       try {
+            try {
                 ClasseValidationForm form = new ClasseValidationForm(cDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.ajoutClasse(request);
+                request.setAttribute( ATT_FORM, form );
+                 if ( form.getErreurs().isEmpty() ) {
+                     session.setAttribute( ATT_SESSION_USER, u );
+                     request.setAttribute(MESSAGE, "success");
+                     this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
+                 }else{
+                     request.setAttribute(MESSAGE, "error");
+                     this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
+                 }
+            } catch (Exception ex) {
+                Logger.getLogger(ClasseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if(action.equals("modifclasse")){
+            try {
+                ClasseValidationForm form = new ClasseValidationForm(cDAO);
+                Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
+                /* Traitement de la requête et récupération du bean en résultant */
+                form.modifClasse(request);
                 request.setAttribute( ATT_FORM, form );
                  if ( form.getErreurs().isEmpty() ) {
                      session.setAttribute( ATT_SESSION_USER, u );

@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines
  */
 @Stateless
 public class UtilisateurDAOImpl implements UtilisateurDAO{

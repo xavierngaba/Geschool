@@ -1,7 +1,7 @@
 <%-- 
     Document   : lockscreen
     Created on : 4 juil. 2017, 23:20:39
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
