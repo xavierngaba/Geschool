@@ -147,6 +147,7 @@ public class SessionServlet extends HttpServlet {
                  }
             } catch (Exception ex) {
                 Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_SESSION_ACADEMIQUE ).forward( request, response );
             }
         }
         if(action.equals("activesession")){
