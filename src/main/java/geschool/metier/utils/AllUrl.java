@@ -7,7 +7,7 @@ package geschool.metier.utils;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 public final class AllUrl {
 //    Classe permettant d'avoir toutes les urls vers les pages jsp
@@ -25,4 +25,5 @@ public final class AllUrl {
     public static final String URL_PAGE_TABLEAU_CLASSE_SESSION="/classeSession.jsp";
     public static final String URL_PAGE_AJOUT_CLASSE="/ajoutclasse.jsp";
     public static final String URL_PAGE_AJOUT_SESSION_CLASSE="/ajoutsessionclasse.jsp";
+    public static final String URL_PAGE_MODIF_CLASSE="/modifclasse.jsp";
 }

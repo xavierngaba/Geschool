@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 public final class ConvertDateYear {
     public static List<Date> DateTransform (String DateList)throws ParseException{

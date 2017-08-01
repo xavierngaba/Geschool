@@ -12,10 +12,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,10 +35,13 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Classe.rechercherToutesLesClasses", query = "SELECT c FROM Classe c"),
     @NamedQuery(name = "Classe.rechercherClasseParId", query = "SELECT c FROM Classe c WHERE c.idClasse = :idClasse"),
     @NamedQuery(name = "Classe.rechercherClasseParLibelleClasse", query = "SELECT c FROM Classe c WHERE c.libelleClasse = :libelleClasse"),
+    @NamedQuery(name = "Classe.verifierLibelleClasse", query = "SELECT COUNT(c) FROM Classe c WHERE c.libelleClasse = :libelleClasse"),
     @NamedQuery(name = "Classe.rechercherLeNombreMaxEleveClasse", query = "SELECT c.nombreEleveMax FROM Classe c WHERE c.nombreEleveMax = :nombreEleveMax")})
 public class Classe implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)

@@ -8,18 +8,20 @@ package geschool.persistence.interfaces;
 import geschool.persistence.model.Classe;
 import java.util.List;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author IGNES
  */
+@Remote
 @Local
 public interface ClasseDAO {
-    void creerClasse(Classe c)throws Exception;
-    void modifierClasse(Classe c)throws Exception;
+    void creerClasse(Classe c);
+    void modifierClasse(Classe c);
     List<Classe> rechercherToutesLesClasses();
-    Classe rechercherClasseParId (Integer id);
+    Classe rechercherClasseParId (String id);
     Classe rechercherClasseParLibelleClasse(String l);
-    boolean verifClasseExist(String l);
+    Long verifClasseExist(String l);
     Integer rechercherLeNombreMaxEleveClasse(Integer id);
 }   

@@ -10,7 +10,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines
  */
 @Local
 public interface UtilisateurDAO {

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 public class UtilisateurServlet extends HttpServlet {
     @EJB
