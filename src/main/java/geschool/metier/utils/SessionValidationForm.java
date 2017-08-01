@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public final class SessionValidationForm {
     @EJB
     private final SessionDAO sDAO;
-    private static final String CHAMP_DATE = "annee scolaire";
+    private static final String CHAMP_DATE = "date";
     
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
@@ -47,34 +47,36 @@ public final class SessionValidationForm {
     public void ajoutSession(HttpServletRequest request) throws Exception{                                                                                                                                                                                                                              
         String date = getValeurChamp(request, CHAMP_DATE);
         Session s = new Session();
-        
-        List<Date> lesDates = ConvertDateYear.DateTransform(date);
-        List<Integer> lesAnnees = ConvertDateYear.YearTransform(lesDates);
-        try{
-            if(verifDate(lesDates) == true){
-                s.setDateDebut(lesDates.get(0));
-                s.setDateFin(lesDates.get(1));
-                
-                s.setAnneeDebut(lesAnnees.get(0));
-                s.setAnneFin(lesAnnees.get(1));
-                s.setActif(0);
-                try{
-                    s.setIdSession(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
-                }catch (Exception e) {
-                    setErreur("SessionId", e.getMessage());
+        if(date != null){
+            List<Date> lesDates = ConvertDateYear.DateTransform(date);
+            List<Integer> lesAnnees = ConvertDateYear.YearTransform(lesDates);
+            try{
+                if(verifDate(lesDates) == true){
+                    s.setDateDebut(lesDates.get(0));
+                    s.setDateFin(lesDates.get(1));
+
+                    s.setAnneeDebut(lesAnnees.get(0));
+                    s.setAnneFin(lesAnnees.get(1));
+                    s.setActif(0);
+                    try{
+                        s.setIdSession(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
+                    }catch (Exception e) {
+                        setErreur("SessionId", e.getMessage());
+                    }
+                    try{
+                        sDAO.creerSession(s);
+                        resultat = "succes";
+                    }catch (Exception e) {
+                        setErreur("echec", e.getMessage());
+                        resultat = "echec";
+                    }
                 }
-                try{
-                    sDAO.creerSession(s);
-                    resultat = "succes";
-                }catch (Exception e) {
-                    setErreur("echec", e.getMessage());
-                    resultat = "echec";
-                }
+            }catch (Exception e) {
+                setErreur(CHAMP_DATE, e.getMessage());
             }
-        }catch (Exception e) {
-            setErreur(CHAMP_DATE, e.getMessage());
-        }
-        
+        }else{
+            setErreur("SessionId", "Le champ date a renvoyé une valeur vide");
+        } 
     }
     
     private boolean verifDate(List<Date> listDate)throws Exception{
