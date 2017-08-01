@@ -1,10 +1,19 @@
+<%-- 
+    Document   : listSessesion
+    Created on : 8 juil. 2017, 02:50:32
+    Author     : xavier_ng
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib  uri="http://www.joda.org/joda/time/tags" prefix="joda"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Advanced form elements</title>
+        <title>Geschool | Tableau Classe </title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -13,20 +22,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="css/skins/_all-skins.min.css">
-        <!-- daterange picker -->
-        <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-        <!-- bootstrap datepicker -->
-        <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
-        <!-- iCheck for checkboxes and radio inputs -->
-        <link rel="stylesheet" href="plugins/iCheck/all.css">
-        <!-- Select2 -->
-        <link rel="stylesheet" href="plugins/select2/select2.min.css">
-
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -39,7 +41,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="home.html" class="logo">
+                <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>G</b></span>
                     <!-- logo for regular state and mobile devices -->
@@ -64,14 +66,14 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="img/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <span class="hidden-xs"><c:out value="${sessionScope.sessionUtilisateur.login}"/></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
                                         <p>
-                                            Adminstrateur
+                                            <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -79,7 +81,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="index.html" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="<c:url value="/UtilisateurServlet?action=logout"/>" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -100,7 +102,7 @@
                             <img src="img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Adminstrateur</p>
+                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -128,7 +130,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-table"></i>
+                                    <a href="data.html"><i class="fa fa-table"></i>
                                         <span>Liste d'inscription</span>
                                         <span class="pull-right-container">
                                             <span class="label label-primary pull-right">4</span>
@@ -148,14 +150,22 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-table"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
                                         <span>Liste de classes</span>
                                         <span class="pull-right-container">
-                                            <span class="label label-primary pull-right">4</span>
+                                            <span class="label label-primary pull-right">0</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="#"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
+                                <li>
+                                    <a href="<c:url value="/AutoServlet?action=classeSession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
+                                        <span>Liste des Classes/Sessions</span>
+                                        <span class="pull-right-container">
+                                            <span class="label label-primary pull-right">0</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li><a href="<c:url value="/ClasseServlet?action=ajoutClasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -168,14 +178,11 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-calendar"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar"></i>
                                         <span>Liste</span>
-                                        <span class="pull-right-container">
-                                            <span class="label label-primary pull-right">4</span>
-                                        </span>
                                     </a>
                                 </li>
-                                <li><a href="form2.html"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -232,75 +239,51 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-                        Advanced Form Elements
-                        <small>Preview</small>
-                    </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Forms</a></li>
-                        <li class="active">Advanced Elements</li>
+                        <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=classeSession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste classes</a></li>
                     </ol>
+                    <br/>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-
-                    <!-- SELECT2 EXAMPLE -->
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Formulaire</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                            </div>
-                        </div>
-                        <form action="#" method="post">
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- /.form-group -->
-                                        <div class="form-group">
-                                            <label>Ann&eacute;e scolaire</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="text" class="form-control pull-right" id="reservation">
-                                            </div>
-                                        </div>
-                                        <!-- /.form-group -->
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
-                                <!-- /.row -->
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-default">Cancel</button>
-                                <button type="submit" class="btn btn-info pull-right">valider</button>
-                            </div>
-                        </form>
-                    </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                                Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my entire
-                                soul, like these sweet mornings of spring which I enjoy with my whole heart.
-                            </div>
-                            <div class="alert alert-success alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-check"></i> Success!</h4>
-                                Success alert preview. This alert is dismissable.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.box -->
-                    <!-- /.row -->
+                        <div class="col-xs-12">
+                            <!-- /.box -->
 
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Tableau des Salles pour l'année en cours</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Libelle</th>
+                                                <th>Session</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:if test="${Sessionclasse.size() != 0}">
+                                                <c:forEach items="${ requestScope.Sessionclasse }" var="classe" varStatus="boucle">
+                                                    <tr>
+                                                        <td><c:out value="${classe.classeidClasse.libelleClasse}"/></td>
+                                                        <td><c:out value="${classe.sessionidSession.idSession}"/></td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:if>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </section>
                 <!-- /.content -->
             </div>
@@ -323,24 +306,38 @@
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
         <script src="js/bootstrap.min.js"></script>
-        <!-- date-range-picker -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-        <script src="plugins/daterangepicker/daterangepicker.js"></script>
-        <!-- SlimScroll 1.3.0 -->
+        <!-- DataTables -->
+        <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- SlimScroll -->
         <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-        <!-- iCheck 1.0.1 -->
-        <script src="plugins/iCheck/icheck.min.js"></script>
         <!-- FastClick -->
         <script src="plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
         <script src="js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="js/demo.js"></script>
-        <!-- Page script -->
+        <!-- page script -->
         <script>
             $(function () {
-                //Date range picker
-                $('#reservation').daterangepicker();
+                $('#example1').DataTable();
+                
+                $('#action').on("click",function(event) {
+                    if(this.checked){
+                       var action = $('#action').val();
+                       var session = $('#session').val();
+                        $.ajax({
+                                url : '/SessionServlet',
+                                data : {
+                                         action : action,
+                                         session : session
+                                },
+                                success : function(responseText) {
+                                        $('#ajaxGetUserServletResponse').text(responseText);
+                                }
+                        });
+                    }    
+                });
             });
         </script>
     </body>

@@ -29,13 +29,13 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "session", catalog = "gestschool", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Session.findAll", query = "SELECT s FROM Session s"),
-    @NamedQuery(name = "Session.findByIdSession", query = "SELECT s FROM Session s WHERE s.idSession = :idSession"),
-    @NamedQuery(name = "Session.findByAnneeDebut", query = "SELECT s FROM Session s WHERE s.anneeDebut = :anneeDebut"),
-    @NamedQuery(name = "Session.findByAnneFin", query = "SELECT s FROM Session s WHERE s.anneFin = :anneFin"),
-    @NamedQuery(name = "Session.findByDateDebut", query = "SELECT s FROM Session s WHERE s.dateDebut = :dateDebut"),
-    @NamedQuery(name = "Session.findByDateFin", query = "SELECT s FROM Session s WHERE s.dateFin = :dateFin"),
-    @NamedQuery(name = "Session.findByActif", query = "SELECT s FROM Session s WHERE s.actif = :actif")})
+    @NamedQuery(name = "Session.rechercherToutesLesSessions", query = "SELECT s FROM Session s"),
+    @NamedQuery(name = "Session.rechercherUneSessionAvecId", query = "SELECT s FROM Session s WHERE s.idSession = :idSession"),
+    @NamedQuery(name = "Session.rechercherSessionAvecAnneeDebut", query = "SELECT s FROM Session s WHERE s.anneeDebut = :anneeDebut"),
+    @NamedQuery(name = "Session.rechercherSessionAvecAnneeFin", query = "SELECT s FROM Session s WHERE s.anneFin = :anneFin"),
+    @NamedQuery(name = "Session.rechercherSessionAvecDateDebut", query = "SELECT s FROM Session s WHERE s.dateDebut = :dateDebut"),
+    @NamedQuery(name = "Session.rechercherSessionAvecDateFin", query = "SELECT s FROM Session s WHERE s.dateFin = :dateFin"),
+    @NamedQuery(name = "Session.rechercherUneSessionEnCours", query = "SELECT s FROM Session s WHERE s.actif = 1")})
 public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,14 +70,19 @@ public class Session implements Serializable {
     public Session() {
     }
 
-    public Session(String idSession) {
-        this.idSession = idSession;
-    }
-
     public Session(String idSession, int anneeDebut, int anneFin) {
         this.idSession = idSession;
         this.anneeDebut = anneeDebut;
         this.anneFin = anneFin;
+    }
+
+    public Session(String idSession, int anneeDebut, int anneFin, Date dateDebut, Date dateFin, Integer actif) {
+        this.idSession = idSession;
+        this.anneeDebut = anneeDebut;
+        this.anneFin = anneFin;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.actif = actif;
     }
 
     public String getIdSession() {

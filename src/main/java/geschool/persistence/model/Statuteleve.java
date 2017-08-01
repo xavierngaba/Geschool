@@ -45,10 +45,6 @@ public class Statuteleve implements Serializable {
     public Statuteleve() {
     }
 
-    public Statuteleve(Integer idStatutEleve) {
-        this.idStatutEleve = idStatutEleve;
-    }
-
     public Integer getIdStatutEleve() {
         return idStatutEleve;
     }

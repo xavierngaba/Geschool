@@ -7,11 +7,13 @@ package geschool.persistence.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -27,17 +29,21 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "inscription", catalog = "gestschool", schema = "")
+@SequenceGenerator(name="InscriptionSequnce", initialValue=1, allocationSize=5)
 @NamedQueries({
-    @NamedQuery(name = "Inscription.findAll", query = "SELECT i FROM Inscription i"),
-    @NamedQuery(name = "Inscription.findByIdInscription", query = "SELECT i FROM Inscription i WHERE i.idInscription = :idInscription"),
-    @NamedQuery(name = "Inscription.findByCommentaire", query = "SELECT i FROM Inscription i WHERE i.commentaire = :commentaire"),
-    @NamedQuery(name = "Inscription.findByTranche1Ok", query = "SELECT i FROM Inscription i WHERE i.tranche1Ok = :tranche1Ok"),
-    @NamedQuery(name = "Inscription.findByTranche2Ok", query = "SELECT i FROM Inscription i WHERE i.tranche2Ok = :tranche2Ok"),
-    @NamedQuery(name = "Inscription.findByTranche3Ok", query = "SELECT i FROM Inscription i WHERE i.tranche3Ok = :tranche3Ok")})
+    @NamedQuery(name = "Inscription.rechercherToutesLesInscriptions", query = "SELECT i FROM Inscription i"),
+    @NamedQuery(name = "Inscription.rechercherInscriptionAvecId", query = "SELECT i FROM Inscription i WHERE i.idInscription = :idInscription"),
+    @NamedQuery(name = "Inscription.recherccherInscriptionAvecTranche1OK", query = "SELECT i FROM Inscription i WHERE i.tranche1Ok = :tranche1Ok"),
+    @NamedQuery(name = "Inscription.recherccherInscriptionAvecTranche2OK", query = "SELECT i FROM Inscription i WHERE i.tranche2Ok = :tranche2Ok"),
+    @NamedQuery(name = "Inscription.recherccherInscriptionAvecTranche3OK", query = "SELECT i FROM Inscription i WHERE i.tranche3Ok = :tranche3Ok"),
+    @NamedQuery(name = "Inscription.recherccherInscriptionParSuiviParametrage", query = "SELECT i FROM Inscription i WHERE i.suiviParametrageInscriptionidSuiviParametrageInscription = :SuiviParametrage"),
+    @NamedQuery(name = "Inscription.recherccherInscriptionSessionEnCours", query = "SELECT i FROM Inscription i WHERE i.suiviSessionClasseEleveEleveidEleve.sessionClasseidSessionClasse.sessionidSession.idSession = :idSession"),
+    @NamedQuery(name = "Inscription.recherccherToutesLesInscriptionUneSalleClasse", query = "SELECT i FROM Inscription i WHERE i.suiviSessionClasseEleveEleveidEleve.sessionClasseidSessionClasse.classeidClasse.idClasse = :idClasse")
+})
 public class Inscription implements Serializable {
     private static final long serialVersionUID = 1L;
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="InscriptionSequence")
     @Id
-    @Basic(optional = false)
     @NotNull
     @Column(name = "idInscription", nullable = false)
     private Integer idInscription;
@@ -64,10 +70,6 @@ public class Inscription implements Serializable {
     private List<Tranche3> tranche3List;
 
     public Inscription() {
-    }
-
-    public Inscription(Integer idInscription) {
-        this.idInscription = idInscription;
     }
 
     public Integer getIdInscription() {
