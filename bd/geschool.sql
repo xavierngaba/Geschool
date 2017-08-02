@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 01 Août 2017 à 22:35
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Host: 127.0.0.1
+-- Generation Time: Aug 02, 2017 at 10:25 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `geschool`
+-- Database: `geschool`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `anneescolaire`
+-- Table structure for table `anneescolaire`
 --
 
 CREATE TABLE IF NOT EXISTS `anneescolaire` (
@@ -32,27 +32,41 @@ CREATE TABLE IF NOT EXISTS `anneescolaire` (
   `Date_debut` date NOT NULL,
   `Date_fin` date NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `anneescolaire`
+--
+
+INSERT INTO `anneescolaire` (`Id`, `libelle`, `Date_debut`, `Date_fin`) VALUES
+(1, 'SESS20172018', '2017-09-03', '2018-06-29');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `classe`
+-- Table structure for table `classe`
 --
 
 CREATE TABLE IF NOT EXISTS `classe` (
   `IdClasse` int(11) NOT NULL AUTO_INCREMENT,
   `Libelle` varchar(25) NOT NULL,
-  `Classe_Code` varchar(25) NOT NULL,
-  `IdGroupe` int(11) NOT NULL,
+  `Classe_Code` varchar(25) DEFAULT NULL,
+  `IdGroupe` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdClasse`),
   KEY `IdGroupe` (`IdGroupe`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `classe`
+--
+
+INSERT INTO `classe` (`IdClasse`, `Libelle`, `Classe_Code`, `IdGroupe`) VALUES
+(2, 'P1', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `discipline`
+-- Table structure for table `discipline`
 --
 
 CREATE TABLE IF NOT EXISTS `discipline` (
@@ -66,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `discipline` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `eleve`
+-- Table structure for table `eleve`
 --
 
 CREATE TABLE IF NOT EXISTS `eleve` (
@@ -92,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `eleve` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `facture`
+-- Table structure for table `facture`
 --
 
 CREATE TABLE IF NOT EXISTS `facture` (
@@ -108,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `facture` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `groupe`
+-- Table structure for table `groupe`
 --
 
 CREATE TABLE IF NOT EXISTS `groupe` (
@@ -127,19 +141,26 @@ CREATE TABLE IF NOT EXISTS `groupe` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `groupe_utilisateur`
+-- Table structure for table `groupe_utilisateur`
 --
 
 CREATE TABLE IF NOT EXISTS `groupe_utilisateur` (
   `IdGroupeUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `LibelleGroupeUtilisateur` varchar(50) NOT NULL,
   PRIMARY KEY (`IdGroupeUtilisateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `groupe_utilisateur`
+--
+
+INSERT INTO `groupe_utilisateur` (`IdGroupeUtilisateur`, `LibelleGroupeUtilisateur`) VALUES
+(1, 'admin');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `inscrit`
+-- Table structure for table `inscrit`
 --
 
 CREATE TABLE IF NOT EXISTS `inscrit` (
@@ -156,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `inscrit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `matiere`
+-- Table structure for table `matiere`
 --
 
 CREATE TABLE IF NOT EXISTS `matiere` (
@@ -171,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `matiere` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `niveau`
+-- Table structure for table `niveau`
 --
 
 CREATE TABLE IF NOT EXISTS `niveau` (
@@ -183,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `niveau` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `note`
+-- Table structure for table `note`
 --
 
 CREATE TABLE IF NOT EXISTS `note` (
@@ -200,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `note` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `professeur`
+-- Table structure for table `professeur`
 --
 
 CREATE TABLE IF NOT EXISTS `professeur` (
@@ -213,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `professeur` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reglement`
+-- Table structure for table `reglement`
 --
 
 CREATE TABLE IF NOT EXISTS `reglement` (
@@ -232,7 +253,26 @@ CREATE TABLE IF NOT EXISTS `reglement` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tuteur`
+-- Table structure for table `sequence`
+--
+
+CREATE TABLE IF NOT EXISTS `sequence` (
+  `SEQ_NAME` varchar(50) NOT NULL,
+  `SEQ_COUNT` decimal(38,0) DEFAULT NULL,
+  PRIMARY KEY (`SEQ_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sequence`
+--
+
+INSERT INTO `sequence` (`SEQ_NAME`, `SEQ_COUNT`) VALUES
+('SEQ_GEN', '51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tuteur`
 --
 
 CREATE TABLE IF NOT EXISTS `tuteur` (
@@ -250,56 +290,64 @@ CREATE TABLE IF NOT EXISTS `tuteur` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `IdUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_prenom` int(11) NOT NULL,
-  `login` int(11) NOT NULL,
-  `password` int(11) NOT NULL,
-  `date_creation` int(11) NOT NULL,
-  `etat` int(11) NOT NULL,
+  `nom_prenom` varchar(30) NOT NULL,
+  `login` varchar(10) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `date_creation` date NOT NULL,
+  `etat` int(2) NOT NULL,
   `groupe_utilisateur` int(11) NOT NULL,
-  PRIMARY KEY (`IdUtilisateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`IdUtilisateur`),
+  KEY `groupe_utilisateur` (`groupe_utilisateur`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Contraintes pour les tables exportées
+-- Dumping data for table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`IdUtilisateur`, `nom_prenom`, `login`, `password`, `date_creation`, `etat`, `groupe_utilisateur`) VALUES
+(1, 'admin', 'admin', 'admin', '2017-08-02', 0, 1);
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `classe`
+-- Constraints for table `classe`
 --
 ALTER TABLE `classe`
   ADD CONSTRAINT `classe_ibfk_1` FOREIGN KEY (`IdGroupe`) REFERENCES `groupe` (`IdGroupe`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `discipline`
+-- Constraints for table `discipline`
 --
 ALTER TABLE `discipline`
   ADD CONSTRAINT `discipline_ibfk_1` FOREIGN KEY (`IdNiveau`) REFERENCES `niveau` (`IdNiveau`);
 
 --
--- Contraintes pour la table `eleve`
+-- Constraints for table `eleve`
 --
 ALTER TABLE `eleve`
   ADD CONSTRAINT `eleve_ibfk_1` FOREIGN KEY (`IdTuteur`) REFERENCES `tuteur` (`IdTuteur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `facture`
+-- Constraints for table `facture`
 --
 ALTER TABLE `facture`
   ADD CONSTRAINT `facture_ibfk_1` FOREIGN KEY (`IdEleve`) REFERENCES `eleve` (`IdEleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `groupe`
+-- Constraints for table `groupe`
 --
 ALTER TABLE `groupe`
   ADD CONSTRAINT `groupe_ibfk_1` FOREIGN KEY (`IdNiveau`) REFERENCES `niveau` (`IdNiveau`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `inscrit`
+-- Constraints for table `inscrit`
 --
 ALTER TABLE `inscrit`
   ADD CONSTRAINT `inscrit_ibfk_2` FOREIGN KEY (`IdClasse`) REFERENCES `classe` (`IdClasse`),
@@ -307,23 +355,29 @@ ALTER TABLE `inscrit`
   ADD CONSTRAINT `inscrit_ibfk_3` FOREIGN KEY (`IdAnnee`) REFERENCES `anneescolaire` (`Id`);
 
 --
--- Contraintes pour la table `matiere`
+-- Constraints for table `matiere`
 --
 ALTER TABLE `matiere`
   ADD CONSTRAINT `matiere_ibfk_1` FOREIGN KEY (`IdProfesseur`) REFERENCES `professeur` (`IdProfesseur`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `note`
+-- Constraints for table `note`
 --
 ALTER TABLE `note`
   ADD CONSTRAINT `note_ibfk_2` FOREIGN KEY (`IdInscrit`) REFERENCES `inscrit` (`IdInscrit`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `note_ibfk_1` FOREIGN KEY (`IdMatiere`) REFERENCES `matiere` (`IdMatiere`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `reglement`
+-- Constraints for table `reglement`
 --
 ALTER TABLE `reglement`
   ADD CONSTRAINT `reglement_ibfk_1` FOREIGN KEY (`IdEleves`) REFERENCES `eleve` (`IdEleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`groupe_utilisateur`) REFERENCES `groupe_utilisateur` (`IdGroupeUtilisateur`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
