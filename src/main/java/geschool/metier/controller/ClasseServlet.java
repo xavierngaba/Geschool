@@ -8,17 +8,11 @@ package geschool.metier.controller;
 import geschool.metier.utils.AllUrl;
 
 import geschool.metier.utils.ClasseValidationForm;
-import geschool.metier.utils.SessionValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
-import geschool.persistence.interfaces.SessionClasseDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Classe;
-import static geschool.persistence.model.Classe_.idClasse;
-import geschool.persistence.model.Session;
-import geschool.persistence.model.Sessionclasse;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,8 +30,6 @@ import javax.servlet.http.HttpSession;
 public class ClasseServlet extends HttpServlet {
     @EJB
     private ClasseDAO cDAO;
-    @EJB
-    private SessionClasseDAO sessClasseDAO;
     @EJB
     private UtilisateurDAO uDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
@@ -63,13 +55,6 @@ public class ClasseServlet extends HttpServlet {
             List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
             request.setAttribute("listeclasse", listClasse); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_CLASSE ).forward( request, response );
-        }
-        if(action.equals("classeSession")){
-            session.setAttribute( ATT_SESSION_USER, u );
-            String sessionClasseId = request.getParameter("sessionClasse");
-            List<Sessionclasse> listSessionClasse = sessClasseDAO.rechercherLesClassesParSession(sessionClasseId);
-            request.setAttribute("Sessionclasse", listSessionClasse); 
-            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_CLASSE_SESSION ).forward( request, response );
         }
         
         if(action.equals("modifclasse")){

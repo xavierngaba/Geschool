@@ -9,7 +9,7 @@ import geschool.metier.utils.AllUrl;
 import geschool.metier.utils.SessionValidationForm;
 import geschool.persistence.interfaces.SessionDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
-import geschool.persistence.model.Session;
+import geschool.persistence.model.Anneescolaire;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
 import java.util.Date;
@@ -52,68 +52,9 @@ public class SessionServlet extends HttpServlet {
         String action = request.getParameter("action");
         if(action.equals("listesession")){
             session.setAttribute( ATT_SESSION_USER, u );
-            List<Session> listSession = sDAO.chercherToutesLesSessions();
+            List<Anneescolaire> listSession = sDAO.rechercherToutesLesAnneesScolaire();
             request.setAttribute("listesession", listSession); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-        }
-        if(action.equals("active")){
-            Date now = new Date();
-            String idSession = request.getParameter("date");
-            Session s = sDAO.chercherSession(idSession);
-            List<Session> listSession = sDAO.chercherToutesLesSessions();
-            request.setAttribute("listesession", listSession);
-            boolean flags = false;
-            session.setAttribute( ATT_SESSION_USER, u );
-            for (Session ses : listSession) {
-                if(ses.getActif() == 1){
-                    request.setAttribute(MESSAGE, "warning");
-                    request.setAttribute("text", "Une session est déjà en cours attendez la fin de la session en cours.");
-                    this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-                    flags = true;
-                    break;
-                }
-            }
-            if(flags != true){
-                if((now.getMonth()>= 6) && (s.getDateDebut().getYear() == now.getYear())){
-                    s.setActif(1);
-                    sDAO.modifSession(s);
-                    request.setAttribute(MESSAGE, "success");
-                    request.setAttribute("text", "La session a été bien activée.");
-                    this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-                }
-                if(s.getDateDebut().getYear() < now.getYear()){
-                    request.setAttribute(MESSAGE, "warning");
-                    request.setAttribute("text", "Impossible d'avtiver cette section, elle est déjà passée.");
-                    this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-                }else{
-                    request.setAttribute(MESSAGE, "warning");
-                    request.setAttribute("text", "Cette session ne peut pas être activée pour cette année.");
-                    this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-                }
-            } 
-        }
-        if(action.equals("desactive")){
-            Date now = new Date();
-            String idSession = request.getParameter("date");
-            Session s = sDAO.chercherSession(idSession);
-            List<Session> listSession = sDAO.chercherToutesLesSessions();
-            request.setAttribute("listesession", listSession);
-            session.setAttribute( ATT_SESSION_USER, u );
-            if(s.getDateDebut().compareTo(now) < 0 && now.compareTo(s.getDateFin()) < 0){
-                request.setAttribute(MESSAGE, "warning");
-                request.setAttribute("text", "Une session est déjà en cours attendez la fin de la session en cours pour desactiver cette section.");
-                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-            }else if(s.getDateFin().getYear() == now.getYear() && now.getMonth() == 6){
-                s.setActif(0);
-                sDAO.modifSession(s);
-                request.setAttribute(MESSAGE, "success");
-                request.setAttribute("text", "Cette session a été désactivée avec succès");
-                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-            }else{
-               request.setAttribute(MESSAGE, "warning");
-               request.setAttribute("text", "impossible de désactiver cette session");
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response ); 
-            } 
         }
     }
 

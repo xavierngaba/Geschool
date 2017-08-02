@@ -23,7 +23,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     
     @Override
     public Utilisateur rechercheUtilisateur(String login, String password) {
-        Query query = em.createNamedQuery("Utilisateur.rechercheLoginEtPassword");
+        Query query = em.createNamedQuery("Utilisateur.rechercheUtilisateurParMotDePasse");
         query.setParameter("login", login);
         query.setParameter("password", password);
         return (Utilisateur) query.getSingleResult();
@@ -36,7 +36,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     @Override
     public void majEtatConnexion(Utilisateur u) {
-        em.merge(u);
+        Utilisateur user = (Utilisateur) em.createQuery("Select u from Utilisateur u where u.idUtilisateur = :idUtilisateur")
+                .setParameter("idUtilisateur", u.getIdUtilisateur()).getSingleResult();
+        user.setEtat(u.getEtat());
+        em.merge(user);
     }
 
     @Override
@@ -48,7 +51,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
     @Override
     public Utilisateur rechercheUtilisateurAvecId(Integer id) {
-        Query query = em.createNamedQuery("Utilisateur.rechercheUtilisateurAvecId");
+        Query query = em.createNamedQuery("Utilisateur.rechercheIdUtilisateur");
         query.setParameter("idUtilisateur", id);
         return (Utilisateur) query.getSingleResult();
     }

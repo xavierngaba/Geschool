@@ -1,5 +1,5 @@
-INSERT INTO `groupeutilisateur`(`idGroupeUtilisateur`, `libelleGroupeUtilisateur`) VALUES (1,'admin');
-INSERT INTO `utilisateur`(`idUtilisateur`, `nomUtilisateur`, `login`, `password`, `dateCreation`, `etatConnexion`, `GroupeUtilisateur_idGroupeUtilisateur`) 
+INSERT INTO `groupe_utilisateur`(`idGroupeUtilisateur`, `libelleGroupeUtilisateur`) VALUES (1,'admin');
+INSERT INTO `utilisateur`(`idUtilisateur`, `nom_prenom`, `login`, `password`, `date_creation`, `etat`, `groupe_utilisateur`) 
 				  VALUES (1,'admin','admin','admin',NOW(),0,1)
 --
 -- Table structure for table `sequence`

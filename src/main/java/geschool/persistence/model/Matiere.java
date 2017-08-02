@@ -11,7 +11,11 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,29 +28,33 @@ import javax.validation.constraints.Size;
  * @author xavier_ng
  */
 @Entity
-@Table(name = "matiere", catalog = "gestschool", schema = "")
+@Table(name = "matiere", catalog = "geschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Matiere.findAll", query = "SELECT m FROM Matiere m"),
     @NamedQuery(name = "Matiere.findByIdMatiere", query = "SELECT m FROM Matiere m WHERE m.idMatiere = :idMatiere"),
-    @NamedQuery(name = "Matiere.findByLibelleMatiere", query = "SELECT m FROM Matiere m WHERE m.libelleMatiere = :libelleMatiere"),
-    @NamedQuery(name = "Matiere.findBySigleMatiere", query = "SELECT m FROM Matiere m WHERE m.sigleMatiere = :sigleMatiere")})
+    @NamedQuery(name = "Matiere.findByDesignation", query = "SELECT m FROM Matiere m WHERE m.designation = :designation"),
+    @NamedQuery(name = "Matiere.findByCodmatiere", query = "SELECT m FROM Matiere m WHERE m.codmatiere = :codmatiere")})
 public class Matiere implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "idMatiere", nullable = false)
+    @Column(name = "IdMatiere")
     private Integer idMatiere;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 260)
-    @Column(name = "libelleMatiere", nullable = false, length = 260)
-    private String libelleMatiere;
-    @Size(max = 260)
-    @Column(name = "sigleMatiere", length = 260)
-    private String sigleMatiere;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "matiereidMatiere")
-    private List<Suivisessionclassematiere> suivisessionclassematiereList;
+    @Size(min = 1, max = 50)
+    @Column(name = "designation")
+    private String designation;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Cod_matiere")
+    private int codmatiere;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMatiere")
+    private List<Note> noteList;
+    @JoinColumn(name = "IdProfesseur", referencedColumnName = "IdProfesseur")
+    @ManyToOne(optional = false)
+    private Professeur idProfesseur;
 
     public Matiere() {
     }
@@ -55,9 +63,10 @@ public class Matiere implements Serializable {
         this.idMatiere = idMatiere;
     }
 
-    public Matiere(Integer idMatiere, String libelleMatiere) {
+    public Matiere(Integer idMatiere, String designation, int codmatiere) {
         this.idMatiere = idMatiere;
-        this.libelleMatiere = libelleMatiere;
+        this.designation = designation;
+        this.codmatiere = codmatiere;
     }
 
     public Integer getIdMatiere() {
@@ -68,28 +77,36 @@ public class Matiere implements Serializable {
         this.idMatiere = idMatiere;
     }
 
-    public String getLibelleMatiere() {
-        return libelleMatiere;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setLibelleMatiere(String libelleMatiere) {
-        this.libelleMatiere = libelleMatiere;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
-    public String getSigleMatiere() {
-        return sigleMatiere;
+    public int getCodmatiere() {
+        return codmatiere;
     }
 
-    public void setSigleMatiere(String sigleMatiere) {
-        this.sigleMatiere = sigleMatiere;
+    public void setCodmatiere(int codmatiere) {
+        this.codmatiere = codmatiere;
     }
 
-    public List<Suivisessionclassematiere> getSuivisessionclassematiereList() {
-        return suivisessionclassematiereList;
+    public List<Note> getNoteList() {
+        return noteList;
     }
 
-    public void setSuivisessionclassematiereList(List<Suivisessionclassematiere> suivisessionclassematiereList) {
-        this.suivisessionclassematiereList = suivisessionclassematiereList;
+    public void setNoteList(List<Note> noteList) {
+        this.noteList = noteList;
+    }
+
+    public Professeur getIdProfesseur() {
+        return idProfesseur;
+    }
+
+    public void setIdProfesseur(Professeur idProfesseur) {
+        this.idProfesseur = idProfesseur;
     }
 
     @Override

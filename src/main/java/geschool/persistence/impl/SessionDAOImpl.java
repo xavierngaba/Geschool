@@ -6,12 +6,14 @@
 package geschool.persistence.impl;
 
 import geschool.persistence.interfaces.SessionDAO;
-import geschool.persistence.model.Session;
+import geschool.persistence.model.Anneescolaire;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,35 +25,36 @@ public class SessionDAOImpl implements SessionDAO{
     private EntityManager em;
 
     @Override
-    public void creerSession(Session s) {
+    public void creerSession(Anneescolaire s) {
         if(s != null){
             em.persist(s);
         }
     }
 
     @Override
-    public void modifSession(Session s) {
+    public void modifSession(Anneescolaire s) {
         if(s != null){
             em.merge(s);
         }
     }
 
     @Override
-    public Session chercherSession(String idSession) {
-        Query query = em.createNamedQuery("Session.rechercherUneSessionAvecId");
-        query.setParameter("idSession", idSession);
-        return (Session) query.getSingleResult();
+    public Anneescolaire rechercherUneAvecIdAnneeScolaire(Integer id) {
+        Query query = em.createNamedQuery("Anneescolaire.rechercherUneAvecIdAnneeScolaire");
+        query.setParameter("id", id);
+        return (Anneescolaire) query.getSingleResult();
     }
 
     @Override
-    public Session chercherSessionEnCours() {
-        Query query = em.createNamedQuery("Session.rechercherUneSessionEnCours");
-        return (Session) query.getSingleResult();
+    public Anneescolaire chercherSessionEnCours(Date d) {
+        Query query = em.createQuery("SELECT a FROM Anneescolaire a WHERE a.datedebut < :today")
+                         .setParameter("today", d, TemporalType.DATE);
+        return (Anneescolaire) query.getSingleResult();
     }
 
     @Override
-    public List<Session> chercherToutesLesSessions() {
-        Query query = em.createNamedQuery("Session.rechercherToutesLesSessions");
+    public List<Anneescolaire> rechercherToutesLesAnneesScolaire() {
+        Query query = em.createNamedQuery("Anneescolaire.rechercherToutesLesAnneesScolaire");
         return query.getResultList();
     }
 }

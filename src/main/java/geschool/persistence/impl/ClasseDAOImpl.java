@@ -8,8 +8,6 @@ package geschool.persistence.impl;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.model.Classe;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,23 +19,22 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ClasseDAOImpl implements ClasseDAO{
-    @PersistenceContext(name="com.ines_Geschool_war_1.0PU")
+    @PersistenceContext
     private EntityManager em;
     
     @Override
    public void creerClasse(Classe c){
          if(c != null){
            em.persist(c);
-   }  
+        }  
    }
    
     @Override
     public void modifierClasse(Classe c){
-        String updateQuery = "UPDATE Classe SET libelleClasse = :libelleClasse, nombreEleveMax = :nombreEleveMax WHERE c.idClasse = :idClasse";
+        String updateQuery = "UPDATE Classe SET libelleClasse = :libelleClasse WHERE c.idClasse = :idClasse";
         Query query = em.createNamedQuery(updateQuery);
         query.setParameter("idClasse", c.getIdClasse());
-        query.setParameter("libelleClasse", c.getLibelleClasse());
-        query.setParameter("nombreEleveMax", c.getNombreEleveMax());
+        query.setParameter("libelleClasse", c.getLibelle());
         query.executeUpdate();
     }
 
