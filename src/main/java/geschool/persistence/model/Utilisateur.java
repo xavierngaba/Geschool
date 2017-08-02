@@ -7,82 +7,67 @@ package geschool.persistence.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
- * @author Ines
+ * @author xavier_ng
  */
 @Entity
-@Table(name = "utilisateur", catalog = "gestschool", schema = "", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"login"})})
+@Table(name = "utilisateur", catalog = "geschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
-    @NamedQuery(name = "Utilisateur.rechercheUtilisateurAvecId", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
-    @NamedQuery(name = "Utilisateur.rechercheUtilisateurParMotDePasse", query = "SELECT u FROM Utilisateur u WHERE u.password = :password"),
-    @NamedQuery(name = "Utilisateur.rechercheLoginEtPassword", query = "SELECT u FROM Utilisateur u WHERE u.login = :login AND u.password = :password")})
+    @NamedQuery(name = "Utilisateur.rechercheIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
+    @NamedQuery(name = "Utilisateur.rechercheUtilisateurParMotDePasse", query = "SELECT u FROM Utilisateur u WHERE u.login = :login AND u.password = :password"),
+    @NamedQuery(name = "Utilisateur.findByGroupeUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.groupeUtilisateur = :groupeUtilisateur")})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "idUtilisateur", nullable = false)
+    @Column(name = "IdUtilisateur")
     private Integer idUtilisateur;
-    @Size(max = 520)
-    @Column(name = "nomUtilisateur", length = 520)
-    private String nomUtilisateur;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "login", nullable = false, length = 45)
+    @Column(name = "nom_prenom")
+    private String nomPrenom;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "login")
     private String login;
-    @Size(max = 256)
-    @Column(name = "password", length = 256)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "password")
     private String password;
-    @Column(name = "dateCreation")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "date_creation")
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
-    @Column(name = "etatConnexion")
-    private Integer etatConnexion;
-    @JoinColumn(name = "GroupeUtilisateur_idGroupeUtilisateur", referencedColumnName = "idGroupeUtilisateur", nullable = false)
-    @ManyToOne(optional = false)
-    private Groupeutilisateur groupeUtilisateuridGroupeUtilisateur;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "utilisateuridUtilisateur")
-    private List<Suivistatuteleve> suivistatuteleveList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "etat")
+    private int etat;
+    @Basic(optional = false)
+    @NotNull
+    @ManyToOne
+    @Column(name = "groupe_utilisateur")
+    private int groupeUtilisateur;
 
     public Utilisateur() {
-    }
-
-    public Utilisateur(Integer idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
-
-    public Utilisateur(Integer idUtilisateur, String login) {
-        this.idUtilisateur = idUtilisateur;
-        this.login = login;
-    }
-
-    public Utilisateur(Integer idUtilisateur, String nomUtilisateur, String login, String password) {
-        this.idUtilisateur = idUtilisateur;
-        this.nomUtilisateur = nomUtilisateur;
-        this.login = login;
-        this.password = password;
     }
 
     public Integer getIdUtilisateur() {
@@ -93,12 +78,12 @@ public class Utilisateur implements Serializable {
         this.idUtilisateur = idUtilisateur;
     }
 
-    public String getNomUtilisateur() {
-        return nomUtilisateur;
+    public String getNomPrenom() {
+        return nomPrenom;
     }
 
-    public void setNomUtilisateur(String nomUtilisateur) {
-        this.nomUtilisateur = nomUtilisateur;
+    public void setNomPrenom(String nomPrenom) {
+        this.nomPrenom = nomPrenom;
     }
 
     public String getLogin() {
@@ -125,28 +110,20 @@ public class Utilisateur implements Serializable {
         this.dateCreation = dateCreation;
     }
 
-    public Integer getEtatConnexion() {
-        return etatConnexion;
+    public int getEtat() {
+        return etat;
     }
 
-    public void setEtatConnexion(Integer etatConnexion) {
-        this.etatConnexion = etatConnexion;
+    public void setEtat(int etat) {
+        this.etat = etat;
     }
 
-    public Groupeutilisateur getGroupeUtilisateuridGroupeUtilisateur() {
-        return groupeUtilisateuridGroupeUtilisateur;
+    public int getGroupeUtilisateur() {
+        return groupeUtilisateur;
     }
 
-    public void setGroupeUtilisateuridGroupeUtilisateur(Groupeutilisateur groupeUtilisateuridGroupeUtilisateur) {
-        this.groupeUtilisateuridGroupeUtilisateur = groupeUtilisateuridGroupeUtilisateur;
-    }
-
-    public List<Suivistatuteleve> getSuivistatuteleveList() {
-        return suivistatuteleveList;
-    }
-
-    public void setSuivistatuteleveList(List<Suivistatuteleve> suivistatuteleveList) {
-        this.suivistatuteleveList = suivistatuteleveList;
+    public void setGroupeUtilisateur(int groupeUtilisateur) {
+        this.groupeUtilisateur = groupeUtilisateur;
     }
 
     @Override

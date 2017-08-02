@@ -68,10 +68,9 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Libelle</th>
                                                 <th>Date début</th>
                                                 <th>Date Fin</th>
-                                                <th>Active</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -79,21 +78,9 @@
                                             <c:if test="${listesession.size() != 0}">
                                                 <c:forEach items="${ requestScope.listesession }" var="session" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${session.idSession}"/></td>
-                                                        <td><fmt:formatDate value="${session.dateDebut}" pattern="dd-MM-yyyy" /></td>
-                                                        <td><fmt:formatDate value="${session.dateFin}" pattern="dd-MM-yyyy" /></td>
-                                                        <c:if test="${session.actif == 1}">
-                                                            <td><i class="fa fa-circle text-success"></i></td>
-                                                            <td>
-                                                                <a href="<c:url value="/SessionServlet?action=desactive&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-success"><i class="fa fa-check"></i></a>
-                                                            </td>
-                                                        </c:if>
-                                                        <c:if test="${session.actif == 0}">
-                                                            <td><i class="fa fa-circle text-danger"></i></td>
-                                                            <td>
-                                                                <a href="<c:url value="/SessionServlet?action=active&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-default"><i class="fa fa-check"></i></a>
-                                                            </td>
-                                                        </c:if>
+                                                        <td><c:out value="${session.libelle}"/></td>
+                                                        <td><fmt:formatDate value="${session.datedebut}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><fmt:formatDate value="${session.datefin}" pattern="dd-MM-yyyy" /></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

@@ -6,7 +6,7 @@
 package geschool.metier.utils;
 
 import geschool.persistence.interfaces.SessionDAO;
-import geschool.persistence.model.Session;
+import geschool.persistence.model.Anneescolaire;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,20 +46,16 @@ public final class SessionValidationForm {
     
     public void ajoutSession(HttpServletRequest request) throws Exception{                                                                                                                                                                                                                              
         String date = getValeurChamp(request, CHAMP_DATE);
-        Session s = new Session();
+        Anneescolaire s = new Anneescolaire();
         if(date != null){
             List<Date> lesDates = ConvertDateYear.DateTransform(date);
             List<Integer> lesAnnees = ConvertDateYear.YearTransform(lesDates);
             try{
                 if(verifDate(lesDates) == true){
-                    s.setDateDebut(lesDates.get(0));
-                    s.setDateFin(lesDates.get(1));
-
-                    s.setAnneeDebut(lesAnnees.get(0));
-                    s.setAnneFin(lesAnnees.get(1));
-                    s.setActif(0);
+                    s.setDatedebut(lesDates.get(0));
+                    s.setDatefin(lesDates.get(1));
                     try{
-                        s.setIdSession(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
+                        s.setLibelle(CreerId.creerSessionId(lesAnnees.get(0), lesAnnees.get(1)));
                     }catch (Exception e) {
                         setErreur("SessionId", e.getMessage());
                     }

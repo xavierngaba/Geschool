@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,56 +31,103 @@ import javax.validation.constraints.Size;
  * @author xavier_ng
  */
 @Entity
-@Table(name = "eleve", catalog = "gestschool", schema = "")
+@Table(name = "eleve", catalog = "geschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
     @NamedQuery(name = "Eleve.findByIdEleve", query = "SELECT e FROM Eleve e WHERE e.idEleve = :idEleve"),
-    @NamedQuery(name = "Eleve.findByNomEleve", query = "SELECT e FROM Eleve e WHERE e.nomEleve = :nomEleve"),
-    @NamedQuery(name = "Eleve.findByPrenomEleve", query = "SELECT e FROM Eleve e WHERE e.prenomEleve = :prenomEleve"),
-    @NamedQuery(name = "Eleve.findByDateNaissance", query = "SELECT e FROM Eleve e WHERE e.dateNaissance = :dateNaissance"),
-    @NamedQuery(name = "Eleve.findByAdresse", query = "SELECT e FROM Eleve e WHERE e.adresse = :adresse"),
+    @NamedQuery(name = "Eleve.findByMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
+    @NamedQuery(name = "Eleve.findByNom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom"),
+    @NamedQuery(name = "Eleve.findByPrenom", query = "SELECT e FROM Eleve e WHERE e.prenom = :prenom"),
+    @NamedQuery(name = "Eleve.findByDateNaiss", query = "SELECT e FROM Eleve e WHERE e.dateNaiss = :dateNaiss"),
+    @NamedQuery(name = "Eleve.findByAdresses", query = "SELECT e FROM Eleve e WHERE e.adresses = :adresses"),
     @NamedQuery(name = "Eleve.findByTelephone", query = "SELECT e FROM Eleve e WHERE e.telephone = :telephone"),
-    @NamedQuery(name = "Eleve.findByDateCreation", query = "SELECT e FROM Eleve e WHERE e.dateCreation = :dateCreation"),
-    @NamedQuery(name = "Eleve.findByDateModification", query = "SELECT e FROM Eleve e WHERE e.dateModification = :dateModification")})
+    @NamedQuery(name = "Eleve.findByDette", query = "SELECT e FROM Eleve e WHERE e.dette = :dette"),
+    @NamedQuery(name = "Eleve.findByStatus", query = "SELECT e FROM Eleve e WHERE e.status = :status"),
+    @NamedQuery(name = "Eleve.findByQuantine", query = "SELECT e FROM Eleve e WHERE e.quantine = :quantine"),
+    @NamedQuery(name = "Eleve.findByNationalite", query = "SELECT e FROM Eleve e WHERE e.nationalite = :nationalite"),
+    @NamedQuery(name = "Eleve.findBySexe", query = "SELECT e FROM Eleve e WHERE e.sexe = :sexe"),
+    @NamedQuery(name = "Eleve.findByEmail", query = "SELECT e FROM Eleve e WHERE e.email = :email"),
+    @NamedQuery(name = "Eleve.findByDateinscription", query = "SELECT e FROM Eleve e WHERE e.dateinscription = :dateinscription")})
 public class Eleve implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "idEleve", nullable = false)
+    @Column(name = "IdEleve")
     private Integer idEleve;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 260)
-    @Column(name = "nomEleve", nullable = false, length = 260)
-    private String nomEleve;
-    @Size(max = 260)
-    @Column(name = "prenomEleve", length = 260)
-    private String prenomEleve;
-    @Column(name = "dateNaissance")
+    @Size(min = 1, max = 25)
+    @Column(name = "matricule")
+    private String matricule;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "Nom")
+    private String nom;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "Prenom")
+    private String prenom;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Date_Naiss")
     @Temporal(TemporalType.DATE)
-    private Date dateNaissance;
-    @Size(max = 520)
-    @Column(name = "adresse", length = 520)
-    private String adresse;
-    @Size(max = 45)
-    @Column(name = "telephone", length = 45)
+    private Date dateNaiss;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "adresses")
+    private String adresses;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "telephone")
     private String telephone;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dateCreation", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dateCreation;
+    @Column(name = "dette")
+    private int dette;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dateModification", nullable = false)
+    @Size(min = 1, max = 50)
+    @Column(name = "status")
+    private String status;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "quantine")
+    private int quantine;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "nationalite")
+    private String nationalite;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "sexe")
+    private String sexe;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Date_inscription")
     @Temporal(TemporalType.DATE)
-    private Date dateModification;
-    @JoinColumn(name = "Sexe_idSexe", referencedColumnName = "idSexe", nullable = false)
+    private Date dateinscription;
+    @JoinColumn(name = "IdTuteur", referencedColumnName = "IdTuteur")
     @ManyToOne(optional = false)
-    private Sexe sexeidSexe;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eleveidEleve")
-    private List<Suivisessionclasseeleve> suivisessionclasseeleveList;
+    private Tuteur idTuteur;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
+    private List<Inscrit> inscritList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleves")
+    private List<Reglement> reglementList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
+    private List<Facture> factureList;
 
     public Eleve() {
     }
@@ -87,11 +136,21 @@ public class Eleve implements Serializable {
         this.idEleve = idEleve;
     }
 
-    public Eleve(Integer idEleve, String nomEleve, Date dateCreation, Date dateModification) {
+    public Eleve(Integer idEleve, String matricule, String nom, String prenom, Date dateNaiss, String adresses, String telephone, int dette, String status, int quantine, String nationalite, String sexe, String email, Date dateinscription) {
         this.idEleve = idEleve;
-        this.nomEleve = nomEleve;
-        this.dateCreation = dateCreation;
-        this.dateModification = dateModification;
+        this.matricule = matricule;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaiss = dateNaiss;
+        this.adresses = adresses;
+        this.telephone = telephone;
+        this.dette = dette;
+        this.status = status;
+        this.quantine = quantine;
+        this.nationalite = nationalite;
+        this.sexe = sexe;
+        this.email = email;
+        this.dateinscription = dateinscription;
     }
 
     public Integer getIdEleve() {
@@ -102,36 +161,44 @@ public class Eleve implements Serializable {
         this.idEleve = idEleve;
     }
 
-    public String getNomEleve() {
-        return nomEleve;
+    public String getMatricule() {
+        return matricule;
     }
 
-    public void setNomEleve(String nomEleve) {
-        this.nomEleve = nomEleve;
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
     }
 
-    public String getPrenomEleve() {
-        return prenomEleve;
+    public String getNom() {
+        return nom;
     }
 
-    public void setPrenomEleve(String prenomEleve) {
-        this.prenomEleve = prenomEleve;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public Date getDateNaissance() {
-        return dateNaissance;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public Date getDateNaiss() {
+        return dateNaiss;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setDateNaiss(Date dateNaiss) {
+        this.dateNaiss = dateNaiss;
+    }
+
+    public String getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(String adresses) {
+        this.adresses = adresses;
     }
 
     public String getTelephone() {
@@ -142,36 +209,92 @@ public class Eleve implements Serializable {
         this.telephone = telephone;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public int getDette() {
+        return dette;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setDette(int dette) {
+        this.dette = dette;
     }
 
-    public Date getDateModification() {
-        return dateModification;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDateModification(Date dateModification) {
-        this.dateModification = dateModification;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Sexe getSexeidSexe() {
-        return sexeidSexe;
+    public int getQuantine() {
+        return quantine;
     }
 
-    public void setSexeidSexe(Sexe sexeidSexe) {
-        this.sexeidSexe = sexeidSexe;
+    public void setQuantine(int quantine) {
+        this.quantine = quantine;
     }
 
-    public List<Suivisessionclasseeleve> getSuivisessionclasseeleveList() {
-        return suivisessionclasseeleveList;
+    public String getNationalite() {
+        return nationalite;
     }
 
-    public void setSuivisessionclasseeleveList(List<Suivisessionclasseeleve> suivisessionclasseeleveList) {
-        this.suivisessionclasseeleveList = suivisessionclasseeleveList;
+    public void setNationalite(String nationalite) {
+        this.nationalite = nationalite;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getDateinscription() {
+        return dateinscription;
+    }
+
+    public void setDateinscription(Date dateinscription) {
+        this.dateinscription = dateinscription;
+    }
+
+    public Tuteur getIdTuteur() {
+        return idTuteur;
+    }
+
+    public void setIdTuteur(Tuteur idTuteur) {
+        this.idTuteur = idTuteur;
+    }
+
+    public List<Inscrit> getInscritList() {
+        return inscritList;
+    }
+
+    public void setInscritList(List<Inscrit> inscritList) {
+        this.inscritList = inscritList;
+    }
+
+    public List<Reglement> getReglementList() {
+        return reglementList;
+    }
+
+    public void setReglementList(List<Reglement> reglementList) {
+        this.reglementList = reglementList;
+    }
+
+    public List<Facture> getFactureList() {
+        return factureList;
+    }
+
+    public void setFactureList(List<Facture> factureList) {
+        this.factureList = factureList;
     }
 
     @Override

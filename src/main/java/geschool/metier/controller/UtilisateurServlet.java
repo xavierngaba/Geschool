@@ -7,9 +7,12 @@ package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
 import geschool.metier.utils.ConnexionValidationForm;
+import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
+import geschool.persistence.model.Classe;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -24,6 +27,8 @@ import javax.servlet.http.HttpSession;
  * @author Ines.G
  */
 public class UtilisateurServlet extends HttpServlet {
+    @EJB
+    private ClasseDAO cDAO;
     @EJB
     private UtilisateurDAO uDAO;
     public static final String ATT_USER = "utilisateur";
@@ -70,7 +75,12 @@ public class UtilisateurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String action = request.getParameter("action");
-        
+        List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
+        if(listClasse != null){
+           request.setAttribute("nblistclasse", listClasse.size()); 
+        }else{
+           request.setAttribute("nblistclasse", 0); 
+        }
         if(action.equals("login")){
             try {
                     ConnexionValidationForm form = new ConnexionValidationForm(uDAO);
@@ -88,6 +98,7 @@ public class UtilisateurServlet extends HttpServlet {
                         /* Récupération de la session depuis la requête */
                         HttpSession session = request.getSession();
                         session.setAttribute( ATT_SESSION_USER, utilisateur );
+                        request.setAttribute("action", "");
                         this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
                     } else {
                         request.setAttribute(MESSAGE, "error");

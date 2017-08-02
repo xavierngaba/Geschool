@@ -70,8 +70,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Libelle</th>
-                                                <th>Nombre Max élève</th>
-                                                <th>Date création</th>
+                                                <!-- <th>Nombre Max élève</th> -->
+                                                <!-- <th>Date création</th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -79,9 +79,9 @@
                                             <c:if test="${listeclasse.size() != 0}">
                                                 <c:forEach items="${ requestScope.listeclasse }" var="classe" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${classe.libelleClasse}"/></td>
-                                                        <td><c:out value="${classe.nombreEleveMax}"/></td>
-                                                        <td><fmt:formatDate value="${classe.dateCreationClasse}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><c:out value="${classe.libelle}"/></td>
+                                                        <!-- <td></td> -->
+                                                        <!-- <td></td> -->
                                                         <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>

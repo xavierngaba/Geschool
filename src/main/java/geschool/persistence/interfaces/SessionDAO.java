@@ -5,7 +5,8 @@
  */
 package geschool.persistence.interfaces;
 
-import geschool.persistence.model.Session;
+import geschool.persistence.model.Anneescolaire;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -15,9 +16,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface SessionDAO {
-    void creerSession(Session s);
-    void modifSession(Session s);
-    Session chercherSession(String idSession);
-    Session chercherSessionEnCours();
-    List<Session> chercherToutesLesSessions();
+    void creerSession(Anneescolaire s);
+    void modifSession(Anneescolaire s);
+    Anneescolaire rechercherUneAvecIdAnneeScolaire(Integer id);
+    Anneescolaire chercherSessionEnCours(Date d);
+    List<Anneescolaire> rechercherToutesLesAnneesScolaire();
 }

@@ -8,13 +8,11 @@ package geschool.persistence.interfaces;
 import geschool.persistence.model.Classe;
 import java.util.List;
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 /**
  *
  * @author IGNES
  */
-@Remote
 @Local
 public interface ClasseDAO {
     void creerClasse(Classe c);

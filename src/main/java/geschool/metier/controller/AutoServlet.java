@@ -9,11 +9,13 @@ import geschool.metier.utils.AllUrl;
 import geschool.persistence.interfaces.SessionDAO;
 
 import geschool.persistence.interfaces.ClasseDAO;
-import geschool.persistence.interfaces.SessionClasseDAO;
 
 import geschool.persistence.interfaces.UtilisateurDAO;
+import geschool.persistence.model.Classe;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,66 +24,70 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class AutoServlet extends HttpServlet {
-     @EJB
-     private UtilisateurDAO uDAO;
-     @EJB
-     private SessionDAO sDAO;
 
-     @EJB
-     private ClasseDAO cDAO;
-     @EJB
-     private SessionClasseDAO scDAO;
-     public static final String ATT_SESSION_USER = "sessionUtilisateur";
-   
+    @EJB
+    private UtilisateurDAO uDAO;
+    @EJB
+    private SessionDAO sDAO;
+    @EJB
+    private ClasseDAO cDAO;
+    public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
-    
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        request.setAttribute("nblistclasse", cDAO.rechercherToutesLesClasses().size());
-        int sessionId = Integer.parseInt(request.getParameter("session"));
-        if(session.getMaxInactiveInterval() != 2 && session != null){
-           Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
-           session.setAttribute( ATT_SESSION_USER, u );
-           
-           if(action.equals("home")){
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
-           }
-            if(action.equals("listesession")){
-                request.setAttribute("action", "listesession");
-                this.getServletContext().getRequestDispatcher( "/SessionServlet" ).forward( request, response );
-            }
-            if(action.equals("listeclasse")){
-                request.setAttribute("action", "listeclasse");
-                this.getServletContext().getRequestDispatcher( "/ClasseServlet" ).forward( request, response );
-            }
-            if(action.equals("classeSession")){
-                request.setAttribute("action", "classeSession");
-                request.setAttribute("sessionClasse",sDAO.chercherSessionEnCours().getIdSession());
-                this.getServletContext().getRequestDispatcher( "/ClasseServlet" ).forward( request, response );
-            }
-           if(action.equals("ajoutsession")){
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_SESSION_ACADEMIQUE ).forward( request, response );
-           }
-           if(action.equals("ajoutclasse")){
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
-           }
-           if(action.equals("modifclasse")){
-               String idclasse = request.getParameter("idclasse");
-               request.setAttribute("action", "modifclasse");
-               request.setAttribute("idclasse", idclasse);
-               this.getServletContext().getRequestDispatcher( "/ClasseServlet" ).forward( request, response );
-           }
-           if(action.equals("ajoutsessionclasse")){
-                request.setAttribute("sessionClasse",sDAO.chercherSessionEnCours().getIdSession());
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE ).forward( request, response );
-           }
+        List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
+        if(listClasse != null){
+           request.setAttribute("nblistclasse", listClasse.size()); 
         }else{
-            request.setAttribute( "action", "unlock" );
-            request.setAttribute( ATT_SESSION_USER, session );
-            this.getServletContext().getRequestDispatcher( "/UtilisateurServlet" ).forward( request, response );
-        }  
+           request.setAttribute("nblistclasse", 0); 
+        }
+        
+        int sessionId = Integer.parseInt(request.getParameter("session"));
+        if (session.getMaxInactiveInterval() != 2 && session != null) {
+            Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
+            session.setAttribute(ATT_SESSION_USER, u);
+
+            if (action.equals("home")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_ACCUEIL).forward(request, response);
+            }
+            if (action.equals("listesession")) {
+                request.setAttribute("action", "listesession");
+                this.getServletContext().getRequestDispatcher("/SessionServlet").forward(request, response);
+            }
+            if (action.equals("listeclasse")) {
+                request.setAttribute("action", "listeclasse");
+                this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
+            }
+            if (action.equals("classeSession")) {
+                request.setAttribute("action", "classeSession");
+                Date dateActuel = new Date();
+                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours(dateActuel));
+                this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
+            }
+            if (action.equals("ajoutsession")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_ACADEMIQUE).forward(request, response);
+            }
+            if (action.equals("ajoutclasse")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_CLASSE).forward(request, response);
+            }
+            if (action.equals("modifclasse")) {
+                String idclasse = request.getParameter("idclasse");
+                request.setAttribute("action", "modifclasse");
+                request.setAttribute("idclasse", idclasse);
+                this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
+            }
+            if (action.equals("ajoutsessionclasse")) {
+                Date dateActuel = new Date();
+                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours(dateActuel));
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
+            }
+        } else {
+            request.setAttribute("action", "unlock");
+            request.setAttribute(ATT_SESSION_USER, session);
+            this.getServletContext().getRequestDispatcher("/UtilisateurServlet").forward(request, response);
+        }
     }
 
     /**
@@ -93,21 +99,21 @@ public class AutoServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         int sessionId = Integer.parseInt(request.getParameter("session"));
-        if(session.getMaxInactiveInterval() != 2 && session != null){
-           Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
-           session.setAttribute( ATT_SESSION_USER, u );
-           if(action.equals("ajoutclasse")){
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_CLASSE ).forward( request, response );
-           }
-        }else{
-            request.setAttribute( "action", "unlock" );
-            request.setAttribute( ATT_SESSION_USER, session );
-            this.getServletContext().getRequestDispatcher( "/UtilisateurServlet" ).forward( request, response );
-        }  
+        if (session.getMaxInactiveInterval() != 2 && session != null) {
+            Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
+            session.setAttribute(ATT_SESSION_USER, u);
+            if (action.equals("ajoutclasse")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_CLASSE).forward(request, response);
+            }
+        } else {
+            request.setAttribute("action", "unlock");
+            request.setAttribute(ATT_SESSION_USER, session);
+            this.getServletContext().getRequestDispatcher("/UtilisateurServlet").forward(request, response);
+        }
     }
 
     /**

@@ -6,7 +6,6 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,13 +14,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,83 +28,86 @@ import javax.validation.constraints.Size;
  * @author xavier_ng
  */
 @Entity
-@Table(name = "classe", catalog = "gestschool", schema = "")
+@Table(name = "classe", catalog = "geschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Classe.rechercherToutesLesClasses", query = "SELECT c FROM Classe c"),
     @NamedQuery(name = "Classe.rechercherClasseParId", query = "SELECT c FROM Classe c WHERE c.idClasse = :idClasse"),
-    @NamedQuery(name = "Classe.rechercherClasseParLibelleClasse", query = "SELECT c FROM Classe c WHERE c.libelleClasse = :libelleClasse"),
-    @NamedQuery(name = "Classe.verifierLibelleClasse", query = "SELECT COUNT(c) FROM Classe c WHERE c.libelleClasse = :libelleClasse"),
-    @NamedQuery(name = "Classe.rechercherLeNombreMaxEleveClasse", query = "SELECT c.nombreEleveMax FROM Classe c WHERE c.nombreEleveMax = :nombreEleveMax")})
+    @NamedQuery(name = "Classe.rechercherClasseParLibelleClasse", query = "SELECT c FROM Classe c WHERE c.libelle = :libelle"),
+    @NamedQuery(name = "Classe.verifierLibelleClasse", query = "SELECT COUNT(c) FROM Classe c WHERE c.libelle = :libelleClasse"),
+    @NamedQuery(name = "Classe.findByClasseCode", query = "SELECT c FROM Classe c WHERE c.classeCode = :classeCode")})
 public class Classe implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "IdClasse")
+    private Integer idClasse;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "idClasse", nullable = false, length = 10)
-    private String idClasse;
-    @Column(name = "libelleClasse", nullable = false, length = 25)
-    private String libelleClasse;
-    @Column(name = "dateCreationClasse")
-    @Temporal(TemporalType.DATE)
-    private Date dateCreationClasse;
-    @Column(name = "nombreEleveMax")
-    private Integer nombreEleveMax;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classeidClasse")
-    private List<Sessionclasse> sessionclasseList;
+    @Size(min = 1, max = 25)
+    @Column(name = "Libelle")
+    private String libelle;
+    @Size(min = 1, max = 25)
+    @Column(name = "Classe_Code")
+    private String classeCode;
+    @JoinColumn(name = "IdGroupe", referencedColumnName = "IdGroupe")
+    @ManyToOne(optional = false)
+    private Groupe idGroupe;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClasse")
+    private List<Inscrit> inscritList;
 
     public Classe() {
     }
 
-    public Classe(String idClasse) {
+    public Classe(Integer idClasse, String libelle) {
         this.idClasse = idClasse;
+        this.libelle = libelle;
     }
 
-    public Classe(String idClasse, String libelleClasse) {
+    public Classe(Integer idClasse, String libelle, String classeCode) {
         this.idClasse = idClasse;
-        this.libelleClasse = libelleClasse;
+        this.libelle = libelle;
+        this.classeCode = classeCode;
     }
 
-    public String getIdClasse() {
+    public Integer getIdClasse() {
         return idClasse;
     }
 
-    public void setIdClasse(String idClasse) {
+    public void setIdClasse(Integer idClasse) {
         this.idClasse = idClasse;
     }
 
-    public Date getDateCreationClasse() {
-        return dateCreationClasse;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setDateCreationClasse(Date dateCreationClasse) {
-        this.dateCreationClasse = dateCreationClasse;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
-    public Integer getNombreEleveMax() {
-        return nombreEleveMax;
+    public String getClasseCode() {
+        return classeCode;
     }
 
-    public void setNombreEleveMax(Integer nombreEleveMax) {
-        this.nombreEleveMax = nombreEleveMax;
+    public void setClasseCode(String classeCode) {
+        this.classeCode = classeCode;
     }
 
-    public List<Sessionclasse> getSessionclasseList() {
-        return sessionclasseList;
+    public Groupe getIdGroupe() {
+        return idGroupe;
     }
 
-    public void setSessionclasseList(List<Sessionclasse> sessionclasseList) {
-        this.sessionclasseList = sessionclasseList;
+    public void setIdGroupe(Groupe idGroupe) {
+        this.idGroupe = idGroupe;
     }
 
-    public String getLibelleClasse() {
-        return libelleClasse;
+    public List<Inscrit> getInscritList() {
+        return inscritList;
     }
 
-    public void setLibelleClasse(String libelleClasse) {
-        this.libelleClasse = libelleClasse;
+    public void setInscritList(List<Inscrit> inscritList) {
+        this.inscritList = inscritList;
     }
 
     @Override
