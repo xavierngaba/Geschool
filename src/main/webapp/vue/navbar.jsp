@@ -133,6 +133,19 @@
             </li>
             <li class="treeview">
                 <a href="#">
+                    <i class="glyphicon glyphicon-education"></i>
+                    <span>Facturation</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutfacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Fcture</a></li>
+                    <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Liste Facture</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-archive"></i>
                     <span>Bulletin</span>
                     <span class="pull-right-container">
