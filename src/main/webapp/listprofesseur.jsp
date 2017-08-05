@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Tableau Classe </title>
+        <title>Geschool | Tableau Professeur </title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -49,7 +49,7 @@
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste classes</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=listeprofesseur&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste classes</a></li>
                     </ol>
                     <br/>
                 </section>
@@ -62,27 +62,27 @@
 
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Tableau des Salles de classes</h3>
+                                    <h3 class="box-title">Tableau des Professeurs</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Libelle</th>
+                                                <th>Nom Prénom</th>
                                                 <!-- <th>Nombre Max élève</th> -->
                                                 <!-- <th>Date création</th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:if test="${listeclasse.size() != 0}">
-                                                <c:forEach items="${ requestScope.listeclasse }" var="classe" varStatus="boucle">
+                                            <c:if test="${listeprofesseur.size() != 0}">
+                                                <c:forEach items="${ requestScope.listeprofesseur }" var="professeur" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${classe.libelle}"/></td>
+                                                        <td><c:out value="${professeur.nom_prenom}"/></td>
                                                         <!-- <td></td> -->
                                                         <!-- <td></td> -->
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifprofesseur&idprofesseur=${professeur.IdProfesseur}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

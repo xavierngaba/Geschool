@@ -26,4 +26,11 @@ public final class AllUrl {
     public static final String URL_PAGE_AJOUT_CLASSE="/ajoutclasse.jsp";
     public static final String URL_PAGE_AJOUT_SESSION_CLASSE="/ajoutsessionclasse.jsp";
     public static final String URL_PAGE_MODIF_CLASSE="/modifclasse.jsp";
+    public static final String URL_PAGE_TABLEAU_MATIERE="/listematiere.jsp";
+    public static final String URL_PAGE_MODIF_MATIERE="/modifmatiere.jsp";
+    public static final String URL_PAGE_AJOUT_MATIERE="/ajoutmatiere.jsp";
+    public static final String URL_PAGE_TABLEAU_PROFESSEUR="listprofesseur.jsp";
+    public static final String URL_PAGE_MODIF_PROFESSEUR="modifprofesseur.jsp";
+    public static final String URL_PAGE_AJOUT_PROFESSEUR="ajoutprofesseur.jsp";
+    
 }

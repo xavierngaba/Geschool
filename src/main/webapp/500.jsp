@@ -1,7 +1,7 @@
 <%-- 
     Document   : 500
     Created on : 4 juil. 2017, 23:23:17
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

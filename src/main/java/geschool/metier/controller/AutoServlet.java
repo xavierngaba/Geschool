@@ -9,9 +9,12 @@ import geschool.metier.utils.AllUrl;
 import geschool.persistence.interfaces.SessionDAO;
 
 import geschool.persistence.interfaces.ClasseDAO;
-
+import geschool.persistence.interfaces.MatiereDAO;
+import geschool.persistence.interfaces.ProfesseurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Classe;
+import geschool.persistence.model.Matiere;
+import geschool.persistence.model.Professeur;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
 import java.util.Date;
@@ -31,6 +34,8 @@ public class AutoServlet extends HttpServlet {
     private SessionDAO sDAO;
     @EJB
     private ClasseDAO cDAO;
+    private MatiereDAO mDAO;
+    private ProfesseurDAO pDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
     @Override
@@ -60,6 +65,14 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("action", "listeclasse");
                 this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
             }
+            if (action.equals("listeprofesseur")) {
+                request.setAttribute("action", "listeprofesseur");
+                this.getServletContext().getRequestDispatcher("/ProfServlet").forward(request, response);
+            }
+            if (action.equals("listematiere")) {
+                request.setAttribute("action", "listematiere");
+                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
+            }
             if (action.equals("classeSession")) {
                 request.setAttribute("action", "classeSession");
                 Date dateActuel = new Date();
@@ -72,11 +85,23 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("ajoutclasse")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_CLASSE).forward(request, response);
             }
+            if (action.equals("ajoutprofesseur")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PROFESSEUR).forward(request, response);
+            }
+            if (action.equals("ajoutmatiere")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
+            }
             if (action.equals("modifclasse")) {
                 String idclasse = request.getParameter("idclasse");
                 request.setAttribute("action", "modifclasse");
                 request.setAttribute("idclasse", idclasse);
                 this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
+            }
+            if (action.equals("modifmatiere")) {
+                String idmatiere = request.getParameter("idmatiere");
+                request.setAttribute("action", "modifmatiere");
+                request.setAttribute("idmatiere", idmatiere);
+                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
             }
             if (action.equals("ajoutsessionclasse")) {
                 Date dateActuel = new Date();

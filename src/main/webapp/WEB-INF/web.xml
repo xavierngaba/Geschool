@@ -12,8 +12,16 @@
         <servlet-class>geschool.metier.controller.SessionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProfServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.ProfServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ClasseServlet</servlet-name>
         <servlet-class>geschool.metier.controller.ClasseServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MatiereServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.MatiereServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AutoServlet</servlet-name>
@@ -28,8 +36,16 @@
         <url-pattern>/SessionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ProfServlet</servlet-name>
+        <url-pattern>/ProfServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ClasseServlet</servlet-name>
         <url-pattern>/ClasseServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MatiereServlet</servlet-name>
+        <url-pattern>/MatiereServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AutoServlet</servlet-name>
