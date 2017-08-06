@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 1.1
+        <b>Version</b> 1.2
     </div>
     <strong>Copyright &copy; 2017 Geschool</strong> All rights
     reserved.

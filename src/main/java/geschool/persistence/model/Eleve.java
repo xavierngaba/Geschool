@@ -33,21 +33,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "eleve", catalog = "geschool", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
-    @NamedQuery(name = "Eleve.findByIdEleve", query = "SELECT e FROM Eleve e WHERE e.idEleve = :idEleve"),
-    @NamedQuery(name = "Eleve.findByMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
-    @NamedQuery(name = "Eleve.findByNom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom"),
-    @NamedQuery(name = "Eleve.findByPrenom", query = "SELECT e FROM Eleve e WHERE e.prenom = :prenom"),
-    @NamedQuery(name = "Eleve.findByDateNaiss", query = "SELECT e FROM Eleve e WHERE e.dateNaiss = :dateNaiss"),
-    @NamedQuery(name = "Eleve.findByAdresses", query = "SELECT e FROM Eleve e WHERE e.adresses = :adresses"),
-    @NamedQuery(name = "Eleve.findByTelephone", query = "SELECT e FROM Eleve e WHERE e.telephone = :telephone"),
-    @NamedQuery(name = "Eleve.findByDette", query = "SELECT e FROM Eleve e WHERE e.dette = :dette"),
-    @NamedQuery(name = "Eleve.findByStatus", query = "SELECT e FROM Eleve e WHERE e.status = :status"),
-    @NamedQuery(name = "Eleve.findByQuantine", query = "SELECT e FROM Eleve e WHERE e.quantine = :quantine"),
-    @NamedQuery(name = "Eleve.findByNationalite", query = "SELECT e FROM Eleve e WHERE e.nationalite = :nationalite"),
-    @NamedQuery(name = "Eleve.findBySexe", query = "SELECT e FROM Eleve e WHERE e.sexe = :sexe"),
-    @NamedQuery(name = "Eleve.findByEmail", query = "SELECT e FROM Eleve e WHERE e.email = :email"),
-    @NamedQuery(name = "Eleve.findByDateinscription", query = "SELECT e FROM Eleve e WHERE e.dateinscription = :dateinscription")})
+    @NamedQuery(name = "Eleve.rechercherTousLesEleves", query = "SELECT e FROM Eleve e"),
+    @NamedQuery(name = "Eleve.rechercherUnEleveAvecId", query = "SELECT e FROM Eleve e WHERE e.idEleve = :idEleve"),
+    @NamedQuery(name = "Eleve.rechercherUnEleveAvecMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
+    @NamedQuery(name = "Eleve.rechercherUnEleveAvecNomEtPrenom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom AND e.prenom = :prenom")})
 public class Eleve implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -85,17 +74,11 @@ public class Eleve implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "telephone")
     private String telephone;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "dette")
     private int dette;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "status")
     private String status;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "quantine")
     private int quantine;
     @Basic(optional = false)
@@ -110,7 +93,6 @@ public class Eleve implements Serializable {
     private String sexe;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "email")
     private String email;
@@ -131,28 +113,7 @@ public class Eleve implements Serializable {
 
     public Eleve() {
     }
-
-    public Eleve(Integer idEleve) {
-        this.idEleve = idEleve;
-    }
-
-    public Eleve(Integer idEleve, String matricule, String nom, String prenom, Date dateNaiss, String adresses, String telephone, int dette, String status, int quantine, String nationalite, String sexe, String email, Date dateinscription) {
-        this.idEleve = idEleve;
-        this.matricule = matricule;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateNaiss = dateNaiss;
-        this.adresses = adresses;
-        this.telephone = telephone;
-        this.dette = dette;
-        this.status = status;
-        this.quantine = quantine;
-        this.nationalite = nationalite;
-        this.sexe = sexe;
-        this.email = email;
-        this.dateinscription = dateinscription;
-    }
-
+    
     public Integer getIdEleve() {
         return idEleve;
     }
@@ -319,7 +280,7 @@ public class Eleve implements Serializable {
 
     @Override
     public String toString() {
-        return "geschool.persistence.model.Eleve[ idEleve=" + idEleve + " ]";
+        return "Eleve[ idEleve=" + idEleve + " ]";
     }
     
 }

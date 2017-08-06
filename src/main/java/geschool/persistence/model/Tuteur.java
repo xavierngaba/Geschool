@@ -28,15 +28,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tuteur", catalog = "geschool", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Tuteur.findAll", query = "SELECT t FROM Tuteur t"),
-    @NamedQuery(name = "Tuteur.findByIdTuteur", query = "SELECT t FROM Tuteur t WHERE t.idTuteur = :idTuteur"),
-    @NamedQuery(name = "Tuteur.findByTutCode", query = "SELECT t FROM Tuteur t WHERE t.tutCode = :tutCode"),
-    @NamedQuery(name = "Tuteur.findByNomPrenom", query = "SELECT t FROM Tuteur t WHERE t.nomPrenom = :nomPrenom"),
-    @NamedQuery(name = "Tuteur.findByTelephone", query = "SELECT t FROM Tuteur t WHERE t.telephone = :telephone"),
-    @NamedQuery(name = "Tuteur.findByEmail", query = "SELECT t FROM Tuteur t WHERE t.email = :email"),
-    @NamedQuery(name = "Tuteur.findByAdresse", query = "SELECT t FROM Tuteur t WHERE t.adresse = :adresse"),
-    @NamedQuery(name = "Tuteur.findByRelation", query = "SELECT t FROM Tuteur t WHERE t.relation = :relation"),
-    @NamedQuery(name = "Tuteur.findByProfession", query = "SELECT t FROM Tuteur t WHERE t.profession = :profession")})
+    @NamedQuery(name = "Tuteur.rechercherTousLesTuteurs", query = "SELECT t FROM Tuteur t"),
+    @NamedQuery(name = "Tuteur.rechercherTuteurAvecId", query = "SELECT t FROM Tuteur t WHERE t.idTuteur = :idTuteur"),
+    @NamedQuery(name = "Tuteur.rechercherLeDernierTuteurAjoute", query = "SELECT MAX(t.idTuteur) FROM Tuteur t"),
+    @NamedQuery(name = "Tuteur.rechercherTuteurAvecTutCode", query = "SELECT t FROM Tuteur t WHERE t.tutCode = :tutCode")})
 public class Tuteur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -61,7 +56,6 @@ public class Tuteur implements Serializable {
     private String telephone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "Email")
     private String email;
@@ -76,7 +70,6 @@ public class Tuteur implements Serializable {
     @Column(name = "Relation")
     private String relation;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "profession")
     private String profession;
@@ -84,21 +77,6 @@ public class Tuteur implements Serializable {
     private List<Eleve> eleveList;
 
     public Tuteur() {
-    }
-
-    public Tuteur(Integer idTuteur) {
-        this.idTuteur = idTuteur;
-    }
-
-    public Tuteur(Integer idTuteur, String tutCode, String nomPrenom, String telephone, String email, String adresse, String relation, String profession) {
-        this.idTuteur = idTuteur;
-        this.tutCode = tutCode;
-        this.nomPrenom = nomPrenom;
-        this.telephone = telephone;
-        this.email = email;
-        this.adresse = adresse;
-        this.relation = relation;
-        this.profession = profession;
     }
 
     public Integer getIdTuteur() {
@@ -195,7 +173,6 @@ public class Tuteur implements Serializable {
 
     @Override
     public String toString() {
-        return "geschool.persistence.model.Tuteur[ idTuteur=" + idTuteur + " ]";
+        return "Tuteur[ idTuteur=" + idTuteur + " ]";
     }
-    
 }

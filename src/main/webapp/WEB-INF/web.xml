@@ -19,6 +19,10 @@
         <servlet-name>AutoServlet</servlet-name>
         <servlet-class>geschool.metier.controller.AutoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InscriptionServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.InscriptionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UtilisateurServlet</servlet-name>
         <url-pattern>/UtilisateurServlet</url-pattern>
@@ -34,6 +38,10 @@
     <servlet-mapping>
         <servlet-name>AutoServlet</servlet-name>
         <url-pattern>/AutoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InscriptionServlet</servlet-name>
+        <url-pattern>/InscriptionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
