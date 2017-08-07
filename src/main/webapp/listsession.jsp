@@ -1,7 +1,7 @@
 <%-- 
     Document   : listSessesion
     Created on : 8 juil. 2017, 02:50:32
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

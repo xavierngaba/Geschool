@@ -1,7 +1,7 @@
 <%-- 
     Document   : listinscription
     Created on : 20 juil. 2017, 22:42:20
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

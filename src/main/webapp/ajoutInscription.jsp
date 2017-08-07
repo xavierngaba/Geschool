@@ -1,7 +1,7 @@
 <%-- 
     Document   : ajoutinscription
     Created on : 20 juil. 2017, 22:43:28
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

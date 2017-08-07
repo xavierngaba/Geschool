@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 @Entity
 @Table(name = "note", catalog = "geschool", schema = "")

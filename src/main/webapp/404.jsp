@@ -1,7 +1,7 @@
 <%-- 
     Document   : 404
     Created on : 3 juil. 2017, 00:54:49
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

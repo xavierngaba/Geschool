@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 @Entity
 @Table(name = "utilisateur", catalog = "geschool", schema = "")

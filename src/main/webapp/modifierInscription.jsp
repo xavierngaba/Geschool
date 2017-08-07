@@ -1,7 +1,7 @@
 <%-- 
     Document   : modifierInscription
     Created on : 20 juil. 2017, 22:48:32
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
