@@ -32,5 +32,6 @@ public final class AllUrl {
     public static final String URL_PAGE_TABLEAU_PROFESSEUR="listprofesseur.jsp";
     public static final String URL_PAGE_MODIF_PROFESSEUR="modifprofesseur.jsp";
     public static final String URL_PAGE_AJOUT_PROFESSEUR="ajoutprofesseur.jsp";
-    
+    public static final String URL_PAGE_AJOUT_FACTURE="/ajoutFacture.jsp";
+    public static final String URL_PAGE_TABLEAU_FACTURE="/listfacture.jsp";
 }

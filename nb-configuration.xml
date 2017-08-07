@@ -35,5 +35,6 @@ Any value defined here will override the pom.xml file value but is only applicab
         <de-markiewb-netbeans-plugins-eclipse-formatter.sourcelevel/>
         <de-markiewb-netbeans-plugins-eclipse-formatter.useProjectSettings>false</de-markiewb-netbeans-plugins-eclipse-formatter.useProjectSettings>
         <org-netbeans-modules-maven-j2ee.netbeans_2e_deploy_2e_on_2e_save>false</org-netbeans-modules-maven-j2ee.netbeans_2e_deploy_2e_on_2e_save>
+        <org-netbeans-modules-css-prep.less_2e_configured>true</org-netbeans-modules-css-prep.less_2e_configured>
     </properties>
 </project-shared-configuration>

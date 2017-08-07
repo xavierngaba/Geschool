@@ -1,20 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
 import geschool.persistence.interfaces.SessionDAO;
-
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.MatiereDAO;
 import geschool.persistence.interfaces.ProfesseurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
-import geschool.persistence.model.Classe;
 import geschool.persistence.model.Matiere;
 import geschool.persistence.model.Professeur;
+import geschool.persistence.interfaces.EleveDAO;
+import geschool.persistence.interfaces.FactureDAO;
+import geschool.persistence.model.Classe;
+import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
 import java.util.Date;
@@ -90,6 +87,13 @@ public class AutoServlet extends HttpServlet {
             }
             if (action.equals("ajoutmatiere")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
+            if (action.equals("ajoutfacture")) {
+                request.setAttribute("action", "ajoutfacture");
+                this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
+            }
+            if (action.equals("listefacture")) {
+                request.setAttribute("action", "listefacture");
+                this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
             }
             if (action.equals("modifclasse")) {
                 String idclasse = request.getParameter("idclasse");
