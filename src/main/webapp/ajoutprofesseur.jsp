@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Ajout Classe</title>
+        <title>Geschool | Ajout Professeur</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -55,8 +55,8 @@
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Salle de classe</a></li>
-                        <li class="active">Ajout classe</li>
+                        <li><a href="<c:url value="/AutoServlet?action=listeprofesseur&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Professeur</a></li>
+                        <li class="active">Ajout professeur</li>
                     </ol>
                     <br/>
                 </section>
@@ -67,13 +67,13 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Nouvelle Classe</h3>
+                            <h3 class="box-title">Nouveau Professeur</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
-                        <form action="<c:url value="/ClasseServlet"/>" method="post">
+                        <form action="<c:url value="/ProfServlet"/>" method="post">
                             <!-- /.box-header -->
                             <div class="box-body">
                                 <div class="row">
@@ -81,14 +81,14 @@
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <div class="input-group">     
-                                            <label>libelle Classe</label>                                          
-                                                <input type="text" class="form-control pull-right" id="libelleClasse" name="libelleClasse"/>
+                                            <label>libelle Professeur</label>                                          
+                                                <input type="text" class="form-control pull-right" id="IdProfesseur" name="IdProfesseur"/>
                                             </div>  
                                             <div class="input-group">     
                                             <!--<label>nombre Eleve Max</label>                                          
                                                 <input type="number" class="form-control pull-right" id="nombreEleveMax" name="nombreEleveMax"/>-->
                                             </div>                                            
-                                                <input type="hidden" class="form-control pull-right" name="action" value="ajoutclasse"/>
+                                                <input type="hidden" class="form-control pull-right" name="action" value="ajoutprofesseur"/>
                                                 <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                                         </div>
                                         <!-- /.form-group -->

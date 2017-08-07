@@ -1,19 +1,19 @@
 <%-- 
     Document   : listSessesion
     Created on : 8 juil. 2017, 02:50:32
-    Author     : Ines.G
+    Author     : xavier_ng
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib  uri="http://www.joda.org/joda/time/tags" prefix="joda"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Tableau Session </title>
+        <title>Geschool | Tableau Facture </title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -42,13 +42,14 @@
             <c:import url="vue/header.jsp"/>
             <!-- Left side column. contains the logo and sidebar -->
             <c:import url="vue/navbar.jsp"/>
+
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Session Academique</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste factures</a></li>
                     </ol>
                     <br/>
                 </section>
@@ -58,29 +59,31 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- /.box -->
-
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Tableau des Sessions académiques</h3>
+                                    <h3 class="box-title">Tableau des Factures</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Libelle</th>
-                                                <th>Date début</th>
-                                                <th>Date Fin</th>
+                                                <th>Code</th>
+                                                <th>Eleve</th>
+                                                <th>Montant</th>
+                                                <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:if test="${listesession.size() != 0}">
-                                                <c:forEach items="${ requestScope.listesession }" var="session" varStatus="boucle">
+                                            <c:if test="${listeFacture.size() != 0}">
+                                                <c:forEach items="${ requestScope.listeFacture }" var="facture" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${session.libelle}"/></td>
-                                                        <td><fmt:formatDate value="${session.datedebut}" pattern="dd-MM-yyyy" /></td>
-                                                        <td><fmt:formatDate value="${session.datefin}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><c:out value="${facture.codeFacture}"/></td>
+                                                        <td><c:out value="${facture.idEleve.prenom}"/> <c:out value="${facture.idEleve.nom}"/></td>
+                                                        <td><c:out value="${facture.montantFacture}"/></td>
+                                                        <td><c:out value="${facture.dateFacture}"/></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>
@@ -94,20 +97,6 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
-                    <c:if test="${message == 'success'}">
-                        <div id="ajaxSessionServletResponse" class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4><i class="icon fa fa-check"></i> Success!</h4>
-                            <c:out value="${text}"/>
-                        </div>
-                    </c:if>
-                    <c:if test="${message == 'warning'}">
-                        <div id="ajaxSessionServletResponse" class="alert alert-warning alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4><i class="icon fa fa-warning"></i>Warning</h4>
-                            <c:out value="${text}"/>
-                        </div>
-                    </c:if>
                 </section>
                 <!-- /.content -->
             </div>

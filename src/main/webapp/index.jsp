@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : 2 juil. 2017, 05:10:04
-    Author     : xavier_ng
+    Author     : Ines.G
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

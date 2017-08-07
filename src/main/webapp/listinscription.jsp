@@ -1,7 +1,11 @@
 <%-- 
     Document   : listinscription
     Created on : 20 juil. 2017, 22:42:20
+<<<<<<< HEAD
     Author     : ines gnaly
+=======
+    Author     : Ines.G
+>>>>>>> Sprint-02_v2
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

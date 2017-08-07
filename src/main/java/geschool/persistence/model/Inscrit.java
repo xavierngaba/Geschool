@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author xavier_ng
+ * @author Ines.G
  */
 @Entity
 @Table(name = "inscrit", catalog = "geschool", schema = "")

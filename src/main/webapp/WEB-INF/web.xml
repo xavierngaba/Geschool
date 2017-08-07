@@ -12,16 +12,29 @@
         <servlet-class>geschool.metier.controller.SessionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProfServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.ProfServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ClasseServlet</servlet-name>
         <servlet-class>geschool.metier.controller.ClasseServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MatiereServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.MatiereServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AutoServlet</servlet-name>
         <servlet-class>geschool.metier.controller.AutoServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>InscriptionServlet</servlet-name>
         <servlet-class>geschool.metier.controller.InscriptionServlet</servlet-class>
+=======
+        <servlet-name>FactureServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.FactureServlet</servlet-class>
+>>>>>>> Sprint-02_v2
     </servlet>
     <servlet-mapping>
         <servlet-name>UtilisateurServlet</servlet-name>
@@ -32,16 +45,29 @@
         <url-pattern>/SessionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ProfServlet</servlet-name>
+        <url-pattern>/ProfServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ClasseServlet</servlet-name>
         <url-pattern>/ClasseServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MatiereServlet</servlet-name>
+        <url-pattern>/MatiereServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AutoServlet</servlet-name>
         <url-pattern>/AutoServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>InscriptionServlet</servlet-name>
         <url-pattern>/InscriptionServlet</url-pattern>
+=======
+        <servlet-name>FactureServlet</servlet-name>
+        <url-pattern>/FactureServlet</url-pattern>
+>>>>>>> Sprint-02_v2
     </servlet-mapping>
     <session-config>
         <session-timeout>

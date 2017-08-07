@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package geschool.persistence.interfaces;
 
 import geschool.persistence.model.Eleve;
@@ -11,7 +6,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author xavier_ng
+ * @author inesG
  */
 @Local
 public interface EleveDAO {
@@ -22,4 +17,6 @@ public interface EleveDAO {
     Eleve rechercherUnEleveAvecMatricule(String matricule);
     Eleve rechercherUnEleveAvecNomEtPrenom(String nom,String prenom);
     Integer rechercherLeNombreTotalEleve();
+    Eleve findEleveByMat(String matricule);
+    List<Eleve> listeDesEleves();
 }
