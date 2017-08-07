@@ -13,6 +13,7 @@ public final class CreerId {
 
     public static final String SESSION_ID = "SESS";
     public static final String CLASS_ID = "CLASS";
+    public static final String ELEVE_MATRICULE = "NP00";
 
     public static String creerSessionId(int anneeDebut, int anneeFin) throws Exception {
         String sessionId = "";
@@ -34,5 +35,17 @@ public final class CreerId {
         }
 
         return classeId;
+    }
+    
+    public static String creerMatriculeEleve(String sessionlibelle, int nbrEleve) throws Exception {
+        String matriculeEleve = "";
+        if (sessionlibelle != null && nbrEleve != 0) {
+            nbrEleve++;
+            matriculeEleve = ELEVE_MATRICULE.concat(sessionlibelle).concat(String.valueOf(nbrEleve));
+        } else {
+            throw new Exception("le champ libelle est nul");
+        }
+
+        return matriculeEleve;
     }
 }

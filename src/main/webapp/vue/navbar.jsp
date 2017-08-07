@@ -1,7 +1,7 @@
 <%-- 
     Document   : navbar
     Created on : 20 juil. 2017, 22:06:43
-    Author     : xavier_ng
+    Author     : ines gnaly
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -43,14 +43,23 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="data.html"><i class="fa fa-table"></i>
-                            <span>Liste d'inscription</span>
+                        <a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
+                            <span>Liste des élèves</span>
                             <span class="pull-right-container">
-                                <span class="label label-primary pull-right">4</span>
+                                <span class="label label-primary pull-right"><c:out value=""/></span>
                             </span>
                         </a>
                     </li>
-                    <li><a href="form.html"><i class="fa fa-user-plus"></i> Nouv. Inscription</a></li>
+                    <li>
+                        <a href="<c:url value="/AutoServlet?action=listinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
+                            <span>Liste des inscriptions</span>
+                            <span class="pull-right-container">
+                                <span class="label label-primary pull-right"><c:out value=""/></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li><a href="<c:url value="/AutoServlet?action=ajouteleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-user-plus"></i> Nouv. Eleve</a></li>
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Inscription</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -70,10 +79,23 @@
                             </span>
                         </a>
                     </li>
+<<<<<<< HEAD
+                    <li>
+                        <a href="<c:url value="/AutoServlet?action=classeSession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
+                            <span>Liste des Classes/Sessions</span>
+                            <span class="pull-right-container">
+                                <span class="label label-primary pull-right">0</span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li></ul>
+=======
                     
                    
                     <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-plus-sign">
                       </i> Nouv. Classes</a></li></ul>
+>>>>>>> Sprint-02_v2
             </li>
             <li class="treeview">
                 <a href="#">

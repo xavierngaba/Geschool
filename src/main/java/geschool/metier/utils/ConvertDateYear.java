@@ -35,4 +35,11 @@ public final class ConvertDateYear {
         YearListe.add(Integer.parseInt(formaterYear.format(DateList.get(1))));
         return YearListe;
     }
+   
+   public static Date StringTransformDate (String DateList)throws ParseException{
+        Date dateListe = new Date();
+        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
+        dateListe = formater.parse(DateList);
+        return dateListe;
+    }
 }

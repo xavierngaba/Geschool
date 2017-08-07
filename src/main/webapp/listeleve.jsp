@@ -1,11 +1,7 @@
 <%-- 
-    Document   : listinscription
-    Created on : 20 juil. 2017, 22:42:20
-<<<<<<< HEAD
+    Document   : listeleve
+    Created on : 5 août 2017, 01:27:09
     Author     : ines gnaly
-=======
-    Author     : Ines.G
->>>>>>> Sprint-02_v2
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Liste des inscriptions </title>
+        <title>Geschool | Liste des élèves </title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -53,7 +49,7 @@
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<c:url value="/AutoServlet?action=listinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste classes</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste classes</a></li>
                     </ol>
                     <br/>
                 </section>
@@ -66,7 +62,7 @@
 
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Tableau des élèves inscrits</h3>
+                                    <h3 class="box-title">Tableau des élèves enregistrés</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -75,20 +71,32 @@
                                             <tr>
                                                 <th>Matricule</th>
                                                 <th>Nom & Prénom</th>
-                                                <th>Classe</th>
-                                                <th>Détail</th>
+                                                <th>Date de naissance</th>
+                                                <th>Nationalité</th>
+                                                <th>Sexe</th>
+                                                <th>Date inscription</th>
+                                                <th>Détails</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:if test="${listinscrit.size() != 0}">
-                                                <c:forEach items="${ requestScope.listinscrit }" var="inscrit" varStatus="boucle">
+                                            <c:if test="${listeleve.size() != 0}">
+                                                <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${inscrit.idElleve.matricule}"/></td>
-                                                        <td><c:out value="${inscrit.idElleve.Nom}"/> <c:out value="${inscrit.idElleve.Prenom}"/></td>
-                                                        <td><c:out value="${inscrit.idClasse.libelle}"/></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.idElleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><c:out value=""/> <c:out value=""/></a></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&idEleve=${inscrit.idElleve.idEleve}&idClasse=${inscrit.idClasse.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><c:out value=""/> <c:out value=""/></a></td>
+                                                        <td><c:out value="${eleve.matricule}"/></td>
+                                                        <td><c:out value="${eleve.Nom}"/> <c:out value="${eleve.Prenom}"/></td>
+                                                        <td><fmt:formatDate value="${eleve.dateNaiss}" pattern="dd-MM-yyyy" /></td>
+                                                        <td data-skin="skin-blue" class="btn btn-primary btn-xs">
+                                                            <c:if test="${eleve.sexe == 'Masculin'}">
+                                                                <i class="fa fa-male"></i>
+                                                            </c:if>
+                                                            <c:if test="${eleve.sexe == 'Féminin'}">
+                                                                <i class="fa fa-female"></i>
+                                                            </c:if>
+                                                        </td>
+                                                        <td><fmt:formatDate value="${eleve.dateinscription}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifeleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

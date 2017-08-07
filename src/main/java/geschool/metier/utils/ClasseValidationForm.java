@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public final class ClasseValidationForm {
 
     @EJB
-    ClasseDAO cDAO;
+    private final ClasseDAO cDAO;
     
     private static final String CHAMP_libelle = "libelleClasse";
     //private static String CHAMP_NbrEleve = "nombreEleveMax";

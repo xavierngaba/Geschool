@@ -28,8 +28,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "inscrit", catalog = "geschool", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "Inscrit.findAll", query = "SELECT i FROM Inscrit i"),
-    @NamedQuery(name = "Inscrit.findByIdInscrit", query = "SELECT i FROM Inscrit i WHERE i.idInscrit = :idInscrit")})
+    @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptions", query = "SELECT i FROM Inscrit i"),
+    @NamedQuery(name = "Inscrit.rechercherInscritAvecId", query = "SELECT i FROM Inscrit i WHERE i.idInscrit = :idInscrit "),
+    @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritsDansUneClasseUneAnnee", query = "SELECT i FROM Inscrit i WHERE i.idClasse.idClasse = :idClasse AND i.idAnnee.id = :idAnnee"),
+    @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritsPourUneAnnee", query = "SELECT i FROM Inscrit i WHERE i.idAnnee.id = :idAnnee"),
+    @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptionsEleve", query = "SELECT i FROM Inscrit i WHERE i.idEleve.idEleve = :idEleve")})
 public class Inscrit implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,10 +53,6 @@ public class Inscrit implements Serializable {
     private Anneescolaire idAnnee;
 
     public Inscrit() {
-    }
-
-    public Inscrit(Integer idInscrit) {
-        this.idInscrit = idInscrit;
     }
 
     public Integer getIdInscrit() {

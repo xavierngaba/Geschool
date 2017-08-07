@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ajoutinscription
-    Created on : 5 août 2017, 01:27:28
+    Document   : modifinscription
+    Created on : 5 août 2017, 01:28:00
     Author     : ines gnaly
 --%>
 
@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Inscription Élève</title>
+        <title>Geschool | Modification Inscription</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -66,24 +66,24 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Formulaire d'inscription d'un nouvelle élève</h3>
+                            <h3 class="box-title">Formulaire de modification d'une inscription </h3>
                         </div>
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
-                            <input type="hidden"  name="action" value="ajoutinscription"/>
-                            <input type="hidden"  name="idAnnee" value="<c:out value=""/>"/>
+                            <input type="hidden"  name="action" value="modifinscription"/>
+                            <input type="hidden"  name="idAnne" value="<c:out value=""/>"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Inscription pour l'année scolaire <c:out value=""/></h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label>Nom de l'élève</label>
-                                                        <select name="idEleve" class="form-control select2" style="width: 100%;">
-                                                            <option value="null" selected="selected"></option>
+                                                        <select name="IdEleve" class="form-control select2" style="width: 100%;">
+                                                            <option value="<c:out value=""/>" selected="selected"><c:out value=""/> <c:out value=""/></option>
                                                             <c:if test="${listeleve.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
                                                                     <option value="<c:out value=""/>"><c:out value=""/> <c:out value=""/></option>
@@ -92,16 +92,16 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Salle de Classe</label>
-                                                        <select name="idClasse" class="form-control select2" style="width: 100%;">
-                                                            <option value="null" selected="selected"></option>
+                                                        <select class="form-control select2" style="width: 50%;">
+                                                            <option value="<c:out value=""/>" selected="selected"><c:out value=""/></option>
                                                             <c:if test="${listclasse.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
                                                                     <option value="<c:out value=""/>"><c:out value=""/></option>
                                                                 </c:forEach>
-                                                            </c:if>
+                                                            </c:if> 
                                                         </select>
                                                     </div>
                                                 </div>
@@ -127,6 +127,9 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                     <h4><i class="icon fa fa-ban"></i> Alert!</h4>
                                     <c:out value="${form.erreurs}"/>
+                                    <c:forEach items="${ requestScope.listerreur }" var="erreur" varStatus="boucle">
+
+                                    </c:forEach>
                                 </div>
                             </c:if>
                             <c:if test="${message == 'success'}">
