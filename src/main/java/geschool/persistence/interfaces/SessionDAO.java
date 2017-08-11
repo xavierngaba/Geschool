@@ -19,6 +19,6 @@ public interface SessionDAO {
     void creerSession(Anneescolaire s);
     void modifSession(Anneescolaire s);
     Anneescolaire rechercherUneAvecIdAnneeScolaire(Integer id);
-    Anneescolaire chercherSessionEnCours(Date d);
+    Anneescolaire chercherSessionEnCours();
     List<Anneescolaire> rechercherToutesLesAnneesScolaire();
 }

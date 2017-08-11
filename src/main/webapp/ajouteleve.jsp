@@ -141,7 +141,7 @@
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-phone"></i>
                                                     </div>
-                                                    <input type="text" name="telephone" class="form-control" data-inputmask="'mask': ['+099 99 999 9999']" data-mask>
+                                                    <input type="text" name="telephone" class="form-control" data-inputmask="'mask': ['+99 99 999 9999']" data-mask>
                                                 </div>&nbsp;<i class="fa fa-warning"></i>
                                                 <div class="form-group">
                                                     <label>Adresse </label>
@@ -158,7 +158,7 @@
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-map-marker"></i>
                                                         </div>
-                                                        <input type="text" name="Realtion" class="form-control" id="lieu" placeholder="Saisisser la relation du tuteur">
+                                                        <input type="text" name="Relation" class="form-control" id="lieu" placeholder="Saisisser la relation du tuteur">
                                                     </div>&nbsp;<i class="fa fa-warning"></i>
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                                 <div class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                     <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                                    <c:out value="${form.erreurs}"/>
+                                    <c:out value="${form.erreurs}"/><br/>
                                 </div>
                             </c:if>
                             <c:if test="${message == 'success'}">

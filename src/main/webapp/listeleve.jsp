@@ -84,8 +84,9 @@
                                                 <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
                                                     <tr>
                                                         <td><c:out value="${eleve.matricule}"/></td>
-                                                        <td><c:out value="${eleve.Nom}"/> <c:out value="${eleve.Prenom}"/></td>
+                                                        <td><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></td>
                                                         <td><fmt:formatDate value="${eleve.dateNaiss}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><c:out value="${eleve.nationalite}"/></td>
                                                         <td data-skin="skin-blue" class="btn btn-primary btn-xs">
                                                             <c:if test="${eleve.sexe == 'Masculin'}">
                                                                 <i class="fa fa-male"></i>
@@ -95,8 +96,8 @@
                                                             </c:if>
                                                         </td>
                                                         <td><fmt:formatDate value="${eleve.dateinscription}" pattern="dd-MM-yyyy" /></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifeleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" data-skin="skin-blue" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifeleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

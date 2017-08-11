@@ -8,8 +8,14 @@ package geschool.metier.controller;
 import geschool.metier.utils.AllUrl;
 import geschool.metier.utils.ConnexionValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
+import geschool.persistence.interfaces.EleveDAO;
+import geschool.persistence.interfaces.InscritDAO;
+import geschool.persistence.interfaces.SessionDAO;
+import geschool.persistence.interfaces.TuteurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Classe;
+import geschool.persistence.model.Eleve;
+import geschool.persistence.model.Inscrit;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
 import java.util.List;
@@ -31,6 +37,14 @@ public class UtilisateurServlet extends HttpServlet {
     private ClasseDAO cDAO;
     @EJB
     private UtilisateurDAO uDAO;
+    @EJB
+    private SessionDAO sDAO;
+    @EJB
+    private EleveDAO eDAO;
+    @EJB
+    private TuteurDAO tDAO;
+    @EJB
+    private InscritDAO iDAO;
     public static final String ATT_USER = "utilisateur";
     public static final String MESSAGE = "message";
     public static final String ATT_FORM = "form";
@@ -76,10 +90,22 @@ public class UtilisateurServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String action = request.getParameter("action");
         List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
+        List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
+        List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
         if(listClasse != null){
            request.setAttribute("nblistclasse", listClasse.size()); 
         }else{
            request.setAttribute("nblistclasse", 0); 
+        }
+        if(listeleve != null){
+           request.setAttribute("nblisteleve", listeleve.size());  
+        }else{
+            request.setAttribute("nblisteleve", 0);
+        }
+        if(listInscrit != null){
+           request.setAttribute("nblistinscrit", listInscrit.size());  
+        }else{
+            request.setAttribute("nblistinscrit", 0);
         }
         if(action.equals("login")){
             try {

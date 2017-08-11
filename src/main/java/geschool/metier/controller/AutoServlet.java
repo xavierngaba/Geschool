@@ -104,7 +104,7 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("classeSession")) {
                 request.setAttribute("action", "classeSession");
                 Date dateActuel = new Date();
-                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours(dateActuel));
+                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
             }
             if (action.equals("ajoutsession")) {
@@ -121,7 +121,7 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("listeleve", eDAO.rechercherTousLesEleves());
                 //Envoie de la liste de tous les élèves enregistrés en BDD
                 request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
-                request.setAttribute("Annee", sDAO.chercherSessionEnCours(new Date()));
+                request.setAttribute("Annee", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
             }
             if (action.equals("modifclasse")) {
@@ -144,7 +144,7 @@ public class AutoServlet extends HttpServlet {
             }
             if (action.equals("ajoutsessionclasse")) {
                 Date dateActuel = new Date();
-                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours(dateActuel));
+                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
             }
         } else {

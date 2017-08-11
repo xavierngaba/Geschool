@@ -60,7 +60,7 @@
                         <li class="active">Inscription élève</li>
                     </ol>
                 </section>
-
+                <br/>
                 <!-- Main content -->
                 <section class="content">
                     <!-- SELECT2 EXAMPLE -->
@@ -70,10 +70,11 @@
                         </div>
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
                             <input type="hidden"  name="action" value="ajoutinscription"/>
-                            <input type="hidden"  name="idAnnee" value="<c:out value=""/>"/>
+                            <input type="hidden"  name="idAnnee" value="<c:out value="${Annee.id}"/>"/>
+                            <input type="hidden"  name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Inscription pour l'année scolaire <c:out value=""/></h3>
+                                    <h3 class="box-title">Inscription pour l'année scolaire <c:out value="${Annee.libelle}"/></h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
@@ -86,7 +87,7 @@
                                                             <option value="null" selected="selected"></option>
                                                             <c:if test="${listeleve.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
-                                                                    <option value="<c:out value=""/>"><c:out value=""/> <c:out value=""/></option>
+                                                                    <option value="<c:out value="${eleve.idEleve}"/>"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></option>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </select>
@@ -99,7 +100,7 @@
                                                             <option value="null" selected="selected"></option>
                                                             <c:if test="${listclasse.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
-                                                                    <option value="<c:out value=""/>"><c:out value=""/></option>
+                                                                    <option value="<c:out value="${classe.idClasse}"/>"><c:out value="${classe.libelle}"/></option>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </select>

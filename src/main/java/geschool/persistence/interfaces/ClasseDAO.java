@@ -18,7 +18,7 @@ public interface ClasseDAO {
     void creerClasse(Classe c);
     void modifierClasse(Classe c);
     List<Classe> rechercherToutesLesClasses();
-    Classe rechercherClasseParId (String id);
+    Classe rechercherClasseParId (Integer id);
     Classe rechercherClasseParLibelleClasse(String l);
     Long verifClasseExist(String l);
     Integer rechercherLeNombreMaxEleveClasse(Integer id);

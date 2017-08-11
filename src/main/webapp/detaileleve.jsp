@@ -73,7 +73,7 @@
                                     </c:if>
                                     
 
-                                    <h3 class="profile-username text-center"><c:out value="eleve.Nom"/> <c:out value="eleve.Prenom"/></h3>
+                                    <h3 class="profile-username text-center"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></h3>
 
                                     <p class="text-muted text-center"><c:out value=""/> Salle de classe</p>
 
@@ -100,7 +100,7 @@
                                     <strong><i class="fa fa-calendar"></i> Date de naissance</strong>
 
                                     <p class="text-muted">
-                                        <fmt:formatDate value="" pattern="dd-MM-yyyy" />
+                                        <fmt:formatDate value="${eleve.dateNaiss}" pattern="dd-MM-yyyy" />
                                     </p>
 
                                     <hr>

@@ -60,7 +60,7 @@ public class ClasseServlet extends HttpServlet {
         if(action.equals("modifclasse")){
             session.setAttribute( ATT_SESSION_USER, u );
             String idclasse = request.getParameter("idclasse");
-            Classe c = cDAO.rechercherClasseParId(idclasse);
+            Classe c = cDAO.rechercherClasseParId(Integer.parseInt(idclasse));
             request.setAttribute("classe", c); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_MODIF_CLASSE ).forward( request, response );
         }
