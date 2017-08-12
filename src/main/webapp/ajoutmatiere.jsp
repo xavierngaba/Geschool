@@ -159,6 +159,8 @@
         <script src="plugins/iCheck/icheck.min.js"></script>
         <!-- FastClick -->
         <script src="plugins/fastclick/fastclick.js"></script>
+        <!-- Select2 -->
+        <script src="plugins/select2/select2.full.min.js"></script>
         <!-- AdminLTE App -->
         <script src="js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
@@ -168,6 +170,8 @@
             $(function () {
                 //Date range picker
                 $('#reservation').daterangepicker();
+                
+                $(".select2").select2();
             });
         </script>
     </body>
