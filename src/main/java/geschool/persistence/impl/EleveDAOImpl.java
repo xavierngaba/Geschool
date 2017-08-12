@@ -5,6 +5,7 @@
  */
 package geschool.persistence.impl;
 
+<<<<<<< HEAD
 import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.model.Eleve;
 import java.util.List;
@@ -14,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author xavier_ng
+ * @author inesG
  */
 @Stateless
 public class EleveDAOImpl implements EleveDAO {
@@ -72,5 +73,16 @@ public class EleveDAOImpl implements EleveDAO {
     @Override
     public Long rechercherLeNombreTotalEleve() {
         return (Long) em.createQuery("SELECT COUNT(e.idEleve) FROM Eleve e").getSingleResult();
+    }
+
+    public Eleve findEleveByMat(String matricule) {                
+        Query query = em.createNamedQuery("Eleve.findByMatricule");
+        query.setParameter("matricule", matricule);
+        return (Eleve) query.getSingleResult();
+    }
+
+    @Override
+    public List<Eleve> listeDesEleves() {
+        return em.createNamedQuery("Eleve.findAll").getResultList();
     }
 }

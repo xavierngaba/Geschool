@@ -1,19 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
 import geschool.persistence.interfaces.SessionDAO;
-
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.interfaces.InscritDAO;
 import geschool.persistence.interfaces.TuteurDAO;
-
+import geschool.persistence.interfaces.MatiereDAO;
+import geschool.persistence.interfaces.ProfesseurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
+import geschool.persistence.model.Matiere;
+import geschool.persistence.model.Professeur;
+import geschool.persistence.interfaces.FactureDAO;
 import geschool.persistence.model.Classe;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
@@ -42,6 +40,8 @@ public class AutoServlet extends HttpServlet {
     private InscritDAO iDAO;
     @EJB
     private ClasseDAO cDAO;
+    private MatiereDAO mDAO;
+    private ProfesseurDAO pDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
     @Override
@@ -100,6 +100,13 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("listinscription")) {
                 request.setAttribute("action", "listinscription");
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
+            if (action.equals("listeprofesseur")) {
+                request.setAttribute("action", "listeprofesseur");
+                this.getServletContext().getRequestDispatcher("/ProfServlet").forward(request, response);
+            }
+            if (action.equals("listematiere")) {
+                request.setAttribute("action", "listematiere");
+                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
             }
             if (action.equals("classeSession")) {
                 request.setAttribute("action", "classeSession");
@@ -123,6 +130,18 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
                 request.setAttribute("Annee", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
+            if (action.equals("ajoutprofesseur")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PROFESSEUR).forward(request, response);
+            }
+            if (action.equals("ajoutmatiere")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
+            if (action.equals("ajoutfacture")) {
+                request.setAttribute("action", "ajoutfacture");
+                this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
+            }
+            if (action.equals("listefacture")) {
+                request.setAttribute("action", "listefacture");
+                this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
             }
             if (action.equals("modifclasse")) {
                 String idclasse = request.getParameter("idclasse");
@@ -141,6 +160,11 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("action", "modifinscription");
                 request.setAttribute("idInscrit", idInscrit);
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
+            if (action.equals("modifmatiere")) {
+                String idmatiere = request.getParameter("idmatiere");
+                request.setAttribute("action", "modifmatiere");
+                request.setAttribute("idmatiere", idmatiere);
+                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
             }
             if (action.equals("ajoutsessionclasse")) {
                 Date dateActuel = new Date();

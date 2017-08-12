@@ -1,18 +1,19 @@
 <%-- 
-<<<<<<< Updated upstream
-    Document   : ajoutSessionAcademique
-    Created on : 6 juil. 2017, 00:11:32
-    Author     : Ines.G
+    Document   : ajoutinscription
+    Created on : 5 août 2017, 01:27:28
+    Author     : ines gnaly
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib  uri="http://www.joda.org/joda/time/tags" prefix="joda"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Ajout Classe</title>
+        <title>Geschool | Inscription Élève</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -55,48 +56,62 @@
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Salle de classe</a></li>
-                        <li class="active">Ajout classe</li>
+                        <li><a href="<c:url value="/AutoServlet?action=listinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste des inscriptions</a></li>
+                        <li class="active">Inscription élève</li>
                     </ol>
-                    <br/>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-
                     <!-- SELECT2 EXAMPLE -->
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Nouvelle Classe</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                            </div>
+                            <h3 class="box-title">Formulaire d'inscription d'un nouvelle élève</h3>
                         </div>
-                        <form action="<c:url value="/ClasseServlet"/>" method="post">
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- /.form-group -->
-                                        <div class="form-group">
-                                            <div class="input-group">     
-                                            <label>libelle Classe</label>                                          
-                                                <input type="text" class="form-control pull-right" id="libelleClasse" name="libelleClasse"/>
-                                            </div>  
-                                            <div class="input-group">     
-                                            <!--<label>nombre Eleve Max</label>                                          
-                                                <input type="number" class="form-control pull-right" id="nombreEleveMax" name="nombreEleveMax"/>-->
-                                            </div>                                            
-                                                <input type="hidden" class="form-control pull-right" name="action" value="ajoutclasse"/>
-                                                <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
-                                        </div>
-                                        <!-- /.form-group -->
-                                    </div>
-                                    <!-- /.col -->
+                        <form action="<c:url value="/InscriptionServlet"/>" method="post">
+                            <input type="hidden"  name="action" value="ajoutinscription"/>
+                            <input type="hidden"  name="idAnnee" value="<c:out value=""/>"/>
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Inscription pour l'année scolaire <c:out value=""/></h3>
                                 </div>
-                                <!-- /.row -->
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Nom de l'élève</label>
+                                                        <select name="idEleve" class="form-control select2" style="width: 100%;">
+                                                            <option value="null" selected="selected"></option>
+                                                            <c:if test="${listeleve.size() != 0}">
+                                                                <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
+                                                                    <option value="<c:out value=""/>"><c:out value=""/> <c:out value=""/></option>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Salle de Classe</label>
+                                                        <select name="idClasse" class="form-control select2" style="width: 100%;">
+                                                            <option value="null" selected="selected"></option>
+                                                            <c:if test="${listclasse.size() != 0}">
+                                                                <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
+                                                                    <option value="<c:out value=""/>"><c:out value=""/></option>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                    </div>  
+                                </div>
                             </div>
+                            <!-- /.box-header -->
                             <!-- /.box-body -->
                             <div class="box-footer">
                                 <button type="reset" class="btn btn-default">Cancel</button>
@@ -104,6 +119,7 @@
                             </div>
                         </form>
                     </div>
+                    <!-- /.box -->
                     <div class="row">
                         <div class="col-md-12">
                             <c:if test="${message == 'error'}">
@@ -122,14 +138,18 @@
                             </c:if>
                         </div>
                     </div>
-                    <!-- /.box -->
                     <!-- /.row -->
-
                 </section>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <c:import url="vue/footer.jsp"/>
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 1.0
+                </div>
+                <strong>Copyright &copy; 2017 Geschool</strong> All rights
+                reserved.
+            </footer>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
                  immediately after the control sidebar -->
@@ -141,9 +161,17 @@
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
         <script src="js/bootstrap.min.js"></script>
+        <!-- Select2 -->
+        <script src="plugins/select2/select2.full.min.js"></script>
+        <!-- InputMask -->
+        <script src="plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
         <!-- date-range-picker -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
         <script src="plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
         <!-- SlimScroll 1.3.0 -->
         <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <!-- iCheck 1.0.1 -->
@@ -157,8 +185,8 @@
         <!-- Page script -->
         <script>
             $(function () {
-                //Date range picker
-                $('#reservation').daterangepicker();
+                //Initialize Select2 Elements
+                $(".select2").select2();
             });
         </script>
     </body>
