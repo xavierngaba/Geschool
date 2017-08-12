@@ -113,8 +113,8 @@ public class Eleve implements Serializable {
 
     public Eleve() {
     }
-
-    public Eleve(int idEleve) {
+  
+    public Eleve(Integer idEleve) {
         this.idEleve = idEleve;
     }
     
