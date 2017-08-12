@@ -28,7 +28,7 @@ public final class EleveTuteurValidationForm {
     @EJB
     private final TuteurDAO tDAO;
     @EJB
-    private SessionDAO sDAO;
+    private final SessionDAO sDAO;
     
     private static final String CHAMP_ELEVE_NOM = "Nom";
     private static final String CHAMP_ELEVE_PRENOM = "Prenom";
@@ -45,9 +45,10 @@ public final class EleveTuteurValidationForm {
     private final Map<String, String> erreurs = new HashMap<>();
     private static final Logger LOG = Logger.getLogger(EleveTuteurValidationForm.class.getName());
 
-    public EleveTuteurValidationForm(EleveDAO eDAO, TuteurDAO tDAO) {
+    public EleveTuteurValidationForm(EleveDAO eDAO, TuteurDAO tDAO, SessionDAO sDAO) {
         this.eDAO = eDAO;
         this.tDAO = tDAO;
+        this.sDAO = sDAO;
     }
     
     public String getResultat() {
@@ -85,10 +86,10 @@ public final class EleveTuteurValidationForm {
         t.setTelephone(telephone);
         t.setAdresse(Adresse);
         t.setRelation(Relation);
-        int nbrMaxEleve = 0;
-        int nbrMaxTuteur = 0;
+        Long nbrMaxEleve = 0L;
+        Long nbrMaxTuteur = 0L;
         try {
-            session = sDAO.chercherSessionEnCours(new Date());
+            session = sDAO.chercherSessionEnCours();
         } catch (Exception e) {
             setErreur("date", "Erreur lors de la récupération de l'année scolaire en cours");
         }
@@ -97,7 +98,7 @@ public final class EleveTuteurValidationForm {
         } catch (Exception e) {
             setErreur("nbrMaxEleve", "Erreur lors de la récupération du nombre total d'élève");
         }
-        el.setMatricule(CreerId.creerMatriculeEleve(session.getLibelle(), nbrMaxEleve));
+        el.setMatricule(CreerId.creerMatriculeEleve(nbrMaxEleve+1));
         try {
             nbrMaxTuteur = tDAO.rechercherLeNombreTotalTuteur();
         } catch (Exception e) {
@@ -109,10 +110,13 @@ public final class EleveTuteurValidationForm {
         } catch (Exception e) {
             setErreur("tuteur", "Erreur lors de l'ajout d'un nouveau tuteur");
         }
-        el.setIdTuteur(tDAO.rechercherTuteurAvecId(tDAO.rechercherLeDernierTuteurAjoute()));
+        el.setIdTuteur(tDAO.rechercherTuteurAvecTutCode(t.getTutCode()));
+        el.setStatus("Présinscrit");
         el.setDateinscription(new Date());
         try {
             eDAO.creerEleve(el);
+            resultat = "l'élève "+el.getNom()+" "+el.getPrenom()+" a été enregistré avec succès, vous pouvez poursuivre son inscription"
+                    + "pour l'année scolaire "+session.getLibelle()+" Et son tuteur est "+t.getNomPrenom();
         } catch (Exception e) {
             setErreur("eleve", "Erreur lors de l'ajout d'un nouvel eleve");
         }
@@ -140,7 +144,7 @@ public final class EleveTuteurValidationForm {
         t.setTelephone(telephone);
         t.setAdresse(Adresse);
         t.setRelation(Relation);
-        int nbrMaxTuteur = 0;
+        Long nbrMaxTuteur = 0L;
         try {
             nbrMaxTuteur = tDAO.rechercherLeNombreTotalTuteur();
         } catch (Exception e) {
@@ -148,11 +152,11 @@ public final class EleveTuteurValidationForm {
         }
         t.setTutCode(NomTuteur.concat(String.valueOf(nbrMaxTuteur+1)));
         try {
-            tDAO.modifierTuteur(t);
+            t = tDAO.modifierTuteur(t);
         } catch (Exception e) {
             setErreur("tuteur", "Erreur lors de la modification du tuteur");
         }
-        el.setIdTuteur(tDAO.rechercherTuteurAvecId(tDAO.rechercherLeDernierTuteurAjoute()));
+        el.setIdTuteur(tDAO.rechercherTuteurAvecId(t.getIdTuteur()));
         try {
             eDAO.modifEleve(el);
         } catch (Exception e) {

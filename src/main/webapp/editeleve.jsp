@@ -60,7 +60,7 @@
                         <li class="active">Modification d'un élève</li>
                     </ol>
                 </section>
-
+                <br/>
                 <!-- Main content -->
                 <section class="content">
                     <!-- SELECT2 EXAMPLE -->
@@ -70,6 +70,7 @@
                         </div>
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
                             <input type="hidden"  name="action" value="modifeleve"/>
+                            <input type="hidden" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">les informations de l'élève</h3>
@@ -77,53 +78,50 @@
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label class="lead">Matricule : <c:out value=""/></label>
+                                            <div class="form-group">
+                                                <label class="lead">Matricule : <c:out value="${eleve.matricule}"/></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nom de l'élève</label>
+                                                <input type="text" class="form-control" id="nom" name="Nom" value="<c:out value="${eleve.nom}"/>" placeholder="Saisisser le nom">&nbsp;<i class="fa fa-warning"></i>
+                                            </div>
+                                            <div class="form-group">
+                                                <label><i class="fa fa-warning"></i>Date de Naissance</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Nom de l'élève</label>
-                                                        <input type="text" class="form-control" id="nom" name="Nom" value="<c:out value=""/>" placeholder="Saisisser le nom">&nbsp;<i class="fa fa-warning"></i>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label><i class="fa fa-warning"></i>Date de Naissance</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </div>
-                                                            <input type="text" name="Date_Naiss" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="<c:out value=""/>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label><i class="fa fa-warning"></i>Sexe</label>
-                                                        <select class="form-control select2" style="width: 50%;" name="sexe">
-                                                            <option value="<c:out value=""/>" selected="selected"><c:out value=""/></option>
-                                                            <option value="Masculin">Masculin</option>
-                                                            <option value="Féminin">Féminin</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label>Prénom de l'élève</label>
-                                                        <input type="text" class="form-control" id="prenom" name="Prenom" placeholder="Saisisser le prénom" value="<c:out value=""/>">&nbsp;<i class="fa fa-warning"></i>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nationalité </label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-map"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="Saisisser la nationalité" value="<c:out value=""/>">
-                                                        </div>
-                                                    </div>
+                                                    <input type="text" name="Date_Naiss" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="<c:out value="${eleve.dateNaiss}"/>">
                                                 </div>
                                             </div>
-                                            <!-- /.form-group -->
+                                            <div class="form-group">
+                                                <label><i class="fa fa-warning"></i>Sexe</label>
+                                                <select class="form-control" style="width: 50%;" name="sexe">
+                                                    <option value="<c:out value="${eleve.sexe}"/>" selected="selected"><c:out value="${eleve.sexe}"/></option>
+                                                    <option value="Masculin">Masculin</option>
+                                                    <option value="Féminin">Féminin</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row"></div>   
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Prénom de l'élève</label>
+                                                <input type="text" class="form-control" id="prenom" name="Prenom" placeholder="Saisisser le prénom" value="<c:out value="${eleve.prenom}"/>">&nbsp;<i class="fa fa-warning"></i>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nationalité </label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-map"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="Saisisser la nationalité" value="<c:out value="${eleve.nationalite}"/>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                             <div class="box box-success">
@@ -132,49 +130,46 @@
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label>Nom du tuteur</label>
-                                                            <input type="text" class="form-control" id="nom" name="NomTuteur" placeholder="Saisisser le nom du tuteur" value="<c:out value=""/>">&nbsp;<i class="fa fa-warning"></i>
+                                                <div class="form-group">
+                                                    <label>Nom du tuteur</label>
+                                                    <input type="text" class="form-control" id="nom" name="NomTuteur" placeholder="Saisisser le nom du tuteur" value="<c:out value="${eleve.idTuteur.nomPrenom}"/>">&nbsp;<i class="fa fa-warning"></i>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Prénom du tuteur</label>
+                                                    <input type="text" class="form-control" id="nom" name="PrenomTuteur" placeholder="Saisisser le prénom du tuteur">&nbsp;<i class="fa fa-warning"></i>
+                                                </div>
+                                                <div class="form-group"></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Telephone </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-phone"></i>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label>Prénom du tuteur</label>
-                                                            <input type="text" class="form-control" id="nom" name="PrenomTuteur" placeholder="Saisisser le prénom du tuteur" value="<c:out value=""/>">&nbsp;<i class="fa fa-warning"></i>
-                                                        </div>
-                                                        <div class="form-group"></div>
+                                                        <input type="text" name="telephone" class="form-control" value="<c:out value="${eleve.idTuteur.telephone}"/>" data-inputmask="'mask': ['+99 99 999 9999']" data-mask>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-phone"></i>
-                                                            </div>
-                                                            <input type="text" name="telephone" class="form-control" value="<c:out value=""/>" data-inputmask="'mask': ['+099 99 999 9999']" data-mask>
+                                                </div>   
+                                                <div class="form-group">
+                                                    <label>Adresse </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-map-marker"></i>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label>Adresse </label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-addon">
-                                                                    <i class="fa fa-map-marker"></i>
-                                                                </div>
-                                                                <input type="text" name="Adresse" class="form-control" id="lieu" placeholder="Adresse du tuteur" value="<c:out value=""/>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Relation </label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-addon">
-                                                                    <i class="fa fa-map-marker"></i>
-                                                                </div>
-                                                                <input type="text" name="Relation" class="form-control" id="lieu" placeholder="Saisisser la relation du tuteur" value="<c:out value=""/>">
-                                                            </div>
-                                                        </div>
+                                                        <input type="text" name="Adresse" class="form-control" id="lieu" placeholder="Adresse du tuteur" value="<c:out value="${eleve.idTuteur.adresse}"/>">
                                                     </div>
                                                 </div>
-                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <label>Relation </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-map-marker"></i>
+                                                        </div>
+                                                        <input type="text" name="Relation" class="form-control" id="lieu" placeholder="Saisisser la relation du tuteur" value="<c:out value="${eleve.idTuteur.relation}"/>">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row"></div>
                                     </div>
                                 </div>
                             </div>

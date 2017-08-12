@@ -70,7 +70,8 @@
                         </div>
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
                             <input type="hidden"  name="action" value="modifinscription"/>
-                            <input type="hidden"  name="idAnne" value="<c:out value=""/>"/>
+                            <input type="hidden"  name="idAnnee" value="<c:out value="${Annee.id}"/>"/>
+                            <input type="hidden" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Inscription pour l'année scolaire <c:out value=""/></h3>
@@ -83,10 +84,9 @@
                                                     <div class="form-group">
                                                         <label>Nom de l'élève</label>
                                                         <select name="IdEleve" class="form-control select2" style="width: 100%;">
-                                                            <option value="<c:out value=""/>" selected="selected"><c:out value=""/> <c:out value=""/></option>
                                                             <c:if test="${listeleve.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
-                                                                    <option value="<c:out value=""/>"><c:out value=""/> <c:out value=""/></option>
+                                                                    <option value="<c:out value="${eleve.idEleve}"/>"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></option>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </select>
@@ -96,10 +96,9 @@
                                                     <div class="form-group">
                                                         <label>Salle de Classe</label>
                                                         <select class="form-control select2" style="width: 50%;">
-                                                            <option value="<c:out value=""/>" selected="selected"><c:out value=""/></option>
                                                             <c:if test="${listclasse.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
-                                                                    <option value="<c:out value=""/>"><c:out value=""/></option>
+                                                                    <option value="<c:out value="${classe.idClasse}"/>"><c:out value="${classe.libelle}"/></option>
                                                                 </c:forEach>
                                                             </c:if> 
                                                         </select>

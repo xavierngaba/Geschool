@@ -172,6 +172,8 @@
         <script src="plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
         <script src="js/app.min.js"></script>
+        <!-- Select2 -->
+        <script src="plugins/select2/select2.full.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="js/demo.js"></script>
         <!-- Page script -->

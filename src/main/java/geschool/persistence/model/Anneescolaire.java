@@ -56,6 +56,8 @@ public class Anneescolaire implements Serializable {
     @Column(name = "Date_fin")
     @Temporal(TemporalType.DATE)
     private Date datefin;
+    @Column(name = "actif")
+    private Integer actif;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAnnee")
     private List<Inscrit> inscritList;
 
@@ -99,6 +101,14 @@ public class Anneescolaire implements Serializable {
 
     public void setDatefin(Date datefin) {
         this.datefin = datefin;
+    }
+
+    public Integer getActif() {
+        return actif;
+    }
+
+    public void setActif(Integer actif) {
+        this.actif = actif;
     }
 
     public List<Inscrit> getInscritList() {

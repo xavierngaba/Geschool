@@ -52,9 +52,7 @@ public class EleveDAOImpl implements EleveDAO {
 
     @Override
     public Eleve rechercherUnEleveAvecId(Integer idEleve) {
-        return (Eleve) em.createNamedQuery("Eleve.rechercherUnEleveAvecId")
-                         .setParameter("idEleve", idEleve)
-                         .getSingleResult();
+        return em.find(Eleve.class, idEleve);
     }
 
     @Override
@@ -71,7 +69,7 @@ public class EleveDAOImpl implements EleveDAO {
                  .setParameter("prenom", prenom)
                  .getSingleResult();
     }
-
+  
     @Override
     public Integer rechercherLeNombreTotalEleve() {
         return (Integer) em.createQuery("SELECT count(e.idEleve) FROM Eleve e").getSingleResult();

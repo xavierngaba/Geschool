@@ -16,10 +16,10 @@ import javax.ejb.Local;
 @Local
 public interface TuteurDAO {
     void creerTuteur(Tuteur t);
-    void modifierTuteur(Tuteur t);
+    Tuteur modifierTuteur(Tuteur t);
     List<Tuteur> rechercherTousLesTuteurs();
     Tuteur rechercherTuteurAvecId(Integer idTuteur);
     Tuteur rechercherTuteurAvecTutCode(String tutCode);
-    Integer rechercherLeDernierTuteurAjoute();
-    Integer rechercherLeNombreTotalTuteur();
+    Long rechercherLeDernierTuteurAjoute();
+    Long rechercherLeNombreTotalTuteur();
 }

@@ -42,7 +42,10 @@ public final class InscriptionValidationForm {
     private final Map<String, String> erreurs = new HashMap<>();
     private static final Logger LOG = Logger.getLogger(EleveTuteurValidationForm.class.getName());
 
-    public InscriptionValidationForm(InscritDAO iDAO) {
+    public InscriptionValidationForm(EleveDAO eDAO, ClasseDAO cDAO, SessionDAO sDAO, InscritDAO iDAO) {
+        this.eDAO = eDAO;
+        this.cDAO = cDAO;
+        this.sDAO = sDAO;
         this.iDAO = iDAO;
     }
     
@@ -77,7 +80,7 @@ public final class InscriptionValidationForm {
             setErreur("eleve", "Erreur lors de la récupération de l'eleve");
         }
         try {
-            classe = cDAO.rechercherClasseParId(idClasse);
+            classe = cDAO.rechercherClasseParId(Integer.parseInt(idClasse));
         } catch (Exception e) {
             setErreur("classe", "Erreur lors de la récupération de la classe");
         }
@@ -86,6 +89,8 @@ public final class InscriptionValidationForm {
         i.setIdEleve(eleve);
         try {
             iDAO.creerUneInscription(i);
+            resultat = "L'élève "+eleve.getPrenom()+" "+eleve.getNom()+" "
+                    + "a été bien ajouté dans la salle de classe "+classe.getLibelle()+" pour l'année "+session.getLibelle();
         } catch (Exception e) {
             setErreur("Inscription", "Erreur lors de l'ajout d'une nouvelle inscription");
         }
@@ -110,7 +115,7 @@ public final class InscriptionValidationForm {
             setErreur("eleve", "Erreur lors de la récupération de l'eleve");
         }
         try {
-            classe = cDAO.rechercherClasseParId(idClasse);
+            classe = cDAO.rechercherClasseParId(Integer.parseInt(idClasse));
         } catch (Exception e) {
             setErreur("classe", "Erreur lors de la récupération de la classe");
         }

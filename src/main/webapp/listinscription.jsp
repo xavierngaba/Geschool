@@ -84,11 +84,11 @@
                                             <c:if test="${listinscrit.size() != 0}">
                                                 <c:forEach items="${ requestScope.listinscrit }" var="inscrit" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${inscrit.idElleve.matricule}"/></td>
-                                                        <td><c:out value="${inscrit.idElleve.Nom}"/> <c:out value="${inscrit.idElleve.Prenom}"/></td>
-                                                        <td><c:out value="${inscrit.idClasse.libelle}"/></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.idElleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><c:out value=""/> <c:out value=""/></a></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&idEleve=${inscrit.idElleve.idEleve}&idClasse=${inscrit.idClasse.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><c:out value=""/> <c:out value=""/></a></td>
+                                                        <td><c:out value="${inscrit.getIdEleve().matricule}"/></td>
+                                                        <td><c:out value="${inscrit.getIdEleve().nom}"/> <c:out value="${inscrit.getIdEleve().prenom}"/></td>
+                                                        <td><c:out value="${inscrit.getIdClasse().libelle}"/></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&idEleve=${inscrit.getIdEleve().idEleve}&idClasse=${inscrit.getIdClasse().idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

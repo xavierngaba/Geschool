@@ -112,7 +112,7 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("classeSession")) {
                 request.setAttribute("action", "classeSession");
                 Date dateActuel = new Date();
-                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours(dateActuel));
+                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
             }
             if (action.equals("ajoutsession")) {
@@ -129,7 +129,7 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("listeleve", eDAO.rechercherTousLesEleves());
                 //Envoie de la liste de tous les élèves enregistrés en BDD
                 request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
-                request.setAttribute("Annee", sDAO.chercherSessionEnCours(new Date()));
+                request.setAttribute("Annee", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
             }
             if (action.equals("ajoutprofesseur")) {
@@ -137,43 +137,40 @@ public class AutoServlet extends HttpServlet {
             }
             if (action.equals("ajoutmatiere")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
-                if (action.equals("ajoutfacture")) {
-                    request.setAttribute("action", "ajoutfacture");
-                    this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
-                }
-                if (action.equals("listefacture")) {
-                    request.setAttribute("action", "listefacture");
-                    this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
-                }
-                if (action.equals("modifclasse")) {
-                    String idclasse = request.getParameter("idclasse");
-                    request.setAttribute("action", "modifclasse");
-                    request.setAttribute("idclasse", idclasse);
-                    this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
-                }
-                if (action.equals("modifeleve")) {
-                    String ideleve = request.getParameter("ideleve");
-                    request.setAttribute("action", "modifeleve");
-                    request.setAttribute("ideleve", ideleve);
-                    this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
-                }
-                if (action.equals("modifinscription")) {
-                    String idInscrit = request.getParameter("idInscrit");
-                    request.setAttribute("action", "modifinscription");
-                    request.setAttribute("idInscrit", idInscrit);
-                    this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
-                }
-                if (action.equals("modifmatiere")) {
-                    String idmatiere = request.getParameter("idmatiere");
-                    request.setAttribute("action", "modifmatiere");
-                    request.setAttribute("idmatiere", idmatiere);
-                    this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
-                }
-                if (action.equals("ajoutsessionclasse")) {
-                    Date dateActuel = new Date();
-                    request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours(dateActuel));
-                    this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
-                }
+            }
+
+            if (action.equals("ajoutfacture")) {
+                request.setAttribute("action", "ajoutfacture");
+                this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
+            }
+            if (action.equals("listefacture")) {
+                request.setAttribute("action", "listefacture");
+                this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
+            }
+            if (action.equals("modifclasse")) {
+                String idclasse = request.getParameter("idclasse");
+                request.setAttribute("action", "modifclasse");
+                request.setAttribute("idclasse", idclasse);
+                this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
+            }
+            if (action.equals("modifeleve")) {
+                String ideleve = request.getParameter("ideleve");
+                request.setAttribute("action", "modifeleve");
+                request.setAttribute("ideleve", ideleve);
+                this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
+            }
+            if (action.equals("modifinscription")) {
+                String idInscrit = request.getParameter("idInscrit");
+                request.setAttribute("action", "modifinscription");
+                request.setAttribute("idInscrit", idInscrit);
+                this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
+            }
+            if (action.equals("modifmatiere")) {
+                String idmatiere = request.getParameter("idmatiere");
+                request.setAttribute("action", "modifmatiere");
+                request.setAttribute("idmatiere", idmatiere);
+                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
+            }
             } else {
                 request.setAttribute("action", "unlock");
                 request.setAttribute(ATT_SESSION_USER, session);
@@ -182,14 +179,6 @@ public class AutoServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -217,5 +206,4 @@ public class AutoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

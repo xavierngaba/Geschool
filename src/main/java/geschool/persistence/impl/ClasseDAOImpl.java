@@ -44,7 +44,7 @@ public class ClasseDAOImpl implements ClasseDAO{
     }
 
     @Override
-    public Classe rechercherClasseParId(String id) {
+    public Classe rechercherClasseParId(Integer id) {
         Query query = em.createNamedQuery("Classe.rechercherClasseParId");
         query.setParameter("idClasse", id);
         return (Classe) query.getSingleResult();

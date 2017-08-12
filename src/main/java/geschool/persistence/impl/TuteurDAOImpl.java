@@ -30,14 +30,16 @@ public class TuteurDAOImpl implements TuteurDAO{
     }
 
     @Override
-    public void modifierTuteur(Tuteur t) {
+    public Tuteur modifierTuteur(Tuteur t) {
+        Tuteur t2 = null;
         if(t != null){
-            Tuteur t2 = em.find(Tuteur.class, t.getIdTuteur());
+            t2 = em.find(Tuteur.class, t.getIdTuteur());
             t2.setNomPrenom(t.getNomPrenom());
             t2.setTelephone(t.getTelephone());
             t2.setAdresse(t.getAdresse());
             t2.setTutCode(t.getTutCode());
         }
+        return t2;
     }
 
     @Override
@@ -58,12 +60,12 @@ public class TuteurDAOImpl implements TuteurDAO{
     }
 
     @Override
-    public Integer rechercherLeDernierTuteurAjoute() {
-        return (Integer) em.createQuery("SELECT MAX(t.idTuteur) FROM Tuteur t").getSingleResult();
+    public Long rechercherLeDernierTuteurAjoute() {
+        return (Long) em.createQuery("SELECT MAX(t.idTuteur) FROM Tuteur t").getSingleResult();
     }
 
     @Override
-    public Integer rechercherLeNombreTotalTuteur() {
-        return (Integer) em.createQuery("SELECT COUNT(t.idTuteur) FROM Tuteur t").getSingleResult();
+    public Long rechercherLeNombreTotalTuteur() {
+        return (Long) em.createQuery("SELECT COUNT(t.idTuteur) FROM Tuteur t").getSingleResult();
     }
 }

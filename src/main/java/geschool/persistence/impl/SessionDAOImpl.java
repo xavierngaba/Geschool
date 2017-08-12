@@ -40,16 +40,13 @@ public class SessionDAOImpl implements SessionDAO{
 
     @Override
     public Anneescolaire rechercherUneAvecIdAnneeScolaire(Integer id) {
-        Query query = em.createNamedQuery("Anneescolaire.rechercherUneAvecIdAnneeScolaire");
-        query.setParameter("id", id);
-        return (Anneescolaire) query.getSingleResult();
+        return em.find(Anneescolaire.class, id);
     }
 
     @Override
-    public Anneescolaire chercherSessionEnCours(Date d) {
-        Query query = em.createQuery("SELECT a FROM Anneescolaire a WHERE a.datedebut < :today")
-                         .setParameter("today", d, TemporalType.DATE);
-        return (Anneescolaire) query.getSingleResult();
+    public Anneescolaire chercherSessionEnCours() {
+        return (Anneescolaire) em.createQuery("SELECT a FROM Anneescolaire a WHERE a.actif = 1")
+                                 .getSingleResult();
     }
 
     @Override

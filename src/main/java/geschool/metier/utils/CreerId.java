@@ -37,11 +37,11 @@ public final class CreerId {
         return classeId;
     }
     
-    public static String creerMatriculeEleve(String sessionlibelle, int nbrEleve) throws Exception {
+    public static String creerMatriculeEleve(Long nbrEleve) throws Exception {
         String matriculeEleve = "";
-        if (sessionlibelle != null && nbrEleve != 0) {
+        if (nbrEleve != 0) {
             nbrEleve++;
-            matriculeEleve = ELEVE_MATRICULE.concat(sessionlibelle).concat(String.valueOf(nbrEleve));
+            matriculeEleve = ELEVE_MATRICULE.concat(String.valueOf(nbrEleve));
         } else {
             throw new Exception("le champ libelle est nul");
         }

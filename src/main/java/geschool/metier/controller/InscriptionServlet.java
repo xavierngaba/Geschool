@@ -84,13 +84,13 @@ public class InscriptionServlet extends HttpServlet {
             request.setAttribute("listeleve", eDAO.rechercherTousLesEleves());
             //Envoie de la liste de tous les élèves enregistrés en BDD
             request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
-            request.setAttribute("Annee", sDAO.chercherSessionEnCours(new Date()));
+            request.setAttribute("Annee", sDAO.chercherSessionEnCours());
             this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_MODIFIER_INSCRIPTION).forward(request, response);
         }
         if (action.equals("listinscription")) {
             session.setAttribute(ATT_SESSION_USER, u);
-            List<Inscrit> listSession = iDAO.rechercherToutesLesInscriptions();
-            request.setAttribute("listesession", listSession);
+            List<Inscrit> listinscrit = iDAO.rechercherToutesLesInscriptions();
+            request.setAttribute("listinscrit", listinscrit);
             this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_TABLEAU_INSCRIPTION).forward(request, response);
         }
     }
@@ -110,7 +110,7 @@ public class InscriptionServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if (action.equals("ajouteleve")) {
             try {
-                EleveTuteurValidationForm form = new EleveTuteurValidationForm(eDAO, tDAO);
+                EleveTuteurValidationForm form = new EleveTuteurValidationForm(eDAO, tDAO,sDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.ajouterEleveTuteur(request);
@@ -125,12 +125,13 @@ public class InscriptionServlet extends HttpServlet {
                 }
             } catch (Exception ex) {
                 Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute(MESSAGE, "error");
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_ELEVE).forward(request, response);
             }
         }
         if (action.equals("ajoutinscription")) {
             try {
-                InscriptionValidationForm form = new InscriptionValidationForm(iDAO);
+                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.ajouterInscription(request);
@@ -145,12 +146,13 @@ public class InscriptionServlet extends HttpServlet {
                 }
             } catch (Exception ex) {
                 Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute(MESSAGE, "error");
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
             }
         }
         if (action.equals("modifeleve")) {
             try {
-                EleveTuteurValidationForm form = new EleveTuteurValidationForm(eDAO, tDAO);
+                EleveTuteurValidationForm form = new EleveTuteurValidationForm(eDAO,tDAO,sDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.modiferEleveTuteur(request);
@@ -165,12 +167,13 @@ public class InscriptionServlet extends HttpServlet {
                 }
             } catch (Exception ex) {
                 Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute(MESSAGE, "error");
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_MODIFIER_ELEVE).forward(request, response);
             }
         }
         if (action.equals("modifinscription")) {
             try {
-                InscriptionValidationForm form = new InscriptionValidationForm(iDAO);
+                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.modifierInscription(request);

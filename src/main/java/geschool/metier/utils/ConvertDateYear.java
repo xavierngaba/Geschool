@@ -42,4 +42,11 @@ public final class ConvertDateYear {
         dateListe = formater.parse(DateList);
         return dateListe;
     }
+   
+   public static String DateTransformString (Date date)throws ParseException{
+        String d = "";
+        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
+        d = formater.format(date);
+        return d;
+    }
 }
