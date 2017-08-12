@@ -71,7 +71,7 @@ public class EleveDAOImpl implements EleveDAO {
     }
   
     @Override
-    public Integer rechercherLeNombreTotalEleve() {
-        return (Integer) em.createQuery("SELECT count(e.idEleve) FROM Eleve e").getSingleResult();
+    public Long rechercherLeNombreTotalEleve() {
+        return (Long) em.createQuery("SELECT count(e.idEleve) FROM Eleve e").getSingleResult();
     }
 }
