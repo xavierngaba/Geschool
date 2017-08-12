@@ -17,6 +17,4 @@ public interface EleveDAO {
     Eleve rechercherUnEleveAvecMatricule(String matricule);
     Eleve rechercherUnEleveAvecNomEtPrenom(String nom,String prenom);
     Integer rechercherLeNombreTotalEleve();
-    Eleve findEleveByMat(String matricule);
-    List<Eleve> listeDesEleves();
 }
