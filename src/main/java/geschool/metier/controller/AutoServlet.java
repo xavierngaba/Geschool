@@ -51,19 +51,19 @@ public class AutoServlet extends HttpServlet {
         List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
         List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
         List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
-        if(listClasse != null){
-           request.setAttribute("nblistclasse", listClasse.size()); 
-        }else{
-           request.setAttribute("nblistclasse", 0); 
+        if (listClasse != null) {
+            request.setAttribute("nblistclasse", listClasse.size());
+        } else {
+            request.setAttribute("nblistclasse", 0);
         }
-        if(listeleve != null){
-           request.setAttribute("nblisteleve", listeleve.size());  
-        }else{
+        if (listeleve != null) {
+            request.setAttribute("nblisteleve", listeleve.size());
+        } else {
             request.setAttribute("nblisteleve", 0);
         }
-        if(listInscrit != null){
-           request.setAttribute("nblistinscrit", listInscrit.size());  
-        }else{
+        if (listInscrit != null) {
+            request.setAttribute("nblistinscrit", listInscrit.size());
+        } else {
             request.setAttribute("nblistinscrit", 0);
         }
         int sessionId = Integer.parseInt(request.getParameter("session"));
@@ -100,6 +100,7 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("listinscription")) {
                 request.setAttribute("action", "listinscription");
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
+            }
             if (action.equals("listeprofesseur")) {
                 request.setAttribute("action", "listeprofesseur");
                 this.getServletContext().getRequestDispatcher("/ProfServlet").forward(request, response);
@@ -130,11 +131,13 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
                 request.setAttribute("Annee", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
+            }
             if (action.equals("ajoutprofesseur")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PROFESSEUR).forward(request, response);
             }
             if (action.equals("ajoutmatiere")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
+            }
             if (action.equals("ajoutfacture")) {
                 request.setAttribute("action", "ajoutfacture");
                 this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
@@ -155,37 +158,30 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("ideleve", ideleve);
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
             }
-            if(action.equals("modifinscription")){
+            if (action.equals("modifinscription")) {
                 String idInscrit = request.getParameter("idInscrit");
                 request.setAttribute("action", "modifinscription");
                 request.setAttribute("idInscrit", idInscrit);
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
-            if (action.equals("modifmatiere")) {
-                String idmatiere = request.getParameter("idmatiere");
-                request.setAttribute("action", "modifmatiere");
-                request.setAttribute("idmatiere", idmatiere);
-                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
+                if (action.equals("modifmatiere")) {
+                    String idmatiere = request.getParameter("idmatiere");
+                    request.setAttribute("action", "modifmatiere");
+                    request.setAttribute("idmatiere", idmatiere);
+                    this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
+                }
+                if (action.equals("ajoutsessionclasse")) {
+                    Date dateActuel = new Date();
+                    request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
+                    this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
+                }
+            } else {
+                request.setAttribute("action", "unlock");
+                request.setAttribute(ATT_SESSION_USER, session);
+                this.getServletContext().getRequestDispatcher("/UtilisateurServlet").forward(request, response);
             }
-            if (action.equals("ajoutsessionclasse")) {
-                Date dateActuel = new Date();
-                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
-                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
-            }
-        } else {
-            request.setAttribute("action", "unlock");
-            request.setAttribute(ATT_SESSION_USER, session);
-            this.getServletContext().getRequestDispatcher("/UtilisateurServlet").forward(request, response);
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -213,5 +209,4 @@ public class AutoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

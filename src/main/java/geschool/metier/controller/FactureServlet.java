@@ -52,7 +52,7 @@ public class FactureServlet extends HttpServlet {
         String action = request.getParameter("action");
         
             if (action.equals("ajoutfacture")) {
-                List<Eleve> listEleve = eDAO.listeDesEleves();
+                List<Eleve> listEleve = eDAO.rechercherTousLesEleves();
                 request.setAttribute("listeleve", listEleve);
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_FACTURE).forward(request, response);
             }
@@ -65,7 +65,7 @@ public class FactureServlet extends HttpServlet {
         }
         if (action.equals("geteleve")) {
                 String matricule = request.getParameter("matricule");
-                Eleve eleve = eDAO.findEleveByMat(matricule);
+                Eleve eleve = eDAO.rechercherUnEleveAvecMatricule(matricule);
                 Map data = new HashMap();
                 if (eleve != null) {
                     data.put("ideleve", eleve.getIdEleve());

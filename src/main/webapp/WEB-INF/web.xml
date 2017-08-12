@@ -28,13 +28,12 @@
         <servlet-class>geschool.metier.controller.AutoServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>InscriptionServlet</servlet-name>
         <servlet-class>geschool.metier.controller.InscriptionServlet</servlet-class>
-=======
+   </servlet>
+   <servlet>
         <servlet-name>FactureServlet</servlet-name>
         <servlet-class>geschool.metier.controller.FactureServlet</servlet-class>
->>>>>>> Sprint-02_v2
     </servlet>
     <servlet-mapping>
         <servlet-name>UtilisateurServlet</servlet-name>
@@ -61,13 +60,12 @@
         <url-pattern>/AutoServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>InscriptionServlet</servlet-name>
         <url-pattern>/InscriptionServlet</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>FactureServlet</servlet-name>
         <url-pattern>/FactureServlet</url-pattern>
->>>>>>> Sprint-02_v2
     </servlet-mapping>
     <session-config>
         <session-timeout>
