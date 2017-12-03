@@ -59,6 +59,19 @@
                         </a>
                     </li>
                     <li><a href="<c:url value="/AutoServlet?action=ajouteleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-user-plus"></i> Nouv. Eleve</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="glyphicon glyphicon-education"></i>
+                    <span>Paiement</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i> Liste Paiement</a></li>
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutfacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>
                     <li><a href="<c:url value="/AutoServlet?action=ajoutinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Inscription</a></li>
                 </ul>
             </li>
@@ -156,31 +169,6 @@
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-search"></i> Recherche Notes</a></li>
                     <li><a href="#"><i class="fa fa-plus-square"></i> Nouv. Note</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="glyphicon glyphicon-education"></i>
-                    <span>Facturation</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i> Liste Facture</a></li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajoutfacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Fcture</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-archive"></i>
-                    <span>Bulletin</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-search"></i>Recherche Bulletin</a></li>
                 </ul>
             </li>
         </ul>

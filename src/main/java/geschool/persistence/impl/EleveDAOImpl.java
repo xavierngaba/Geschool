@@ -34,14 +34,7 @@ public class EleveDAOImpl implements EleveDAO {
     @Override
     public void modifEleve(Eleve e) {
         if (e != null) {
-            Eleve el = em.find(Eleve.class, e.getIdEleve());
-            el.setDateNaiss(e.getDateNaiss());
-            el.setNom(e.getNom());
-            el.setPrenom(e.getPrenom());
-            el.setIdTuteur(e.getIdTuteur());
-            el.setAdresses(e.getAdresses());
-            el.setQuantine(e.getQuantine());
-            el.setStatus(e.getStatus());
+            em.merge(e);
         }
     }
 

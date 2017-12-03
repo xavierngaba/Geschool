@@ -88,7 +88,7 @@
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" name="Date_Naiss" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                                    <input type="text" name="Date_Naiss" id="datemask" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                                                 </div>&nbsp;<i class="fa fa-warning"></i>
                                             </div>
                                             <div class="form-group">
@@ -242,7 +242,7 @@
                 //Datemask dd/mm/yyyy
                 $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Datemask2 mm/dd/yyyy
-                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                $("#datemask2").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Money Euro
                 $("[data-mask]").inputmask();
 

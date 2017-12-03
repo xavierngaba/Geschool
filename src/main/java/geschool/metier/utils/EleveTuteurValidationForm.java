@@ -30,6 +30,8 @@ public final class EleveTuteurValidationForm {
     @EJB
     private final SessionDAO sDAO;
     
+    private static final String CHAMP_ID_ELEVE = "ideleve";
+    private static final String CHAMP_ID_TUTEUR = "idtuteur";
     private static final String CHAMP_ELEVE_NOM = "Nom";
     private static final String CHAMP_ELEVE_PRENOM = "Prenom";
     private static final String CHAMP_ELEVE_DATE_NAISSANCE = "Date_Naiss";
@@ -123,6 +125,8 @@ public final class EleveTuteurValidationForm {
     }
     
     public void modiferEleveTuteur(HttpServletRequest request) throws Exception{
+        Integer idEleve = Integer.parseInt(getValeurChamp(request, CHAMP_ID_ELEVE));
+        Integer idTuteur = Integer.parseInt(getValeurChamp(request, CHAMP_ID_TUTEUR));
         String Nom = getValeurChamp(request, CHAMP_ELEVE_NOM);
         String Prenom = getValeurChamp(request, CHAMP_ELEVE_PRENOM);
         String Date_Naiss = getValeurChamp(request, CHAMP_ELEVE_DATE_NAISSANCE);
@@ -133,13 +137,13 @@ public final class EleveTuteurValidationForm {
         String telephone = getValeurChamp(request, CHAMP_TUTEUR_TELEPHONE);
         String Adresse = getValeurChamp(request, CHAMP_TUTEUR_ADRESSE);
         String Relation = getValeurChamp(request, CHAMP_TUTEUR_RELATION);
-        Eleve el = new Eleve();
+        Eleve el = eDAO.rechercherUnEleveAvecId(idEleve);
         el.setNom(Nom);
         el.setPrenom(Prenom);
         el.setDateNaiss(ConvertDateYear.StringTransformDate(Date_Naiss));
         el.setSexe(sexe);
         el.setNationalite(nationalite);
-        Tuteur t = new Tuteur();
+        Tuteur t = tDAO.rechercherTuteurAvecId(idTuteur);
         t.setNomPrenom(NomTuteur.concat(" ").concat(PrenomTuteur));
         t.setTelephone(telephone);
         t.setAdresse(Adresse);
@@ -152,7 +156,7 @@ public final class EleveTuteurValidationForm {
         }
         t.setTutCode(NomTuteur.concat(String.valueOf(nbrMaxTuteur+1)));
         try {
-            t = tDAO.modifierTuteur(t);
+            tDAO.modifierTuteur(t);
         } catch (Exception e) {
             setErreur("tuteur", "Erreur lors de la modification du tuteur");
         }

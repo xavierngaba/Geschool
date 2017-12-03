@@ -188,6 +188,7 @@ public class InscriptionServlet extends HttpServlet {
                 }
             } catch (Exception ex) {
                 Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute(MESSAGE, "error");
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_MODIFIER_INSCRIPTION).forward(request, response);
             }
         }

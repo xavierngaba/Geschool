@@ -71,6 +71,8 @@
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
                             <input type="hidden"  name="action" value="modifeleve"/>
                             <input type="hidden" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
+                            <input type="hidden"  name="ideleve" value="${eleve.idEleve}"/>
+                            <input type="hidden"  name="idtuteur" value="${eleve.idTuteur.idTuteur}"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">les informations de l'élève</h3>
@@ -91,7 +93,7 @@
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" name="Date_Naiss" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="<c:out value="${eleve.dateNaiss}"/>">
+                                                    <input type="text" name="Date_Naiss" class="form-control" id="datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="<c:out value="${eleve.dateNaiss}"/>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -104,6 +106,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label></label>
+                                            </div>
                                             <div class="form-group">
                                                 <label></label>
                                             </div>
@@ -205,13 +210,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 1.0
-                </div>
-                <strong>Copyright &copy; 2017 Geschool</strong> All rights
-                reserved.
-            </footer>
+            <c:import url="vue/footer.jsp"/>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
                  immediately after the control sidebar -->
@@ -253,7 +252,7 @@
                 //Datemask dd/mm/yyyy
                 $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Datemask2 mm/dd/yyyy
-                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                $("#datemask2").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Money Euro
                 $("[data-mask]").inputmask();
 

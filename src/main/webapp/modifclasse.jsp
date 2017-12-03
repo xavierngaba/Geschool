@@ -82,13 +82,14 @@
                                         <div class="form-group">
                                             <div class="input-group">     
                                             <label>libelle Classe</label>                                          
-                                            <input type="text" class="form-control pull-right" id="libelleClasse" name="libelleClasse" value="${requestScope.classe.libelleClasse}"/>
+                                            <input type="text" class="form-control pull-right" id="libelleClasse" name="libelleClasse" value="${requestScope.classe.libelle}"/>
                                             </div>  
                                             <div class="input-group">     
-                                            <label>nombre Eleve Max</label>                                          
-                                                <input type="number" class="form-control pull-right" id="nombreEleveMax" name="nombreEleveMax" value="${requestScope.classe.nombreEleveMax}"/>
+                                                <label>Montant scolarit&eacute;</label>                                          
+                                                <input type="number" class="form-control pull-right" id="nombreEleveMax" name="montant" value="${requestScope.classe.montant}"/>
                                             </div> 
                                                 <input type="hidden" name="action" value="modifclasse"/>
+                                                <input type="hidden" name="idclasse" value="${requestScope.classe.idClasse}"/>
                                                 <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                                         </div>
                                         <!-- /.form-group -->

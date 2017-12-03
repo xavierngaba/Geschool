@@ -50,6 +50,10 @@ public class Classe implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "Libelle")
     private String libelle;
+    @NotNull
+    @Size(min = 1, max = 11)
+    @Column(name = "Montant")
+    private Integer Montant;
     @Size(min = 1, max = 25)
     @Column(name = "Classe_Code")
     private String classeCode;
@@ -83,6 +87,14 @@ public class Classe implements Serializable {
 
     public String getLibelle() {
         return libelle;
+    }
+
+    public Integer getMontant() {
+        return Montant;
+    }
+
+    public void setMontant(Integer Montant) {
+        this.Montant = Montant;
     }
 
     public void setLibelle(String libelle) {

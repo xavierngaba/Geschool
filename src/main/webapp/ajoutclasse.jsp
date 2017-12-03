@@ -85,8 +85,8 @@
                                                 <input type="text" class="form-control pull-right" id="libelleClasse" name="libelleClasse"/>
                                             </div>  
                                             <div class="input-group">     
-                                            <!--<label>nombre Eleve Max</label>                                          
-                                                <input type="number" class="form-control pull-right" id="nombreEleveMax" name="nombreEleveMax"/>-->
+                                            <label>Montant Scolarité</label>                                          
+                                                <input type="text" class="form-control pull-right" id="montant" name="montant"/>
                                             </div>                                            
                                                 <input type="hidden" class="form-control pull-right" name="action" value="ajoutclasse"/>
                                                 <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
