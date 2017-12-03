@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Ines.G
+ * @author IGNES
  */
 @Entity
 @Table(name = "note", catalog = "geschool", schema = "")
@@ -30,7 +31,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Note.findAll", query = "SELECT n FROM Note n"),
     @NamedQuery(name = "Note.findByIdNote", query = "SELECT n FROM Note n WHERE n.idNote = :idNote"),
     @NamedQuery(name = "Note.findByNote", query = "SELECT n FROM Note n WHERE n.note = :note"),
-    @NamedQuery(name = "Note.findByTypeNot", query = "SELECT n FROM Note n WHERE n.typeNot = :typeNot")})
+    @NamedQuery(name = "Note.findByTypeNote", query = "SELECT n FROM Note n WHERE n.typeNote = :typeNote")})
 public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,14 +46,14 @@ public class Note implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "Type_Not")
-    private String typeNot;
-    @JoinColumn(name = "IdInscrit", referencedColumnName = "IdInscrit")
-    @ManyToOne(optional = false)
-    private Inscrit idInscrit;
-    @JoinColumn(name = "IdMatiere", referencedColumnName = "IdMatiere")
-    @ManyToOne(optional = false)
-    private Matiere idMatiere;
+    @Column(name = "Type_Note")
+    private String typeNote;
+    @JoinColumn(name = "IdEleve", referencedColumnName = "IdEleve")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Eleve idEleve;
+    @JoinColumn(name = "IdMatiereClasse", referencedColumnName = "IdMClasse")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Matiereclasse idMatiereClasse;
 
     public Note() {
     }
@@ -61,10 +62,10 @@ public class Note implements Serializable {
         this.idNote = idNote;
     }
 
-    public Note(Integer idNote, int note, String typeNot) {
+    public Note(Integer idNote, int note, String typeNote) {
         this.idNote = idNote;
         this.note = note;
-        this.typeNot = typeNot;
+        this.typeNote = typeNote;
     }
 
     public Integer getIdNote() {
@@ -83,28 +84,28 @@ public class Note implements Serializable {
         this.note = note;
     }
 
-    public String getTypeNot() {
-        return typeNot;
+    public String getTypeNote() {
+        return typeNote;
     }
 
-    public void setTypeNot(String typeNot) {
-        this.typeNot = typeNot;
+    public void setTypeNote(String typeNote) {
+        this.typeNote = typeNote;
     }
 
-    public Inscrit getIdInscrit() {
-        return idInscrit;
+    public Eleve getIdEleve() {
+        return idEleve;
     }
 
-    public void setIdInscrit(Inscrit idInscrit) {
-        this.idInscrit = idInscrit;
+    public void setIdEleve(Eleve idEleve) {
+        this.idEleve = idEleve;
     }
 
-    public Matiere getIdMatiere() {
-        return idMatiere;
+    public Matiereclasse getIdMatiereClasse() {
+        return idMatiereClasse;
     }
 
-    public void setIdMatiere(Matiere idMatiere) {
-        this.idMatiere = idMatiere;
+    public void setIdMatiereClasse(Matiereclasse idMatiereClasse) {
+        this.idMatiereClasse = idMatiereClasse;
     }
 
     @Override

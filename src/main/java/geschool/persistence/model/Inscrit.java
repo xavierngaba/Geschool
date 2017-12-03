@@ -40,8 +40,6 @@ public class Inscrit implements Serializable {
     @Basic(optional = false)
     @Column(name = "IdInscrit")
     private Integer idInscrit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInscrit")
-    private List<Note> noteList;
     @JoinColumn(name = "IdClasse", referencedColumnName = "IdClasse")
     @ManyToOne(optional = false)
     private Classe idClasse;
@@ -61,14 +59,6 @@ public class Inscrit implements Serializable {
 
     public void setIdInscrit(Integer idInscrit) {
         this.idInscrit = idInscrit;
-    }
-
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
     }
 
     public Classe getIdClasse() {

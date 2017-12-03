@@ -40,7 +40,9 @@ public class AutoServlet extends HttpServlet {
     private InscritDAO iDAO;
     @EJB
     private ClasseDAO cDAO;
+    @EJB
     private MatiereDAO mDAO;
+    @EJB
     private ProfesseurDAO pDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
