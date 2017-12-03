@@ -81,8 +81,8 @@
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <div class="input-group">     
-                                            <label>libelle Professeur</label>                                          
-                                                <input type="text" class="form-control pull-right" id="IdProfesseur" name="IdProfesseur"/>
+                                                <label>Nom & Pr&eacute; Professeur</label>                                          
+                                                <input type="text" class="form-control pull-right" id="nomPrenom" name="nomPrenom"/>
                                             </div>  
                                             <div class="input-group">     
                                             <!--<label>nombre Eleve Max</label>                                          

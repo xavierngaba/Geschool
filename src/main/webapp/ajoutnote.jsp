@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Ajout Facture</title>
+        <title>Geschool | Ajout Session</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -34,11 +34,6 @@
         <link rel="stylesheet" href="plugins/iCheck/all.css">
         <!-- Select2 -->
         <link rel="stylesheet" href="plugins/select2/select2.min.css">
-        <!-- Select2 -->
-        <link rel="stylesheet" href="plugins/select2/select2.min.css">
-
-        <!-- Select2 -->
-        <script src="plugins/select2/select2.full.min.js"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,8 +55,8 @@
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <!--<li><a href="<c:url value="/AutoServlet?action=listeclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Salle de classe</a></li>-->
-                        <li class="active">Ajout facture</li>
+                        <li><a href="<c:url value="/AutoServlet?action=listenote&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Note</a></li>
+                        <li class="active">Ajout Note</li>
                     </ol>
                     <br/>
                 </section>
@@ -72,44 +67,38 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Nouvelle facture</h3>
+                            <h3 class="box-title">Nouvelle Note</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
-                        <form action="<c:url value="/FactureServlet"/>" method="post">
+                        <form action="<c:url value="/NoteServlet"/>" method="post">
                             <!-- /.box-header -->
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <!-- /.form-group -->
                                         <div class="form-group">
-                                            <div>
-                                                <label>Code facture</label>                                          
-                                                <input type="text" class="form-control pull-right" id="codefacture" name="codefacture"/>
-                                            </div>  
-
-                                            <div class="form-group">
-                                                <label>Elève</label>
-                                                <select class="form-control select2" name="ideleve" style="width: 100%;">
-                                                    <option value="null" selected="selected"></option>
-                                                    <c:if test="${listeleve.size() != 0}">
-                                                        <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
-                                                            <option value="<c:out value="${eleve.idEleve}"/>"><c:out value="${eleve.prenom}"/> <c:out value="${eleve.nom}"/></option>
-                                                        </c:forEach>
-                                                    </c:if>
-                                                </select>
-                                            </div>
-
-
                                             <div class="input-group">     
-                                                <label>Montant</label>                                          
-                                                <input type="text" class="form-control pull-right" id="montant" name="montant"/>
-                                            </div>                                          
-                                            <input type="hidden" class="form-control pull-right" name="action" value="ajoutfacture"/>
-                                            <input type="hidden" class="form-control pull-right" name="ideleve" id="ideleve"/>
-                                            <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
+                                            <label>Designation</label>                                          
+                                                <input type="text" class="form-control pull-right" id="designation" name="designation"/>
+                                            </div>  
+                                            <div class="input-group">   
+                                                 <label>Classe</label>
+                                            <select class="form-control select2" style="width: 100%;">
+                                                <option selected="selected">Classe</option>
+                                                <option>P1</option>
+                                                <option>P2</option>
+                                                <option>P3</option>
+                                                <option>P4</option>
+                                                <option>P5</option>
+                                            </select>
+                                            <!--<label>nombre Eleve Max</label>                                          
+                                                <input type="number" class="form-control pull-right" id="nombreEleveMax" name="nombreEleveMax"/>-->
+                                            </div>                                            
+                                                <input type="hidden" class="form-control pull-right" name="action" value="ajoutmatiere"/>
+                                                <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                                         </div>
                                         <!-- /.form-group -->
                                     </div>
@@ -170,10 +159,10 @@
         <script src="plugins/iCheck/icheck.min.js"></script>
         <!-- FastClick -->
         <script src="plugins/fastclick/fastclick.js"></script>
-        <!-- AdminLTE App -->
-        <script src="js/app.min.js"></script>
         <!-- Select2 -->
         <script src="plugins/select2/select2.full.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="js/demo.js"></script>
         <!-- Page script -->
@@ -181,10 +170,7 @@
             $(function () {
                 //Date range picker
                 $('#reservation').daterangepicker();
-            });
-
-            $(function () {
-                //Initialize Select2 Elements
+                
                 $(".select2").select2();
             });
         </script>

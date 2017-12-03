@@ -41,7 +41,7 @@ public class ProfesseurDAOImpl implements ProfesseurDAO{
    
      @Override
     public List<Professeur> rechercherTousLesProfesseur() {
-        return em.createNamedQuery("Professeur.rechercherToutsLesProfesseur").getResultList();
+        return em.createNamedQuery("Professeur.rechercherTousLesProfesseur").getResultList();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ProfesseurDAOImpl implements ProfesseurDAO{
     @Override
     public Long verifProfesseurExist(String p) {
         Query query = em.createNamedQuery("Professeur.verifiernom_prenom");
-        query.setParameter("nom_prenom", p);
+        query.setParameter("nomPrenom", p);
         return (Long)query.getSingleResult(); 
     }
 

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -30,8 +28,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Note.findAll", query = "SELECT n FROM Note n"),
     @NamedQuery(name = "Note.findByIdNote", query = "SELECT n FROM Note n WHERE n.idNote = :idNote"),
-    @NamedQuery(name = "Note.findByNote", query = "SELECT n FROM Note n WHERE n.note = :note"),
-    @NamedQuery(name = "Note.findByTypeNote", query = "SELECT n FROM Note n WHERE n.typeNote = :typeNote")})
+    @NamedQuery(name = "Note.findByNote", query = "SELECT n FROM Note n WHERE n.note = :note")})
 public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,17 +40,15 @@ public class Note implements Serializable {
     @NotNull
     @Column(name = "Note")
     private int note;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Type_Note")
-    private String typeNote;
-    @JoinColumn(name = "IdEleve", referencedColumnName = "IdEleve")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Eleve idEleve;
+    @JoinColumn(name = "IdTypeNote", referencedColumnName = "IdTypeNote")
+    @ManyToOne(optional = false)
+    private Typenote idTypeNote;
     @JoinColumn(name = "IdMatiereClasse", referencedColumnName = "IdMClasse")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Matiereclasse idMatiereClasse;
+    @JoinColumn(name = "IdEleve", referencedColumnName = "IdEleve")
+    @ManyToOne(optional = false)
+    private Eleve idEleve;
 
     public Note() {
     }
@@ -62,10 +57,9 @@ public class Note implements Serializable {
         this.idNote = idNote;
     }
 
-    public Note(Integer idNote, int note, String typeNote) {
+    public Note(Integer idNote, int note) {
         this.idNote = idNote;
         this.note = note;
-        this.typeNote = typeNote;
     }
 
     public Integer getIdNote() {
@@ -84,20 +78,12 @@ public class Note implements Serializable {
         this.note = note;
     }
 
-    public String getTypeNote() {
-        return typeNote;
+    public Typenote getIdTypeNote() {
+        return idTypeNote;
     }
 
-    public void setTypeNote(String typeNote) {
-        this.typeNote = typeNote;
-    }
-
-    public Eleve getIdEleve() {
-        return idEleve;
-    }
-
-    public void setIdEleve(Eleve idEleve) {
-        this.idEleve = idEleve;
+    public void setIdTypeNote(Typenote idTypeNote) {
+        this.idTypeNote = idTypeNote;
     }
 
     public Matiereclasse getIdMatiereClasse() {
@@ -106,6 +92,14 @@ public class Note implements Serializable {
 
     public void setIdMatiereClasse(Matiereclasse idMatiereClasse) {
         this.idMatiereClasse = idMatiereClasse;
+    }
+
+    public Eleve getIdEleve() {
+        return idEleve;
+    }
+
+    public void setIdEleve(Eleve idEleve) {
+        this.idEleve = idEleve;
     }
 
     @Override

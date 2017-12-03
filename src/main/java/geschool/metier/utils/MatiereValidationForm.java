@@ -17,17 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 public final class MatiereValidationForm {
 
     @EJB
-    MatiereDAO mDAO;
+    private final MatiereDAO cDAO;
     
-    private static final String CHAMP_designation = "designation";
+    private static final String CHAMP_libelle = "libelleMatiere";
     //private static String CHAMP_NbrEleve = "nombreEleveMax";
 
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
     private static final Logger LOG = Logger.getLogger(MatiereValidationForm.class.getName());
 
-    public MatiereValidationForm(MatiereDAO mDAO) {
-        this.mDAO = mDAO;
+    public MatiereValidationForm(MatiereDAO cDAO) {
+        this.cDAO = cDAO;
     }
 
     public String getResultat() {
@@ -43,38 +43,38 @@ public final class MatiereValidationForm {
     }
 
     public void ajoutMatiere(HttpServletRequest request) throws Exception {
-        String designation = getValeurChamp(request, CHAMP_designation);
+        String libelleMatiere = getValeurChamp(request, CHAMP_libelle);
         //String nombreEleveMax = getValeurChamp(request, CHAMP_NbrEleve);
-        Matiere m = new Matiere();
-        m.setDesignation(designation);
+        Matiere c = new Matiere();
+        c.setDesignation(libelleMatiere);
         //c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
-        //c.setDateCreationMatiere(new Date());
-        if (mDAO.verifMatiereExist(m.getDesignation()) == 0) {
+        //c.setDateCreationClasse(new Date());
+        if (cDAO.verifMatiereExist(c.getDesignation()) == 0L) {
             try {
-                mDAO.creerMatiere(m);
-                resultat = "création de la matière "+m.getDesignation()+" avec succès";
+                cDAO.creerMatiere(c);
+                resultat = "création de la matiere "+c.getDesignation()+" avec succès";
             } catch (Exception e) {
-                setErreur("echec2", "Impossible de créer la matière "+m.getDesignation());
+                setErreur("echec2", "Impossible de créer la matiere "+c.getDesignation());
                 resultat = "echec";
             }
         }else{
-            setErreur("echec1", "La matière "+m.getDesignation()+" existe déjà!");
-            resultat = "La matière "+m.getDesignation()+" existe déjà!";
+            setErreur("echec1", "La matiere "+c.getDesignation()+" existe déjà!");
+            resultat = "La matiere "+c.getDesignation()+" existe déjà!";
         }
     }
 
     public void modifMatiere(HttpServletRequest request) throws Exception {
-        String designation = getValeurChamp(request, CHAMP_designation);
+        String libelleMatiere = getValeurChamp(request, CHAMP_libelle);
         //String nombreEleveMax = getValeurChamp(request, CHAMP_NbrEleve);
-        Matiere m = new Matiere();
-        m.setDesignation(designation);
+        Matiere c = new Matiere();
+        c.setDesignation(libelleMatiere);
         //c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
             try {
-                mDAO.modifierMatiere(m);
-                resultat = "modification de la matière "+m.getDesignation()+" avec succès";
+                cDAO.modifierMatiere(c);
+                resultat = "modification de la matiere "+c.getDesignation()+" avec succès";
             } catch (Exception e) {
-                setErreur("echec", "La matière "+m.getDesignation()+" n'a pas été modifiée");
-                resultat = "La matière "+m.getDesignation()+" n'a pas été modifiée";
+                setErreur("echec", "La matiere "+c.getDesignation()+" n'a pas été modifiée");
+                resultat = "La matiere "+c.getDesignation()+" n'a pas été modifiée";
             }
     }
 

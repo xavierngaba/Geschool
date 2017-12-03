@@ -6,12 +6,9 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,7 +25,7 @@ import javax.validation.constraints.Size;
  * @author IGNES
  */
 @Entity
-@Table(name = "matiereclasse")
+@Table(name = "matiereclasse", catalog = "geschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Matiereclasse.findAll", query = "SELECT m FROM Matiereclasse m"),
     @NamedQuery(name = "Matiereclasse.findByIdMClasse", query = "SELECT m FROM Matiereclasse m WHERE m.idMClasse = :idMClasse"),
@@ -37,7 +33,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Matiereclasse.findByCoef", query = "SELECT m FROM Matiereclasse m WHERE m.coef = :coef"),
     @NamedQuery(name = "Matiereclasse.findByMatCode", query = "SELECT m FROM Matiereclasse m WHERE m.matCode = :matCode")})
 public class Matiereclasse implements Serializable {
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,13 +53,12 @@ public class Matiereclasse implements Serializable {
     @Column(name = "Mat_Code")
     private int matCode;
     @JoinColumn(name = "IdMatiere", referencedColumnName = "IdMatiere")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Matiere idMatiere;
     @JoinColumn(name = "IdClasse", referencedColumnName = "IdClasse")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Classe idClasse;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Note> noteList;
+
     public Matiereclasse() {
     }
 
@@ -150,14 +144,6 @@ public class Matiereclasse implements Serializable {
     @Override
     public String toString() {
         return "geschool.persistence.model.Matiereclasse[ idMClasse=" + idMClasse + " ]";
-    }
-
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
     }
     
 }

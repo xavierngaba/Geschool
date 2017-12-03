@@ -15,10 +15,11 @@ import javax.ejb.Local;
  */
 @Local
 public interface MatiereDAO {
-    void creerMatiere(Matiere m);
-    void modifierMatiere(Matiere m);
+    void creerMatiere(Matiere c);
+    void modifierMatiere(Matiere c);
     List<Matiere> rechercherToutesLesMatieres();
-    Matiere rechercherMatiereParId (String id);
-    Matiere rechercherMatiereParDesignation(String d);
-    Long verifMatiereExist(String d);
+    Matiere rechercherMatiereParId (Integer id);
+    Matiere rechercherMatiereParLibelleMatiere(String l);
+    Long verifMatiereExist(String l);
+//    Integer rechercherLeNombreMaxEleveClasse(Integer id);
 }   

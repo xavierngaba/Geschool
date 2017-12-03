@@ -79,10 +79,10 @@
                                             <c:if test="${listeprofesseur.size() != 0}">
                                                 <c:forEach items="${ requestScope.listeprofesseur }" var="professeur" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${professeur.nom_prenom}"/></td>
+                                                        <td><c:out value="${professeur.nomPrenom}"/></td>
                                                         <!-- <td></td> -->
                                                         <!-- <td></td> -->
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifprofesseur&idprofesseur=${professeur.IdProfesseur}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifprofesseur&idprofesseur=${professeur.idProfesseur}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

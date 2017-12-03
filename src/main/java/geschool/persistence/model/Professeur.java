@@ -6,9 +6,7 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,21 +14,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ines.G
+ * @author IGNES
  */
 @Entity
-@Table(name = "professeur", catalog = "geschool", schema = "")
+@Table(name = "professeur")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Professeur.findAll", query = "SELECT p FROM Professeur p"),
+    @NamedQuery(name = "Professeur.rechercherTousLesProfesseur", query = "SELECT p FROM Professeur p"),
     @NamedQuery(name = "Professeur.findByIdProfesseur", query = "SELECT p FROM Professeur p WHERE p.idProfesseur = :idProfesseur"),
     @NamedQuery(name = "Professeur.findByNomPrenom", query = "SELECT p FROM Professeur p WHERE p.nomPrenom = :nomPrenom"),
+    @NamedQuery(name = "Professeur.verifiernom_prenom", query = "SELECT COUNT(p) FROM Professeur p WHERE p.nomPrenom = :nomPrenom"),
     @NamedQuery(name = "Professeur.findByCodeprof", query = "SELECT p FROM Professeur p WHERE p.codeprof = :codeprof")})
 public class Professeur implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,20 +48,13 @@ public class Professeur implements Serializable {
     @NotNull
     @Column(name = "Code_prof")
     private int codeprof;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProfesseur")
-    private List<Matiere> matiereList;
 
     public Professeur() {
     }
 
-    public Professeur(Integer idProfesseur) {
-        this.idProfesseur = idProfesseur;
-    }
-
-    public Professeur(Integer idProfesseur, String nomPrenom, int codeprof) {
+    public Professeur(Integer idProfesseur, String nomPrenom) {
         this.idProfesseur = idProfesseur;
         this.nomPrenom = nomPrenom;
-        this.codeprof = codeprof;
     }
 
     public Integer getIdProfesseur() {
@@ -86,14 +79,6 @@ public class Professeur implements Serializable {
 
     public void setCodeprof(int codeprof) {
         this.codeprof = codeprof;
-    }
-
-    public List<Matiere> getMatiereList() {
-        return matiereList;
-    }
-
-    public void setMatiereList(List<Matiere> matiereList) {
-        this.matiereList = matiereList;
     }
 
     @Override

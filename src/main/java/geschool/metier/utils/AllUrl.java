@@ -30,7 +30,7 @@ public final class AllUrl {
     public static final String URL_PAGE_MODIFIER_ELEVE = "/editeleve.jsp";
     public static final String URL_PAGE_TABLEAU_ELEVE = "/listeleve.jsp";
     public static final String URL_PAGE_DETAIL_ELEVE = "/detaileleve.jsp";
-    public static final String URL_PAGE_TABLEAU_MATIERE="/listematiere.jsp";
+    public static final String URL_PAGE_TABLEAU_MATIERE="/listmatiere.jsp";
     public static final String URL_PAGE_MODIF_MATIERE="/modifmatiere.jsp";
     public static final String URL_PAGE_AJOUT_MATIERE="/ajoutmatiere.jsp";
     public static final String URL_PAGE_TABLEAU_PROFESSEUR="/listprofesseur.jsp";

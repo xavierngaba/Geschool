@@ -1,7 +1,11 @@
 <%-- 
     Document   : listSessesion
     Created on : 8 juil. 2017, 02:50:32
+<<<<<<< HEAD
+    Author     : ines gnali
+=======
     Author     : Ines.G
+>>>>>>> Sprint-02_v2
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -62,14 +66,14 @@
 
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Tableau Matieres</h3>
+                                    <h3 class="box-title">Tableau des Matieres</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Designation</th>
+                                                <th>Libelle</th>
                                                 <!-- <th>Nombre Max élève</th> -->
                                                 <!-- <th>Date création</th> -->
                                                 <th>Action</th>
@@ -82,8 +86,7 @@
                                                         <td><c:out value="${matiere.designation}"/></td>
                                                         <!-- <td></td> -->
                                                         <!-- <td></td> -->
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifmatiere&idmatiere=${matiere.IdMatiere}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
-                                                                <i class="glyphicon glyphicon-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifmatiere&idmatiere=${matiere.idMatiere}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>
