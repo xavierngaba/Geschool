@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,6 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Matiere.findByDesignation", query = "SELECT m FROM Matiere m WHERE m.designation = :designation"),
     @NamedQuery(name = "Matiere.findByCodmatiere", query = "SELECT m FROM Matiere m WHERE m.codmatiere = :codmatiere")})
 public class Matiere implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,11 +52,11 @@ public class Matiere implements Serializable {
     @NotNull
     @Column(name = "Cod_matiere")
     private int codmatiere;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMatiere")
-    private List<Note> noteList;
     @JoinColumn(name = "IdProfesseur", referencedColumnName = "IdProfesseur")
     @ManyToOne(optional = false)
     private Professeur idProfesseur;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMatiere", fetch = FetchType.LAZY)
+    private List<Matiereclasse> matiereclasseList;
 
     public Matiere() {
     }
@@ -93,14 +95,6 @@ public class Matiere implements Serializable {
         this.codmatiere = codmatiere;
     }
 
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
-    }
-
     public Professeur getIdProfesseur() {
         return idProfesseur;
     }
@@ -132,6 +126,14 @@ public class Matiere implements Serializable {
     @Override
     public String toString() {
         return "geschool.persistence.model.Matiere[ idMatiere=" + idMatiere + " ]";
+    }
+
+    public List<Matiereclasse> getMatiereclasseList() {
+        return matiereclasseList;
+    }
+
+    public void setMatiereclasseList(List<Matiereclasse> matiereclasseList) {
+        this.matiereclasseList = matiereclasseList;
     }
     
 }

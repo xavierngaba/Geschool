@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +39,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Eleve.rechercherUnEleveAvecMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
     @NamedQuery(name = "Eleve.rechercherUnEleveAvecNomEtPrenom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom AND e.prenom = :prenom")})
 public class Eleve implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,6 +112,8 @@ public class Eleve implements Serializable {
     private List<Reglement> reglementList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
     private List<Facture> factureList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve", fetch = FetchType.LAZY)
+    private List<Note> noteList;
 
     public Eleve() {
     }
@@ -285,6 +289,14 @@ public class Eleve implements Serializable {
     @Override
     public String toString() {
         return "Eleve[ idEleve=" + idEleve + " ]";
+    }
+
+    public List<Note> getNoteList() {
+        return noteList;
+    }
+
+    public void setNoteList(List<Note> noteList) {
+        this.noteList = noteList;
     }
     
 }
