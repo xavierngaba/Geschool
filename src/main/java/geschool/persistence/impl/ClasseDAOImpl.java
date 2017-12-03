@@ -31,11 +31,7 @@ public class ClasseDAOImpl implements ClasseDAO{
    
     @Override
     public void modifierClasse(Classe c){
-        String updateQuery = "UPDATE Classe SET libelleClasse = :libelleClasse WHERE c.idClasse = :idClasse";
-        Query query = em.createNamedQuery(updateQuery);
-        query.setParameter("idClasse", c.getIdClasse());
-        query.setParameter("libelleClasse", c.getLibelle());
-        query.executeUpdate();
+        em.merge(c);
     }
 
     @Override

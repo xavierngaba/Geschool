@@ -60,11 +60,11 @@
                         <h2 class="headline text-red">500</h2>
 
                         <div class="error-content">
-                            <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
+                            <h3><i class="fa fa-warning text-red"></i> Oops! Une erreur a &eacute;t&eacute; cr&eacute;&eacute;e</h3>
 
                             <p>
-                                We will work on fixing that right away.
-                                Meanwhile, you may <a href="index.html">return to dashboard</a> or try using the search form.
+                                Vueillez contacter l'administrateur
+                                Ou  <a href="index.html"> rtourner à la page d'accueil</a>
                             </p>
                         </div>
                     </div>

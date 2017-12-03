@@ -74,7 +74,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Libelle</th>
-                                                <!-- <th>Nombre Max élève</th> -->
+                                                <th>Montant Scolarit&eacute;</th>
                                                 <!-- <th>Date création</th> -->
                                                 <th>Action</th>
                                             </tr>
@@ -84,7 +84,7 @@
                                                 <c:forEach items="${ requestScope.listeclasse }" var="classe" varStatus="boucle">
                                                     <tr>
                                                         <td><c:out value="${classe.libelle}"/></td>
-                                                        <!-- <td></td> -->
+                                                        <td><c:out value="${classe.montant}"/></td>
                                                         <!-- <td></td> -->
                                                         <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>

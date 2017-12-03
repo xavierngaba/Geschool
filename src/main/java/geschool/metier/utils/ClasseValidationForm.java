@@ -20,7 +20,8 @@ public final class ClasseValidationForm {
     private final ClasseDAO cDAO;
     
     private static final String CHAMP_libelle = "libelleClasse";
-    //private static String CHAMP_NbrEleve = "nombreEleveMax";
+    private static final String CHAMP_montant = "montant";
+    private static final String ID_CLASSE = "idclasse";
 
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
@@ -44,11 +45,10 @@ public final class ClasseValidationForm {
 
     public void ajoutClasse(HttpServletRequest request) throws Exception {
         String libelleClasse = getValeurChamp(request, CHAMP_libelle);
-        //String nombreEleveMax = getValeurChamp(request, CHAMP_NbrEleve);
+        String montant = getValeurChamp(request, CHAMP_montant);
         Classe c = new Classe();
         c.setLibelle(libelleClasse);
-        //c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
-        //c.setDateCreationClasse(new Date());
+        c.setMontant(Integer.parseInt(montant));
         if (cDAO.verifClasseExist(c.getLibelle()) == 0) {
             try {
                 cDAO.creerClasse(c);
@@ -64,11 +64,12 @@ public final class ClasseValidationForm {
     }
 
     public void modifClasse(HttpServletRequest request) throws Exception {
+        Integer idClasse = Integer.parseInt(getValeurChamp(request, ID_CLASSE));
         String libelleClasse = getValeurChamp(request, CHAMP_libelle);
-        //String nombreEleveMax = getValeurChamp(request, CHAMP_NbrEleve);
-        Classe c = new Classe();
+        String montant = getValeurChamp(request, CHAMP_montant);
+        Classe c = cDAO.rechercherClasseParId(idClasse);
         c.setLibelle(libelleClasse);
-        //c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
+        c.setMontant(Integer.parseInt(montant));
             try {
                 cDAO.modifierClasse(c);
                 resultat = "modification de la classe "+c.getLibelle()+" avec succès";
