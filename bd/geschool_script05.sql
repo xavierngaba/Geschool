@@ -1,0 +1,1 @@
+ALTER TABLE `classe` ADD `Montant` INT NOT NULL AFTER `Libelle`;
