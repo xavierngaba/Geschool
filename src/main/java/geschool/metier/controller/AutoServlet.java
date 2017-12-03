@@ -91,7 +91,7 @@ public class AutoServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
             }
             if (action.equals("detaileleve")) {
-                String idEleve = request.getParameter("idEleve");
+                String idEleve = request.getParameter("ideleve");
                 Eleve e = eDAO.rechercherUnEleveAvecId(Integer.parseInt(idEleve));
                 //Envoie de l'id de l'élève comme paramètre de requête
                 request.setAttribute("eleve", e);

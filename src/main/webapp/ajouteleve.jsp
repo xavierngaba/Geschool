@@ -96,7 +96,7 @@
                                                 <select class="form-control" name="sexe">
                                                     <option value="null" selected="selected"></option>
                                                     <option value="Masculin">Masculin</option>
-                                                    <option value="Féminin">Féminin</option>
+                                                    <option value="Feminin">Féminin</option>
                                                 </select>&nbsp;<i class="fa fa-warning"></i>
                                             </div>
                                         </div>
