@@ -87,12 +87,12 @@
                                                         <td><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></td>
                                                         <td><fmt:formatDate value="${eleve.dateNaiss}" pattern="dd-MM-yyyy" /></td>
                                                         <td><c:out value="${eleve.nationalite}"/></td>
-                                                        <td data-skin="skin-blue" class="btn btn-primary btn-xs">
+                                                        <td>
                                                             <c:if test="${eleve.sexe == 'Masculin'}">
-                                                                <i class="fa fa-male"></i>
+                                                                <c:out value="${eleve.sexe}"/>
                                                             </c:if>
-                                                            <c:if test="${eleve.sexe == 'Féminin'}">
-                                                                <i class="fa fa-female"></i>
+                                                            <c:if test="${eleve.sexe == 'Feminin'}">
+                                                                <c:out value="${eleve.sexe}"/>
                                                             </c:if>
                                                         </td>
                                                         <td><fmt:formatDate value="${eleve.dateinscription}" pattern="dd-MM-yyyy" /></td>
