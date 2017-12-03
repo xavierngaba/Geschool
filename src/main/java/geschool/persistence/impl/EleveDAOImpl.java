@@ -62,9 +62,9 @@ public class EleveDAOImpl implements EleveDAO {
                  .setParameter("prenom", prenom)
                  .getSingleResult();
     }
-
+  
     @Override
     public Long rechercherLeNombreTotalEleve() {
-        return (Long) em.createQuery("SELECT COUNT(e.idEleve) FROM Eleve e").getSingleResult();
+        return (Long) em.createQuery("SELECT count(e.idEleve) FROM Eleve e").getSingleResult();
     }
 }

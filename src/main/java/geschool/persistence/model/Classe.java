@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,6 +37,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Classe.verifierLibelleClasse", query = "SELECT COUNT(c) FROM Classe c WHERE c.libelle = :libelleClasse"),
     @NamedQuery(name = "Classe.findByClasseCode", query = "SELECT c FROM Classe c WHERE c.classeCode = :classeCode")})
 public class Classe implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClasse", fetch = FetchType.LAZY)
+    private List<Matiereclasse> matiereclasseList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -145,6 +148,14 @@ public class Classe implements Serializable {
     @Override
     public String toString() {
         return "geschool.persistence.model.Classe[ idClasse=" + idClasse + " ]";
+    }
+
+    public List<Matiereclasse> getMatiereclasseList() {
+        return matiereclasseList;
+    }
+
+    public void setMatiereclasseList(List<Matiereclasse> matiereclasseList) {
+        this.matiereclasseList = matiereclasseList;
     }
     
 }

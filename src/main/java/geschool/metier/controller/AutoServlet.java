@@ -40,7 +40,9 @@ public class AutoServlet extends HttpServlet {
     private InscritDAO iDAO;
     @EJB
     private ClasseDAO cDAO;
+    @EJB
     private MatiereDAO mDAO;
+    @EJB
     private ProfesseurDAO pDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
@@ -134,6 +136,7 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("ajoutmatiere")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
             }
+
             if (action.equals("ajoutfacture")) {
                 request.setAttribute("action", "ajoutfacture");
                 this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);
@@ -173,6 +176,7 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
             }
+
             } else {
                 request.setAttribute("action", "unlock");
                 request.setAttribute(ATT_SESSION_USER, session);
