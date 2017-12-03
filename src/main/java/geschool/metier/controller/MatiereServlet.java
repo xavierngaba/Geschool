@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 public class MatiereServlet extends HttpServlet {
     @EJB
-    private MatiereDAO mDAO;
+    private MatiereDAO cDAO;
     @EJB
     private UtilisateurDAO uDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
@@ -52,7 +52,7 @@ public class MatiereServlet extends HttpServlet {
         String action = request.getParameter("action");
         if(action.equals("listematiere")){
             session.setAttribute( ATT_SESSION_USER, u );
-            List<Matiere> listMatiere = mDAO.rechercherToutesLesMatieres();
+            List<Matiere> listMatiere = cDAO.rechercherToutesLesMatieres();
             request.setAttribute("listematiere", listMatiere); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_MATIERE ).forward( request, response );
         }
@@ -60,7 +60,7 @@ public class MatiereServlet extends HttpServlet {
         if(action.equals("modifmatiere")){
             session.setAttribute( ATT_SESSION_USER, u );
             String idmatiere = request.getParameter("idmatiere");
-            Matiere c = mDAO.rechercherMatiereParId(idmatiere);
+            Matiere c = cDAO.rechercherMatiereParId(Integer.parseInt(idmatiere));
             request.setAttribute("matiere", c); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_MODIF_MATIERE ).forward( request, response );
         }
@@ -82,7 +82,7 @@ public class MatiereServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(action.equals("ajoutmatiere")){
             try {
-                MatiereValidationForm form = new MatiereValidationForm(mDAO);
+                MatiereValidationForm form = new MatiereValidationForm(cDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.ajoutMatiere(request);
@@ -102,7 +102,7 @@ public class MatiereServlet extends HttpServlet {
         
         if(action.equals("modifmatiere")){
             try {
-                MatiereValidationForm form = new MatiereValidationForm(mDAO);
+                MatiereValidationForm form = new MatiereValidationForm(cDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.modifMatiere(request);

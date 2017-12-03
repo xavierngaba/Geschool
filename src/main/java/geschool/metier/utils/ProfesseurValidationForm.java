@@ -19,12 +19,12 @@ public final class ProfesseurValidationForm {
     @EJB
     ProfesseurDAO pDAO;
     
-    private static final String CHAMP_nom_prenom = "nom_prenom";
+    private static final String CHAMP_nom_prenom = "nomPrenom";
     //private static String CHAMP_NbrEleve = "nombreEleveMax";
 
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
-    private static final Logger LOG = Logger.getLogger(ClasseValidationForm.class.getName());
+    private static final Logger LOG = Logger.getLogger(ProfesseurValidationForm.class.getName());
 
     public ProfesseurValidationForm(ProfesseurDAO pDAO) {
         this.pDAO = pDAO;
@@ -49,7 +49,7 @@ public final class ProfesseurValidationForm {
         p.setNomPrenom(nomPrenom);
         //c.setNombreEleveMax(Integer.parseInt(nombreEleveMax));
         //c.setDateCreationClasse(new Date());
-        if (pDAO.verifProfesseurExist(p.getNomPrenom()) == 0) {
+        if (pDAO.verifProfesseurExist(p.getNomPrenom()) == 0L) {
             try {
                 pDAO.creerProfesseur(p);
                 resultat = "création du prof "+p.getNomPrenom()+" avec succès";

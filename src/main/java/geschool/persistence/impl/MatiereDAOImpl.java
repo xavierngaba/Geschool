@@ -23,18 +23,18 @@ public class MatiereDAOImpl implements MatiereDAO{
     private EntityManager em;
     
     @Override
-   public void creerMatiere(Matiere m){
-         if(m != null){
-           em.persist(m);
+   public void creerMatiere(Matiere c){
+         if(c != null){
+           em.persist(c);
         }  
    }
    
     @Override
-    public void modifierMatiere(Matiere m){
-        String updateQuery = "UPDATE Matiere SET designation = :designation WHERE c.idMatiere = :idMatiere";
+    public void modifierMatiere(Matiere c){
+        String updateQuery = "UPDATE Matiere SET libelleMatiere = :libelleMatiere WHERE c.idMatiere = :idMatiere";
         Query query = em.createNamedQuery(updateQuery);
-        query.setParameter("idMatiere", m.getIdMatiere());
-        query.setParameter("designation", m.getDesignation());
+        query.setParameter("idMatiere", c.getIdMatiere());
+        query.setParameter("libelleMatiere", c.getDesignation());
         query.executeUpdate();
     }
 
@@ -44,25 +44,31 @@ public class MatiereDAOImpl implements MatiereDAO{
     }
 
     @Override
-    public Matiere rechercherMatiereParId(String id) {
-        Query query = em.createNamedQuery("Classe.rechercherMatiereParId");
+    public Matiere rechercherMatiereParId(Integer id) {
+        Query query = em.createNamedQuery("Matiere.rechercherMatiereParId");
         query.setParameter("idMatiere", id);
         return (Matiere) query.getSingleResult();
     }
 
     @Override
-    public Matiere rechercherMatiereParDesignation(String d) {
+    public Matiere rechercherMatiereParLibelleMatiere(String l) {
         Query query = em.createNamedQuery("Matiere.rechercherMatiereParId");
-        query.setParameter("designation", d);
+        query.setParameter("libelleMatiere", l);
         return (Matiere) query.getSingleResult();
     }
 
     @Override
-    public Long verifMatiereExist(String d) {
-        Query query = em.createNamedQuery("Matiere.verifierdesignation");
-        query.setParameter("designation", d);
+    public Long verifMatiereExist(String l) {
+        Query query = em.createNamedQuery("Matiere.verifierDesignation");
+        query.setParameter("designation", l);
         return (Long)query.getSingleResult(); 
     }
 
+//    @Override
+//    public Integer rechercherLeNombreMaxEleveMatiere(Integer id) {
+//        Query query = em.createNamedQuery("Classe.rechercherLeNombreMaxEleveClasse");
+//        query.setParameter("nombreEleveMax", id);
+//        return (Integer) query.getSingleResult(); 
+//    }
 }
 

@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Ajout Session</title>
+        <title>Geschool | Ajout Matiere</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -56,7 +56,7 @@
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="<c:url value="/AutoServlet?action=listematiere&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Matiere</a></li>
-                        <li class="active">Ajout matiere</li>
+                        <li class="active">Ajout Matiere</li>
                     </ol>
                     <br/>
                 </section>
@@ -82,18 +82,9 @@
                                         <div class="form-group">
                                             <div class="input-group">     
                                             <label>Designation</label>                                          
-                                                <input type="text" class="form-control pull-right" id="designation" name="designation"/>
+                                                <input type="text" class="form-control pull-right" id="libelleMatiere" name="libelleMatiere"/>
                                             </div>  
-                                            <div class="input-group">   
-                                                 <label> Professeur</label>
-                                            <select class="form-control select2" style="width: 100%;">
-                                                <option selected="selected">Professeur</option>
-                                                <option>P1</option>
-                                                <option>P2</option>
-                                                <option>P3</option>
-                                                <option>P4</option>
-                                                <option>P5</option>
-                                            </select>
+                                            <div class="input-group">     
                                             <!--<label>nombre Eleve Max</label>                                          
                                                 <input type="number" class="form-control pull-right" id="nombreEleveMax" name="nombreEleveMax"/>-->
                                             </div>                                            
@@ -159,8 +150,6 @@
         <script src="plugins/iCheck/icheck.min.js"></script>
         <!-- FastClick -->
         <script src="plugins/fastclick/fastclick.js"></script>
-        <!-- Select2 -->
-        <script src="plugins/select2/select2.full.min.js"></script>
         <!-- AdminLTE App -->
         <script src="js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
@@ -170,8 +159,6 @@
             $(function () {
                 //Date range picker
                 $('#reservation').daterangepicker();
-                
-                $(".select2").select2();
             });
         </script>
     </body>

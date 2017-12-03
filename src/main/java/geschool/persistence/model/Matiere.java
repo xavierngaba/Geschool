@@ -1,4 +1,4 @@
-                  /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,32 +11,33 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ines.G
+ * @author IGNES
  */
 @Entity
-@Table(name = "matiere", catalog = "geschool", schema = "")
+@Table(name = "matiere")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Matiere.findAll", query = "SELECT m FROM Matiere m"),
+    @NamedQuery(name = "Matiere.rechercherToutesLesMatieres", query = "SELECT m FROM Matiere m"),
     @NamedQuery(name = "Matiere.findByIdMatiere", query = "SELECT m FROM Matiere m WHERE m.idMatiere = :idMatiere"),
     @NamedQuery(name = "Matiere.findByDesignation", query = "SELECT m FROM Matiere m WHERE m.designation = :designation"),
+    @NamedQuery(name = "Matiere.verifierDesignation", query = "SELECT COUNT(m) FROM Matiere m WHERE m.designation = :designation"),
     @NamedQuery(name = "Matiere.findByCodmatiere", query = "SELECT m FROM Matiere m WHERE m.codmatiere = :codmatiere")})
 public class Matiere implements Serializable {
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMatiere")
+    private List<Matiereclasse> matiereclasseList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,11 +53,6 @@ public class Matiere implements Serializable {
     @NotNull
     @Column(name = "Cod_matiere")
     private int codmatiere;
-    @JoinColumn(name = "IdProfesseur", referencedColumnName = "IdProfesseur")
-    @ManyToOne(optional = false)
-    private Professeur idProfesseur;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMatiere", fetch = FetchType.LAZY)
-    private List<Matiereclasse> matiereclasseList;
 
     public Matiere() {
     }
@@ -93,14 +89,6 @@ public class Matiere implements Serializable {
 
     public void setCodmatiere(int codmatiere) {
         this.codmatiere = codmatiere;
-    }
-
-    public Professeur getIdProfesseur() {
-        return idProfesseur;
-    }
-
-    public void setIdProfesseur(Professeur idProfesseur) {
-        this.idProfesseur = idProfesseur;
     }
 
     @Override

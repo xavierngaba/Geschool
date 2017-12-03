@@ -53,6 +53,8 @@ public class AutoServlet extends HttpServlet {
         List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
         List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
         List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
+        List<Professeur> listprofesseur= pDAO.rechercherTousLesProfesseur();
+        List<Matiere> listmatiere=mDAO.rechercherToutesLesMatieres();
         if (listClasse != null) {
             request.setAttribute("nblistclasse", listClasse.size());
         } else {
@@ -62,6 +64,16 @@ public class AutoServlet extends HttpServlet {
             request.setAttribute("nblisteleve", listeleve.size());
         } else {
             request.setAttribute("nblisteleve", 0);
+        }
+        if (listprofesseur != null) {
+            request.setAttribute("nblistprofesseur", listprofesseur.size());
+        } else {
+            request.setAttribute("nblistprofesseur", 0);
+        } 
+        if (listmatiere != null) {
+            request.setAttribute("nblistmatiere", listmatiere.size());
+        } else {
+            request.setAttribute("nblistmatiere", 0);
         }
         if (listInscrit != null) {
             request.setAttribute("nblistinscrit", listInscrit.size());

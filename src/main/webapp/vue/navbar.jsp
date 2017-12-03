@@ -109,12 +109,12 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    
                     <li>
-                    <li><a href="<c:url value="/AutoServlet?action=listeprofesseur&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
-                            <i class="fa fa-table"></i>
-                            <span>Liste des Professeur</span>
+                    <li><a href="<c:url value="/AutoServlet?action=listeprofesseur&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
+                            <span>Liste des Professeurs</span>
                             <span class="pull-right-container">
-                                <span class="label label-primary pull-right">4</span>
+                                 <span class="label label-primary pull-right"><c:out value="${nblistprofesseur}"/></span>
                             </span>
                         </a>
                     </li>
