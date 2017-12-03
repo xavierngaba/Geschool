@@ -13,7 +13,6 @@ import geschool.persistence.model.Anneescolaire;
 import geschool.persistence.model.Classe;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
-import geschool.persistence.model.Tuteur;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -26,14 +25,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class InscriptionValidationForm {
     @EJB
-    private EleveDAO eDAO;
+    private final EleveDAO eDAO;
     @EJB
-    private ClasseDAO cDAO;
+    private final ClasseDAO cDAO;
     @EJB
-    private SessionDAO sDAO;
+    private final SessionDAO sDAO;
     @EJB
     private final InscritDAO iDAO;
     
+    private static final String CHAMP_ID_INSCRIT = "idInscrit";
     private static final String CHAMP_ID_ANNEE = "idAnnee";
     private static final String CHAMP_ID_ELEVE = "idEleve";
     private static final String CHAMP_ID_CLASSE = "idClasse";
@@ -97,13 +97,14 @@ public final class InscriptionValidationForm {
     }
     
     public void modifierInscription(HttpServletRequest request) throws Exception{
+        String idInscrit = getValeurChamp(request, CHAMP_ID_INSCRIT);
         String idAnnee = getValeurChamp(request, CHAMP_ID_ANNEE);
         String idEleve = getValeurChamp(request, CHAMP_ID_ELEVE);
         String idClasse = getValeurChamp(request, CHAMP_ID_CLASSE);
         Anneescolaire session = new Anneescolaire();
-        Eleve eleve = new Eleve();
-        Classe classe = new Classe();
-        Inscrit i = new Inscrit();
+        Eleve eleve = eDAO.rechercherUnEleveAvecId(Integer.parseInt(idEleve));
+        Classe classe = cDAO.rechercherClasseParId(Integer.parseInt(idClasse));
+        Inscrit i = iDAO.rechercherInscritAvecId(Integer.parseInt(idInscrit));
         try {
             session = sDAO.rechercherUneAvecIdAnneeScolaire(Integer.parseInt(idAnnee));
         } catch (Exception e) {

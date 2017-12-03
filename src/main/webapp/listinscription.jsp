@@ -88,7 +88,7 @@
                                                         <td><c:out value="${inscrit.getIdEleve().nom}"/> <c:out value="${inscrit.getIdEleve().prenom}"/></td>
                                                         <td><c:out value="${inscrit.getIdClasse().libelle}"/></td>
                                                         <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&idEleve=${inscrit.getIdEleve().idEleve}&idClasse=${inscrit.getIdClasse().idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

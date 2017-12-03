@@ -30,16 +30,10 @@ public class TuteurDAOImpl implements TuteurDAO{
     }
 
     @Override
-    public Tuteur modifierTuteur(Tuteur t) {
-        Tuteur t2 = null;
+    public void modifierTuteur(Tuteur t) {
         if(t != null){
-            t2 = em.find(Tuteur.class, t.getIdTuteur());
-            t2.setNomPrenom(t.getNomPrenom());
-            t2.setTelephone(t.getTelephone());
-            t2.setAdresse(t.getAdresse());
-            t2.setTutCode(t.getTutCode());
+            em.merge(t);
         }
-        return t2;
     }
 
     @Override

@@ -60,7 +60,7 @@
                         <li class="active">Inscription élève</li>
                     </ol>
                 </section>
-
+                <br/>
                 <!-- Main content -->
                 <section class="content">
                     <!-- SELECT2 EXAMPLE -->
@@ -70,11 +70,12 @@
                         </div>
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
                             <input type="hidden"  name="action" value="modifinscription"/>
-                            <input type="hidden"  name="idAnnee" value="<c:out value="${Annee.id}"/>"/>
-                            <input type="hidden" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
+                            <input type="hidden"  name="idAnnee" value="${Annee.id}"/>
+                            <input type="hidden"  name="idInscrit" value="${inscrit.idInscrit}"/>
+                            <input type="hidden"  name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Inscription pour l'année scolaire <c:out value=""/></h3>
+                                    <h3 class="box-title">Modification d'une inscription pour l'année scolaire <c:out value=""/></h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
@@ -82,8 +83,9 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <label>Nom de l'élève</label>
-                                                        <select name="IdEleve" class="form-control select2" style="width: 100%;">
+                                                        <label>L'élève : <c:out value="${inscrit.idEleve.nom}"/> &nbsp;<c:out value="${inscrit.idEleve.prenom}"/></label>
+                                                        <br/>
+                                                        <select name="idEleve" class="form-control select2" style="width: 50%;">
                                                             <c:if test="${listeleve.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
                                                                     <option value="<c:out value="${eleve.idEleve}"/>"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></option>
@@ -94,8 +96,9 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Salle de Classe</label>
-                                                        <select class="form-control select2" style="width: 50%;">
+                                                        <label>Salle de Classe : <c:out value="${inscrit.idClasse.libelle}"/></label>
+                                                        <br/>
+                                                        <select name="idClasse" class="form-control select2" style="width: 50%;">
                                                             <c:if test="${listclasse.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
                                                                     <option value="<c:out value="${classe.idClasse}"/>"><c:out value="${classe.libelle}"/></option>
@@ -126,9 +129,6 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                     <h4><i class="icon fa fa-ban"></i> Alert!</h4>
                                     <c:out value="${form.erreurs}"/>
-                                    <c:forEach items="${ requestScope.listerreur }" var="erreur" varStatus="boucle">
-
-                                    </c:forEach>
                                 </div>
                             </c:if>
                             <c:if test="${message == 'success'}">

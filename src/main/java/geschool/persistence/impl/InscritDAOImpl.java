@@ -31,9 +31,7 @@ public class InscritDAOImpl implements InscritDAO{
 
     @Override
     public void modifierUneInscription(Inscrit i) {
-        Inscrit i2 = em.find(Inscrit.class, i.getIdInscrit());
-        i2.setIdClasse(i.getIdClasse());
-        i2.setIdEleve(i.getIdEleve());
+        em.merge(i);
     }
 
     @Override

@@ -97,10 +97,6 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("eleve", e);
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_DETAIL_ELEVE).forward(request, response);
             }
-            if (action.equals("listinscription")) {
-                request.setAttribute("action", "listinscription");
-                this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
-            }
             if (action.equals("listeprofesseur")) {
                 request.setAttribute("action", "listeprofesseur");
                 this.getServletContext().getRequestDispatcher("/ProfServlet").forward(request, response);
@@ -154,8 +150,10 @@ public class AutoServlet extends HttpServlet {
             }
             if (action.equals("modifeleve")) {
                 String ideleve = request.getParameter("ideleve");
+                String idtuteur = request.getParameter("idtuteur");
                 request.setAttribute("action", "modifeleve");
                 request.setAttribute("ideleve", ideleve);
+                request.setAttribute("idtuteur", idtuteur);
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
             }
             if (action.equals("modifinscription")) {
@@ -163,23 +161,23 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("action", "modifinscription");
                 request.setAttribute("idInscrit", idInscrit);
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
-                if (action.equals("modifmatiere")) {
-                    String idmatiere = request.getParameter("idmatiere");
-                    request.setAttribute("action", "modifmatiere");
-                    request.setAttribute("idmatiere", idmatiere);
-                    this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
-                }
-                if (action.equals("ajoutsessionclasse")) {
-                    Date dateActuel = new Date();
-                    request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
-                    this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
-                }
+            }
+            if (action.equals("modifmatiere")) {
+                String idmatiere = request.getParameter("idmatiere");
+                request.setAttribute("action", "modifmatiere");
+                request.setAttribute("idmatiere", idmatiere);
+                this.getServletContext().getRequestDispatcher("/MatiereServlet").forward(request, response);
+            }
+            if (action.equals("ajoutsessionclasse")) {
+                Date dateActuel = new Date();
+                request.setAttribute("sessionClasse", sDAO.chercherSessionEnCours());
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_CLASSE).forward(request, response);
+            }
             } else {
                 request.setAttribute("action", "unlock");
                 request.setAttribute(ATT_SESSION_USER, session);
                 this.getServletContext().getRequestDispatcher("/UtilisateurServlet").forward(request, response);
             }
-        }
     }
 
     @Override
