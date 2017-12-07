@@ -44,18 +44,17 @@ public class FactureServlet extends HttpServlet {
     public static final String MESSAGE = "message";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         int sessionId = Integer.parseInt(request.getParameter("session"));
         Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
         
-            if (action.equals("ajoutfacture")) {
-                List<Eleve> listEleve = eDAO.rechercherTousLesEleves();
-                request.setAttribute("listeleve", listEleve);
-                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_FACTURE).forward(request, response);
-            }
+        if (action.equals("ajoutfacture")) {
+            List<Eleve> listEleve = eDAO.rechercherTousLesEleves();
+            request.setAttribute("listeleve", listEleve);
+            this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_FACTURE).forward(request, response);
+        }
             
         if(action.equals("listefacture")){
             session.setAttribute( ATT_SESSION_USER, u );

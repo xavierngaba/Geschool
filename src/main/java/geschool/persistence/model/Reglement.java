@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Ines.G
+ * @author xavier_ng
  */
 @Entity
 @Table(name = "reglement", catalog = "geschool", schema = "")
@@ -35,8 +35,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Reglement.findByRegCode", query = "SELECT r FROM Reglement r WHERE r.regCode = :regCode"),
     @NamedQuery(name = "Reglement.findByRegDate", query = "SELECT r FROM Reglement r WHERE r.regDate = :regDate"),
     @NamedQuery(name = "Reglement.findByRegMontant", query = "SELECT r FROM Reglement r WHERE r.regMontant = :regMontant"),
-    @NamedQuery(name = "Reglement.findByRegType", query = "SELECT r FROM Reglement r WHERE r.regType = :regType"),
+    @NamedQuery(name = "Reglement.findByEleveInscrit", query = "SELECT r FROM Reglement r WHERE r.regMontant != 0"),
     @NamedQuery(name = "Reglement.findByRegref", query = "SELECT r FROM Reglement r WHERE r.regref = :regref"),
+    @NamedQuery(name = "Reglement.findByIdEleve", query = "SELECT r FROM Reglement r WHERE r.idEleves.idEleve = :idEleve"),
     @NamedQuery(name = "Reglement.findByRegCategories", query = "SELECT r FROM Reglement r WHERE r.regCategories = :regCategories")})
 public class Reglement implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,7 +49,7 @@ public class Reglement implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "Reg_Code")
-    private int regCode;
+    private String regCode;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Reg_Date")
@@ -61,18 +62,15 @@ public class Reglement implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "Reg_Type")
-    private String regType;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "Reg_ref")
     private String regref;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "Reg_Categories")
     private String regCategories;
+    @JoinColumn(name = "Reg_Type", referencedColumnName = "idTypeReglement")
+    @ManyToOne(optional = false)
+    private Typereglement regType;
     @JoinColumn(name = "IdEleves", referencedColumnName = "IdEleve")
     @ManyToOne(optional = false)
     private Eleve idEleves;
@@ -80,16 +78,11 @@ public class Reglement implements Serializable {
     public Reglement() {
     }
 
-    public Reglement(Integer idReglement) {
-        this.idReglement = idReglement;
-    }
-
-    public Reglement(Integer idReglement, int regCode, Date regDate, int regMontant, String regType, String regref, String regCategories) {
+    public Reglement(Integer idReglement, String regCode, Date regDate, int regMontant, String regref, String regCategories) {
         this.idReglement = idReglement;
         this.regCode = regCode;
         this.regDate = regDate;
         this.regMontant = regMontant;
-        this.regType = regType;
         this.regref = regref;
         this.regCategories = regCategories;
     }
@@ -102,11 +95,11 @@ public class Reglement implements Serializable {
         this.idReglement = idReglement;
     }
 
-    public int getRegCode() {
+    public String getRegCode() {
         return regCode;
     }
 
-    public void setRegCode(int regCode) {
+    public void setRegCode(String regCode) {
         this.regCode = regCode;
     }
 
@@ -126,14 +119,6 @@ public class Reglement implements Serializable {
         this.regMontant = regMontant;
     }
 
-    public String getRegType() {
-        return regType;
-    }
-
-    public void setRegType(String regType) {
-        this.regType = regType;
-    }
-
     public String getRegref() {
         return regref;
     }
@@ -148,6 +133,14 @@ public class Reglement implements Serializable {
 
     public void setRegCategories(String regCategories) {
         this.regCategories = regCategories;
+    }
+
+    public Typereglement getRegType() {
+        return regType;
+    }
+
+    public void setRegType(Typereglement regType) {
+        this.regType = regType;
     }
 
     public Eleve getIdEleves() {

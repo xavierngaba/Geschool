@@ -11,14 +11,16 @@ import geschool.metier.utils.InscriptionValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.interfaces.InscritDAO;
+import geschool.persistence.interfaces.ReglementDAO;
 import geschool.persistence.interfaces.SessionDAO;
 import geschool.persistence.interfaces.TuteurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
+import geschool.persistence.model.Reglement;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +49,8 @@ public class InscriptionServlet extends HttpServlet {
     private ClasseDAO cDAO;
     @EJB
     private SessionDAO sDAO;
+    @EJB
+    private ReglementDAO rDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
     public static final String ATT_FORM = "form";
     public static final String MESSAGE = "message";
@@ -90,7 +94,13 @@ public class InscriptionServlet extends HttpServlet {
         if (action.equals("listinscription")) {
             session.setAttribute(ATT_SESSION_USER, u);
             List<Inscrit> listinscrit = iDAO.rechercherToutesLesInscriptions();
-            request.setAttribute("listinscrit", listinscrit);
+            List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
+            for (Inscrit inscrit : listinscrit) {
+                if(inscrit.getIdEleve().getDette() > 0){
+                    listeleveinscrit.add(inscrit);
+                }
+            }
+            request.setAttribute("listeleveinscrit", listeleveinscrit);
             this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_TABLEAU_INSCRIPTION).forward(request, response);
         }
     }
@@ -131,7 +141,7 @@ public class InscriptionServlet extends HttpServlet {
         }
         if (action.equals("ajoutinscription")) {
             try {
-                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO);
+                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO, rDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.ajouterInscription(request);
@@ -148,6 +158,27 @@ public class InscriptionServlet extends HttpServlet {
                 Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
                 request.setAttribute(MESSAGE, "error");
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
+            }
+        }
+        if (action.equals("ajoutpaiement")) {
+            try {
+                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO, rDAO);
+                Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
+                /* Traitement de la requête et récupération du bean en résultant */
+                form.ajouterReglement(request);
+                request.setAttribute(ATT_FORM, form);
+                if (form.getErreurs().isEmpty()) {
+                    session.setAttribute(ATT_SESSION_USER, u);
+                    request.setAttribute(MESSAGE, "success");
+                    this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response);
+                } else {
+                    request.setAttribute(MESSAGE, "error");
+                    this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(SessionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute(MESSAGE, "error");
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response);
             }
         }
         if (action.equals("modifeleve")) {
@@ -173,7 +204,7 @@ public class InscriptionServlet extends HttpServlet {
         }
         if (action.equals("modifinscription")) {
             try {
-                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO);
+                InscriptionValidationForm form = new InscriptionValidationForm(eDAO, cDAO, sDAO, iDAO, rDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
                 /* Traitement de la requête et récupération du bean en résultant */
                 form.modifierInscription(request);

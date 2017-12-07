@@ -14,6 +14,7 @@ public final class CreerId {
     public static final String SESSION_ID = "SESS";
     public static final String CLASS_ID = "CLASS";
     public static final String ELEVE_MATRICULE = "NP00";
+    public static final String CODE_REGLEMENT = "F00";
 
     public static String creerSessionId(int anneeDebut, int anneeFin) throws Exception {
         String sessionId = "";
@@ -47,5 +48,17 @@ public final class CreerId {
         }
 
         return matriculeEleve;
+    }
+    
+    public static String creerCodeReglement(Integer nbrReglement) throws Exception {
+        String codeReg = "";
+        if (nbrReglement != 0) {
+            nbrReglement++;
+            codeReg = CODE_REGLEMENT.concat(String.valueOf(nbrReglement));
+        } else {
+            throw new Exception("Erreur lors de la génération du code reglement");
+        }
+
+        return codeReg;
     }
 }

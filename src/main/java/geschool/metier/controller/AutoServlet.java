@@ -1,6 +1,7 @@
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
+import geschool.metier.utils.TypeReglementEnum;
 import geschool.persistence.interfaces.SessionDAO;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.EleveDAO;
@@ -12,11 +13,14 @@ import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Matiere;
 import geschool.persistence.model.Professeur;
 import geschool.persistence.interfaces.FactureDAO;
+import geschool.persistence.interfaces.ReglementDAO;
 import geschool.persistence.model.Classe;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
+import geschool.persistence.model.Reglement;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -44,6 +48,8 @@ public class AutoServlet extends HttpServlet {
     private MatiereDAO mDAO;
     @EJB
     private ProfesseurDAO pDAO;
+    @EJB
+    private ReglementDAO rDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
     @Override
@@ -53,6 +59,13 @@ public class AutoServlet extends HttpServlet {
         List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
         List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
         List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
+        List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
+        List<Reglement> listreglement = rDAO.rechercherTousLesElevesInscrits();
+        for (Inscrit inscrit : listInscrit) {
+            if(inscrit.getIdEleve().getDette() > 0){
+                    listeleveinscrit.add(inscrit);
+            }
+        }
         List<Professeur> listprofesseur= pDAO.rechercherTousLesProfesseur();
         List<Matiere> listmatiere=mDAO.rechercherToutesLesMatieres();
         if (listClasse != null) {
@@ -75,8 +88,8 @@ public class AutoServlet extends HttpServlet {
         } else {
             request.setAttribute("nblistmatiere", 0);
         }
-        if (listInscrit != null) {
-            request.setAttribute("nblistinscrit", listInscrit.size());
+        if (listeleveinscrit != null) {
+            request.setAttribute("nblistinscrit", listeleveinscrit.size());
         } else {
             request.setAttribute("nblistinscrit", 0);
         }
@@ -140,7 +153,44 @@ public class AutoServlet extends HttpServlet {
                 //Envoie de la liste de tous les élèves enregistrés en BDD
                 request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
                 request.setAttribute("Annee", sDAO.chercherSessionEnCours());
+                request.setAttribute("listetypereglement", TypeReglementEnum.ToutesLesTypeDeReglement());
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
+            }
+            if (action.equals("ajoutpaiement")) {
+                if(!request.getParameter("ideleve").isEmpty()){
+                   Eleve eleve = eDAO.rechercherUnEleveAvecId(Integer.parseInt(request.getParameter("ideleve")));
+                   List<Inscrit> listEleveInscrit = iDAO.rechercherToutesLesInscriptionsEleve(eleve.getIdEleve());
+                   if(listEleveInscrit != null && iDAO.verifierInscriptionEleve(eleve.getIdEleve()) != 0L){
+                        Inscrit inscrit = iDAO.rechercherToutesLesInscriptionsEleve(eleve.getIdEleve()).get(0);
+                        List<Reglement> listeReglement = rDAO.rechercherTousLesReglementAvecIdEleve(eleve.getIdEleve());
+                        Integer scolarite = 0;
+                        for (Reglement list : listeReglement) {
+                           scolarite = scolarite + list.getRegMontant();
+                        }
+                        request.setAttribute("Annee", sDAO.chercherSessionEnCours());
+                        request.setAttribute("eleve", eleve);
+                        request.setAttribute("Inscrit", inscrit);
+                        request.setAttribute("scolarite", scolarite);
+                        request.setAttribute("listetypereglement", TypeReglementEnum.ToutesLesTypeDeReglement());
+                        this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response);
+                   }else{
+                        //Envoie de la liste de toutes les classes disponibles en BDD
+                        request.setAttribute("listeleve", eDAO.rechercherTousLesEleves());
+                        //Envoie de la liste de tous les élèves enregistrés en BDD
+                        request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
+                        request.setAttribute("Annee", sDAO.chercherSessionEnCours());
+                        request.setAttribute("listetypereglement", TypeReglementEnum.ToutesLesTypeDeReglement());
+                        this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);  
+                   }   
+                }else{
+                    //Envoie de la liste de toutes les classes disponibles en BDD
+                    request.setAttribute("listeleve", eDAO.rechercherTousLesEleves());
+                    //Envoie de la liste de tous les élèves enregistrés en BDD
+                    request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
+                    request.setAttribute("Annee", sDAO.chercherSessionEnCours());
+                    request.setAttribute("listetypereglement", TypeReglementEnum.ToutesLesTypeDeReglement());
+                    this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response); 
+                }  
             }
             if (action.equals("ajoutprofesseur")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PROFESSEUR).forward(request, response);

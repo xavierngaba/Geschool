@@ -86,7 +86,7 @@
                                                         <td><c:out value="${classe.libelle}"/></td>
                                                         <td><c:out value="${classe.montant}"/></td>
                                                         <!-- <td></td> -->
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>
