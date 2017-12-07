@@ -10,14 +10,17 @@ import geschool.metier.utils.ConnexionValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
 import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.interfaces.InscritDAO;
+import geschool.persistence.interfaces.ReglementDAO;
 import geschool.persistence.interfaces.SessionDAO;
 import geschool.persistence.interfaces.TuteurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Classe;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
+import geschool.persistence.model.Reglement;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,6 +48,8 @@ public class UtilisateurServlet extends HttpServlet {
     private TuteurDAO tDAO;
     @EJB
     private InscritDAO iDAO;
+    @EJB
+    private ReglementDAO rDAO;
     public static final String ATT_USER = "utilisateur";
     public static final String MESSAGE = "message";
     public static final String ATT_FORM = "form";
@@ -92,6 +97,13 @@ public class UtilisateurServlet extends HttpServlet {
         List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
         List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
         List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
+        List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
+        List<Reglement> listreglement = rDAO.rechercherTousLesElevesInscrits();
+        for (Inscrit inscrit : listInscrit) {
+            if(inscrit.getIdEleve().getDette() > 0){
+                    listeleveinscrit.add(inscrit);
+            }
+        }
         if(listClasse != null){
            request.setAttribute("nblistclasse", listClasse.size()); 
         }else{
@@ -102,8 +114,8 @@ public class UtilisateurServlet extends HttpServlet {
         }else{
             request.setAttribute("nblisteleve", 0);
         }
-        if(listInscrit != null){
-           request.setAttribute("nblistinscrit", listInscrit.size());  
+        if(listeleveinscrit != null){
+           request.setAttribute("nblistinscrit", listeleveinscrit.size());  
         }else{
             request.setAttribute("nblistinscrit", 0);
         }

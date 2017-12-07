@@ -64,7 +64,7 @@
 
                             <p>
                                 Vueillez contacter l'administrateur
-                                Ou  <a href="index.html"> rtourner à la page d'accueil</a>
+                                Ou  <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"> retourner à la page d'accueil</a>
                             </p>
                         </div>
                     </div>

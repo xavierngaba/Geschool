@@ -33,6 +33,7 @@ public final class AllUrl {
     public static final String URL_PAGE_TABLEAU_MATIERE="/listmatiere.jsp";
     public static final String URL_PAGE_MODIF_MATIERE="/modifmatiere.jsp";
     public static final String URL_PAGE_AJOUT_MATIERE="/ajoutmatiere.jsp";
+    public static final String URL_PAGE_AJOUT_PAIEMENT="/ajoutpaiement.jsp";
     public static final String URL_PAGE_TABLEAU_PROFESSEUR="/listprofesseur.jsp";
     public static final String URL_PAGE_MODIF_PROFESSEUR="/modifprofesseur.jsp";
     public static final String URL_PAGE_AJOUT_PROFESSEUR="/ajoutprofesseur.jsp";

@@ -39,6 +39,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Eleve.rechercherUnEleveAvecMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
     @NamedQuery(name = "Eleve.rechercherUnEleveAvecNomEtPrenom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom AND e.prenom = :prenom")})
 public class Eleve implements Serializable {
+    @Column(name = "dette")
+    private Integer dette;
+    @Column(name = "quantine")
+    private Integer quantine;
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,13 +80,9 @@ public class Eleve implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "telephone")
     private String telephone;
-    @Column(name = "dette")
-    private int dette;
     @Size(min = 1, max = 50)
     @Column(name = "status")
     private String status;
-    @Column(name = "quantine")
-    private int quantine;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -178,13 +178,6 @@ public class Eleve implements Serializable {
         this.telephone = telephone;
     }
 
-    public int getDette() {
-        return dette;
-    }
-
-    public void setDette(int dette) {
-        this.dette = dette;
-    }
 
     public String getStatus() {
         return status;
@@ -194,13 +187,6 @@ public class Eleve implements Serializable {
         this.status = status;
     }
 
-    public int getQuantine() {
-        return quantine;
-    }
-
-    public void setQuantine(int quantine) {
-        this.quantine = quantine;
-    }
 
     public String getNationalite() {
         return nationalite;
@@ -297,6 +283,22 @@ public class Eleve implements Serializable {
 
     public void setNoteList(List<Note> noteList) {
         this.noteList = noteList;
+    }
+
+    public Integer getDette() {
+        return dette;
+    }
+
+    public void setDette(Integer dette) {
+        this.dette = dette;
+    }
+
+    public Integer getQuantine() {
+        return quantine;
+    }
+
+    public void setQuantine(Integer quantine) {
+        this.quantine = quantine;
     }
     
 }

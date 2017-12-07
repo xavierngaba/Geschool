@@ -56,7 +56,7 @@ public class InscritDAOImpl implements InscritDAO{
 
     @Override
     public List<Inscrit> rechercherToutesLesInscriptionsEleve(Integer idEleve) {
-        return em.createNamedQuery("Inscrit.rechercherToutesLesElevesInscritsPourUneAnnee")
+        return em.createNamedQuery("Inscrit.rechercherToutesLesInscriptionsEleve")
                  .setParameter("idEleve", idEleve)
                  .getResultList();
     }
@@ -64,5 +64,10 @@ public class InscritDAOImpl implements InscritDAO{
     @Override
     public Inscrit rechercherInscritAvecId(Integer idInscrit) {
         return em.find(Inscrit.class, idInscrit);
+    }
+
+    @Override
+    public Long verifierInscriptionEleve(Integer idEleve) {
+        return (Long) em.createNamedQuery("Inscrit.verifierInscriptionEleve").setParameter("idEleve", idEleve).getSingleResult();
     }
 }

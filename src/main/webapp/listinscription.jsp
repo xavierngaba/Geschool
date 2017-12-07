@@ -1,11 +1,7 @@
 <%-- 
     Document   : listinscription
     Created on : 20 juil. 2017, 22:42:20
-<<<<<<< HEAD
-    Author     : ines gnaly
-=======
     Author     : Ines.G
->>>>>>> Sprint-02_v2
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -76,19 +72,32 @@
                                                 <th>Matricule</th>
                                                 <th>Nom & Prénom</th>
                                                 <th>Classe</th>
+                                                <th>Scolarit&eacute;</th>
                                                 <th>Détail</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:if test="${listinscrit.size() != 0}">
-                                                <c:forEach items="${ requestScope.listinscrit }" var="inscrit" varStatus="boucle">
+                                            <c:if test="${listeleveinscrit.size() != 0}">
+                                                <c:forEach items="${ requestScope.listeleveinscrit }" var="inscrit" varStatus="boucle">
                                                     <tr>
                                                         <td><c:out value="${inscrit.getIdEleve().matricule}"/></td>
                                                         <td><c:out value="${inscrit.getIdEleve().nom}"/> <c:out value="${inscrit.getIdEleve().prenom}"/></td>
                                                         <td><c:out value="${inscrit.getIdClasse().libelle}"/></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
+                                                        
+                                                        <c:if test="${inscrit.getIdEleve().dette < inscrit.getIdClasse().getMontant()}">
+                                                            <td>Pas termin&eacute;e</td>
+                                                            <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
+                                                            <td>
+                                                                <a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a><br/>
+                                                                <a class="btn-danger" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement <i class="fa fa-money"></i></a>
+                                                            </td>
+                                                        </c:if>
+                                                        <c:if test="${inscrit.getIdEleve().dette == inscrit.getIdClasse().getMontant()}">
+                                                            <td>Termin&eacute;e</td>
+                                                            <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
+                                                            <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
+                                                        </c:if>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

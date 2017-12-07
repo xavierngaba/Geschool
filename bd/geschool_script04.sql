@@ -461,6 +461,8 @@ ALTER TABLE `matiere`
 --
 -- Contraintes pour la table `matiereclasse`
 --
+ALTER TABLE `note` ADD INDEX(`IdMatiereClasse`);
+ALTER TABLE `note` ADD INDEX(`IdEleve`);
 ALTER TABLE `matiereclasse`
   ADD CONSTRAINT `matiereclasse_ibfk_2` FOREIGN KEY (`IdMatiere`) REFERENCES `matiere` (`IdMatiere`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `matiereclasse_ibfk_1` FOREIGN KEY (`IdClasse`) REFERENCES `classe` (`IdClasse`) ON DELETE NO ACTION ON UPDATE NO ACTION;

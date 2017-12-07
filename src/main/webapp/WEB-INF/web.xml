@@ -30,10 +30,18 @@
     <servlet>
         <servlet-name>InscriptionServlet</servlet-name>
         <servlet-class>geschool.metier.controller.InscriptionServlet</servlet-class>
-   </servlet>
-   <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>FactureServlet</servlet-name>
         <servlet-class>geschool.metier.controller.FactureServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReglementServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.ReglementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxReglementServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.AjaxReglementServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UtilisateurServlet</servlet-name>
@@ -67,10 +75,16 @@
         <servlet-name>FactureServlet</servlet-name>
         <url-pattern>/FactureServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReglementServlet</servlet-name>
+        <url-pattern>/ReglementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxReglementServlet</servlet-name>
+        <url-pattern>/AjaxReglementServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            20
-        </session-timeout>
+        <session-timeout>20</session-timeout>
     </session-config>
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>

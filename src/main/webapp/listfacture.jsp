@@ -83,7 +83,6 @@
                                                         <td><c:out value="${facture.idEleve.prenom}"/> <c:out value="${facture.idEleve.nom}"/></td>
                                                         <td><c:out value="${facture.montantFacture}"/></td>
                                                         <td><c:out value="${facture.dateFacture}"/></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifclasse&idclasse=${classe.idClasse}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="glyphicon glyphicon-edit"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

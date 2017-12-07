@@ -60,11 +60,11 @@
                         <h2 class="headline text-yellow"> 404</h2>
 
                         <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+                            <h3><i class="fa fa-warning text-red"></i> Oops! Une erreur a &eacute;t&eacute; cr&eacute;&eacute;e</h3>
 
                             <p>
-                                We could not find the page you were looking for.
-                                Meanwhile, you may <a href="index.html">return to dashboard</a> or try using the search form.
+                                Vueillez contacter l'administrateur
+                                Ou  <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"> retourner à la page d'accueil</a>
                             </p>
                         </div>
                         <!-- /.error-content -->

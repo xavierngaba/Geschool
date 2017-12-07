@@ -75,6 +75,7 @@
                                                 <th>Nationalité</th>
                                                 <th>Sexe</th>
                                                 <th>Date inscription</th>
+                                                <th>Scolarité</th>
                                                 <th>Détails</th>
                                                 <th>Action</th>
                                             </tr>
@@ -96,8 +97,13 @@
                                                             </c:if>
                                                         </td>
                                                         <td><fmt:formatDate value="${eleve.dateinscription}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><c:out value="${eleve.status}"/></td>
                                                         <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
-                                                        <td><a href="<c:url value="/AutoServlet?action=modifeleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
+                                                        <td><a href="<c:url value="/AutoServlet?action=modifeleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a><br/>
+                                                            <c:if test="${eleve.status == 'Préinscrit'}">
+                                                            <a class="btn-danger" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement <i class="fa fa-money"></i></a>
+                                                            </c:if>
+                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

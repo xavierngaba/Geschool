@@ -113,7 +113,8 @@ public final class EleveTuteurValidationForm {
             setErreur("tuteur", "Erreur lors de l'ajout d'un nouveau tuteur");
         }
         el.setIdTuteur(tDAO.rechercherTuteurAvecTutCode(t.getTutCode()));
-        el.setStatus("Présinscrit");
+        el.setStatus("Préinscrit");
+        el.setDette(0);
         el.setDateinscription(new Date());
         try {
             eDAO.creerEleve(el);
