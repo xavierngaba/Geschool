@@ -1,19 +1,15 @@
 package geschool.metier.controller;
 
-import static geschool.metier.controller.ClasseServlet.ATT_FORM;
-import static geschool.metier.controller.ClasseServlet.ATT_SESSION_USER;
-import static geschool.metier.controller.ClasseServlet.MESSAGE;
 import geschool.metier.utils.AllUrl;
-import geschool.metier.utils.ClasseValidationForm;
 import geschool.metier.utils.FactureValidationForm;
 import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.interfaces.FactureDAO;
+import geschool.persistence.interfaces.ReglementDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Eleve;
-import geschool.persistence.model.Facture;
+import geschool.persistence.model.Reglement;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +34,8 @@ public class FactureServlet extends HttpServlet {
     private EleveDAO eDAO;
     @EJB
     private FactureDAO fDAO;
+    @EJB
+    private ReglementDAO rDAO;
     
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
     public static final String ATT_FORM = "form";
@@ -58,7 +56,7 @@ public class FactureServlet extends HttpServlet {
             
         if(action.equals("listefacture")){
             session.setAttribute( ATT_SESSION_USER, u );
-            List<Facture> listeFacture = fDAO.rechercherToutesLesFactures();
+            List<Reglement> listeFacture = rDAO.rechercherTousLesElevesInscrits();
             request.setAttribute("listeFacture", listeFacture); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_FACTURE ).forward( request, response );
         }

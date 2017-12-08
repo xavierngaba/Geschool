@@ -85,18 +85,18 @@
                                                         <td><c:out value="${inscrit.getIdEleve().nom}"/> <c:out value="${inscrit.getIdEleve().prenom}"/></td>
                                                         <td><c:out value="${inscrit.getIdClasse().libelle}"/></td>
                                                         
-                                                        <c:if test="${inscrit.getIdEleve().dette < inscrit.getIdClasse().getMontant()}">
+                                                        <c:if test="${inscrit.getIdEleve().dette > 0 and inscrit.getIdEleve().dette < inscrit.getIdClasse().getMontant()}">
                                                             <td>Pas termin&eacute;e</td>
-                                                            <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
+                                                            <td><a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
                                                             <td>
-                                                                <a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a><br/>
-                                                                <a class="btn-danger" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement <i class="fa fa-money"></i></a>
+                                                                <a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a><br/>
+                                                                <a class="btn btn-block btn-danger btn-xs" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement</a>
                                                             </td>
                                                         </c:if>
-                                                        <c:if test="${inscrit.getIdEleve().dette == inscrit.getIdClasse().getMontant()}">
+                                                        <c:if test="${inscrit.getIdEleve().dette == 0 and inscrit.getIdEleve().status == 'Inscrit'}">
                                                             <td>Termin&eacute;e</td>
-                                                            <td><a href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
-                                                            <td><a href="<c:url value="/AutoServlet?action=modifinscription&idInscrit=${inscrit.idInscrit}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a></td>
+                                                            <td><a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${inscrit.getIdEleve().idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
+                                                            <td></td>
                                                         </c:if>
                                                     </tr>
                                                 </c:forEach>

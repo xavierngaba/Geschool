@@ -155,6 +155,7 @@ public final class InscriptionValidationForm {
         r.setRegMontant(Integer.parseInt(montant));
         r.setRegType(tr);
         r.setRegDate(dateCr);
+        commentaire = commentaire+" Prochain paiement le "+ConvertDateYear.AjoutDateReglement(tr, dateCr)+"";
         r.setRegref(commentaire);
         r.setRegCode(CreerId.creerCodeReglement(rDAO.rechercherTousLesRgelement().size()));
         try {

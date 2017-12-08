@@ -100,7 +100,7 @@ public class UtilisateurServlet extends HttpServlet {
         List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
         List<Reglement> listreglement = rDAO.rechercherTousLesElevesInscrits();
         for (Inscrit inscrit : listInscrit) {
-            if(inscrit.getIdEleve().getDette() > 0){
+            if(inscrit.getIdEleve().getDette() > 0 || inscrit.getIdEleve().getStatus().equals("Inscrit")){
                     listeleveinscrit.add(inscrit);
             }
         }

@@ -72,7 +72,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i> Liste Paiement</a></li>
                     <li><a href="<c:url value="/AutoServlet?action=ajoutinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Inscription</a></li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajoutfacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=null&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>
                 </ul>
             </li>
             <li class="treeview">
