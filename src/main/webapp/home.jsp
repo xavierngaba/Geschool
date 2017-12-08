@@ -80,7 +80,7 @@
                                 <div class="icon">
                                     <i class="ion ion-ios-people"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="<c:url value="/AutoServlet?action=listinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -94,7 +94,7 @@
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->

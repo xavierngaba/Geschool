@@ -66,23 +66,34 @@
                             <div class="box box-primary">
                                 <div class="box-body box-profile">
                                     <c:if test="${eleve.sexe == 'Masculin'}">
-                                        <img class="profile-user-img img-responsive img-circle" src="img/User_100.png" alt="User profile picture"/>
+                                        <img class="profile-user-img img-responsive img-circle" src="<c:url value="/img/User_100.png" />" alt="User profile picture"/>
                                     </c:if>
-                                    <c:if test="${eleve.sexe == 'Féminin'}">
-                                        <img class="profile-user-img img-responsive img-circle" src="img/avatar.png" alt="User profile picture"/>
+                                    <c:if test="${eleve.sexe == 'Feminin'}">
+                                        <img class="profile-user-img img-responsive img-circle" src="<c:url value="/img/avatar.png" />" alt="User profile picture"/>
                                     </c:if>
                                     
 
                                     <h3 class="profile-username text-center"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></h3>
 
-                                    <p class="text-muted text-center"><c:out value=""/> Salle de classe</p>
+                                    <p class="text-muted text-center"><c:out value="${requestScope.classe.libelle}"/></p>
 
                                     <ul class="list-group list-group-unbordered">
                                         <li class="list-group-item">
                                             <b>Moyenne Année en cours</b> <a class="pull-right">1,322</a>
                                         </li>
+                                    </ul>
+                                    <ul class="list-group list-group-unbordered">
                                         <li class="list-group-item">
-                                            <b>Moyenne année précédente</b> <a class="pull-right">543</a>
+                                            <b>Scolarit&eacute; &agrave; ce jour</b>
+                                            <c:if test="${eleve.dette == 0 and eleve.status =='Inscrit'}">
+                                                <span class="label label-success pull-right"><c:out value="${requestScope.scolarite}"/> Frs CFA</span>
+                                            </c:if>
+                                            <c:if test="${eleve.dette < 0 and eleve.status =='Preinscrit'}">
+                                                <span class="label label-danger pull-right"><c:out value="${requestScope.scolarite}"/> Frs CFA</span>
+                                            </c:if>
+                                            <c:if test="${eleve.dette == 0 and eleve.status =='Preinscrit'}">
+                                                <span class="label label-danger pull-right"><c:out value="${requestScope.scolarite}"/> Frs CFA</span>
+                                            </c:if> 
                                         </li>
                                     </ul>
                                 </div>
@@ -100,7 +111,7 @@
                                     <strong><i class="fa fa-calendar"></i> Date de naissance</strong>
 
                                     <p class="text-muted">
-                                        <fmt:formatDate value="${eleve.dateNaiss}" pattern="dd-MM-yyyy" />
+                                        <fmt:formatDate value="${eleve.dateNaiss}" pattern="dd MMMM yyyy" />
                                     </p>
 
                                     <hr>
@@ -119,7 +130,7 @@
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#activity" data-toggle="tab"><i class="fa fa-archive"></i>Bulletin Classe en cours</a></li>
                                     <li><a href="#timeline" data-toggle="tab"><i class="fa fa-archive"></i>Bulletin Classe précédente</a></li>
-                                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-cog"></i>Modifications</a></li>
+                                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-archive"></i>Bulletin Classe précédente+1</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="activity">
@@ -221,6 +232,9 @@
                                                                 <div class="col-md-3">
                                                                     <p class="text-muted">10,00/20</p>
                                                                 </div>
+                                                                <div class="col-md-3">
+                                                                    <a class="btn btn-block btn-default btn-xs" href="#"/>">Bulletin <i class="fa fa-print"></i></a>  
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -319,6 +333,9 @@
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <p class="text-muted">10,00/20</p>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <a class="btn btn-block btn-default btn-xs" href="#"/>">Bulletin <i class="fa fa-print"></i></a>  
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -421,6 +438,9 @@
                                                                     <div class="col-md-3">
                                                                         <p class="text-muted">10,00/20</p>
                                                                     </div>
+                                                                    <div class="col-md-3">
+                                                                        <a class="btn btn-block btn-default btn-xs" href="#"/>">Bulletin <i class="fa fa-print"></i></a>  
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -433,6 +453,9 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p class="lead">10,00/20</p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="btn btn-block btn-default btn-xs" href="#"/>">Bulletin <i class="fa fa-print"></i></a>  
                                                 </div>
                                             </div>
                                         </div>
@@ -537,6 +560,9 @@
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <p class="text-muted">10,00/20</p>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <a class="btn btn-block btn-default btn-xs" href="#"/>">Bulletin <i class="fa fa-print"></i></a>  
                                                                 </div>
                                                             </div>
                                                         </div>

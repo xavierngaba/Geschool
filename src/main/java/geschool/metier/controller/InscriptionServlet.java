@@ -96,7 +96,7 @@ public class InscriptionServlet extends HttpServlet {
             List<Inscrit> listinscrit = iDAO.rechercherToutesLesInscriptions();
             List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
             for (Inscrit inscrit : listinscrit) {
-                if(inscrit.getIdEleve().getDette() > 0){
+                if(inscrit.getIdEleve().getDette() > 0 || inscrit.getIdEleve().getStatus().equals("Inscrit")){
                     listeleveinscrit.add(inscrit);
                 }
             }

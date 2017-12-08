@@ -61,28 +61,35 @@
                             <!-- /.box -->
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Tableau des Factures</h3>
+                                    <h3 class="box-title">R&eacute;capitulatif de tous les paiements </h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Code</th>
+                                                <th>Code Réglement</th>
                                                 <th>Eleve</th>
                                                 <th>Montant</th>
                                                 <th>Date</th>
+                                                <th>Type r&eacute;glement</th>
+                                                <th>Commentaire</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:if test="${listeFacture.size() != 0}">
-                                                <c:forEach items="${ requestScope.listeFacture }" var="facture" varStatus="boucle">
+                                                <c:forEach items="${ requestScope.listeFacture }" var="reglement" varStatus="boucle">
                                                     <tr>
-                                                        <td><c:out value="${facture.codeFacture}"/></td>
-                                                        <td><c:out value="${facture.idEleve.prenom}"/> <c:out value="${facture.idEleve.nom}"/></td>
-                                                        <td><c:out value="${facture.montantFacture}"/></td>
-                                                        <td><c:out value="${facture.dateFacture}"/></td>
+                                                        <td><c:out value="${reglement.regCode}"/></td>
+                                                        <td><c:out value="${reglement.idEleves.prenom}"/> <c:out value="${reglement.idEleves.nom}"/></td>
+                                                        <td><c:out value="${reglement.regMontant}"/> Frs CFA</td>
+                                                        <td><fmt:formatDate value="${reglement.regDate}" pattern="dd MMMM yyyy" /></td>
+                                                        <td><c:out value="${reglement.regType.getLibelle()}"/></td>
+                                                        <td><c:out value="${reglement.regref}"/></td>
+                                                        <td> 
+                                                            <a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=printfacture&idreglement=${reglement.idReglement}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Reçu <i class="fa fa-print"></i></a>   
+                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:if>

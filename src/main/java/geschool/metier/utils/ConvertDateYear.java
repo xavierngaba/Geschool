@@ -5,10 +5,12 @@
  */
 package geschool.metier.utils;
 
+import geschool.persistence.model.Typereglement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -48,4 +50,18 @@ public final class ConvertDateYear {
         d = formater.format(date);
         return d;
     }
+   
+   public static Date AjoutDateReglement(Typereglement tp, Date d){
+       Date dt = d;
+       GregorianCalendar gc = new GregorianCalendar();
+       gc.setTime(dt);
+       if(tp.getLibelle().equals("Mensuel")){
+           gc.add(GregorianCalendar.DATE, 31);
+           dt.setDate(d.getDate()+30);
+       }else if (tp.getLibelle().equals("Trimestriel")){
+           gc.add(GregorianCalendar.MONTH, 3);
+           dt = gc.getTime();
+       }
+       return dt;
+   }
 }

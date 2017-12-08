@@ -12,8 +12,8 @@ import geschool.persistence.interfaces.ProfesseurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Matiere;
 import geschool.persistence.model.Professeur;
-import geschool.persistence.interfaces.FactureDAO;
 import geschool.persistence.interfaces.ReglementDAO;
+import geschool.persistence.model.Anneescolaire;
 import geschool.persistence.model.Classe;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
@@ -62,7 +62,7 @@ public class AutoServlet extends HttpServlet {
         List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
         List<Reglement> listreglement = rDAO.rechercherTousLesElevesInscrits();
         for (Inscrit inscrit : listInscrit) {
-            if(inscrit.getIdEleve().getDette() > 0){
+            if(inscrit.getIdEleve().getDette() > 0 || inscrit.getIdEleve().getStatus().equals("Inscrit")){
                     listeleveinscrit.add(inscrit);
             }
         }
@@ -120,8 +120,26 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("detaileleve")) {
                 String idEleve = request.getParameter("ideleve");
                 Eleve e = eDAO.rechercherUnEleveAvecId(Integer.parseInt(idEleve));
+                // recheche de la salle de classe de l'année en cours de l'élève
+                e.setInscritList(iDAO.rechercherToutesLesInscriptionsEleve(e.getIdEleve()));
+                Anneescolaire a = sDAO.chercherSessionEnCours();
+                Classe c = new Classe();
+                for (Inscrit list : e.getInscritList()) {
+                    if(list.getIdAnnee().getId().equals(a.getId())){
+                        c = list.getIdClasse();
+                    }
+                }
+                e.setReglementList(rDAO.rechercherTousLesReglementAvecIdEleve(e.getIdEleve()));
+                Integer scolarite = 0;
+                for (Reglement list : e.getReglementList()) {
+                    scolarite = scolarite + list.getRegMontant();
+                }
+                //Recherche de toutes les notes de l'élève pour l'année en cours et pour les années précédentes
+                // à compléter ...
                 //Envoie de l'id de l'élève comme paramètre de requête
                 request.setAttribute("eleve", e);
+                request.setAttribute("classe", c);
+                request.setAttribute("scolarite", scolarite);
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_DETAIL_ELEVE).forward(request, response);
             }
             if (action.equals("listeprofesseur")) {
@@ -157,11 +175,11 @@ public class AutoServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);
             }
             if (action.equals("ajoutpaiement")) {
-                if(!request.getParameter("ideleve").isEmpty()){
+                if(!request.getParameter("ideleve").equals("null")){
                    Eleve eleve = eDAO.rechercherUnEleveAvecId(Integer.parseInt(request.getParameter("ideleve")));
                    List<Inscrit> listEleveInscrit = iDAO.rechercherToutesLesInscriptionsEleve(eleve.getIdEleve());
                    if(listEleveInscrit != null && iDAO.verifierInscriptionEleve(eleve.getIdEleve()) != 0L){
-                        Inscrit inscrit = iDAO.rechercherToutesLesInscriptionsEleve(eleve.getIdEleve()).get(0);
+                        Inscrit inscrit = listEleveInscrit.get(0);
                         List<Reglement> listeReglement = rDAO.rechercherTousLesReglementAvecIdEleve(eleve.getIdEleve());
                         Integer scolarite = 0;
                         for (Reglement list : listeReglement) {
@@ -180,7 +198,7 @@ public class AutoServlet extends HttpServlet {
                         request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
                         request.setAttribute("Annee", sDAO.chercherSessionEnCours());
                         request.setAttribute("listetypereglement", TypeReglementEnum.ToutesLesTypeDeReglement());
-                        this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_INSCRIPTION).forward(request, response);  
+                        this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response);  
                    }   
                 }else{
                     //Envoie de la liste de toutes les classes disponibles en BDD
