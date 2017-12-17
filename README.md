@@ -11,7 +11,7 @@ le projet sera mené sur le langage JAVA notamment avec l'aide des outils :
 - **Netbeans** : IDE 8.0.2
 - **Glasfish** : serveur d'application dans sa version 4.1 de préférence
 - **MySql** : le serveur de gestion de Bases de donnée, concernant la version, l'important c'est que chacun possède un serveur de base MySql
-- **Maven** : c'est nouveau pour certain, mais avec le temps vous vous y habiturez, en fait il s'agit d'un outil qui permet de mettre IDE Netbeans en liaison avec un repository qui containt beaucoup de librairie *.jar donc nous aurons besoin dans ce projet. Je vous expliquerez son fonctionnement au fil du développement.
+- **Maven** : c'est nouveau pour certain, mais avec le temps vous vous y habiturez, en fait il s'agit d'un outil qui permet de mettre IDE Netbeans en liaison avec un repository qui contient beaucoup de librairie *.jar donc nous aurons besoin dans ce projet. Je vous expliquerez son fonctionnement au fil du développement.
 - **Git** : dans sa version la plus récente pour l'OS Windows, il nous servira pour la gestion des versions du projet, plus bas je vous expliquerez comment l'utiliser correctement pour avoir le projet sur vos Pc.
 
 > Ceci étant dis, je vais maintenant vous dire comment bien configurer votre environnement de travail afin de mieux débuter le projet. 
@@ -34,7 +34,7 @@ Quant au déroulement de la phase de développement, il faudra toujours avoir vo
 Aussi avant de commencer voici le commandes à retenir de Git.
 
 - **`git pull https://github.com/xavierngaba/Geschool.git`** cette commande permet de récupérer les derniers changement effectuer sur le dépôt distant **Commande à  taper en premier avant l'écriture de la moindre ligne de code dans son dépôt local**
-- **`git add`** commande pour que git tienne de l'ajout d'un nouveau fichier dans le dépôt local 
+- **`git add`** commande pour que git tienne compte de l'ajout d'un nouveau fichier dans le dépôt local 
 - **`git commit -m "Un commentaire"`** ajout de toutes les modifications effectuées dans le dépôt local de git
 - **`git push https://github.com/xavierngaba/Geschool.git`** commande pour l'envoie sur le dépôt distant des modifications qui ont été apportées sur le dépôt local.
 
@@ -43,7 +43,7 @@ Ces étapes telles qu'elles sont énumérées sont à retenir car importantes po
 Mais si ça n'a pas été assez clair voici le lien pour la documentation complète de ***Git*** [https://git-scm.com/docs](https://git-scm.com/docs "Git doc")
 
 ----------
-Le dépot a été restructuré en plusieurs **Branches** pour justement éviter qu'il y ait trop de désordre dans pendant la phase de dev, les **branches** étant:
+Le dépot a été restructuré en plusieurs **Branches** pour justement éviter qu'il y ait trop de désordre pendant la phase de dev, les **branches** étant:
 - `Master` : c'est la branche par défaut qui contiendra l'application à sa version la plus stable possible, donc seul l'admin pourra y effectuer des `merge request`
 - `Config` : pour faire tous les `git commit` en rapport avec les fichiers de configurations du projets, le `merge request` toujours à la responsabilité de l'administrateur
 - `Bugs` : pour faire tous les `git commit` en rapport avec la correction des bugs, le `merge request` toujours à la responsabilité de l'administrateur
@@ -55,12 +55,12 @@ Le dépot a été restructuré en plusieurs **Branches** pour justement éviter 
 	- `git add <nom du fichier>` : pour l'ajout du fichier créé sur votre branche c'est de mettre ou faire `git add .` pour ajouter tous les fichiers créés 
 	- `git commit -m "#Sprint-01-USx.x-Y: nom de la tache"` : pour que git l'ajout dans l'entête sur cette branche
 	- `git push https://github.com/xavierngaba/Geschool.git` pour l'envoyer sur le dépôt distant.
-	- Après signaler à l'administrateur que votre tâche est terminée, pour qu'il effectue un `merge request` de la branche `Sprint-0X` vers votre branche `#Sprint-01-USx.x-Y` pour récupérer l'ensemble de votre travail.pour vérifier que tout à été bien fait. Ou vous povez effectuer un `pull request` directement sur git en veuillant bien à sélectionner la branche sur laquelle vous avez bosser et celle vers laquelle vous voulez la déposer comme ceci 
+	- Après signaler à l'administrateur que votre tâche est terminée, pour qu'il effectue un `merge request` de la branche `Sprint-0X` vers votre branche `#Sprint-01-USx.x-Y` pour récupérer l'ensemble de votre travail. Pour vérifier que tout à été bien fait. Ou vous povez effectuer un `pull request` directement sur git en veuillant bien à sélectionner la branche sur laquelle vous avez bosser et celle vers laquelle vous voulez la déposer comme ceci 
 	`base:Sprint-01-USx.x-Y`...`compare:Sprint-0X`
 
 je tiens à préciser que ce worflow est à respecter pour éviter des erreurs et crash dans le dépôt du projet sur Github.
 
-Comme ça à la fin d'un Sprint un `Tag` sera posé au niveau de la dernière focntionnalité pour marquer la fin de cette phase, l'administrateur pour faire un `git push` de ce dépôt vers le dépôt origanl d'inès pour qu'elle ait une version stable de son application. 
+Comme ça à la fin d'un Sprint un `Tag` sera posé au niveau de la dernière focntionnalité pour marquer la fin de cette phase, l'administrateur pour faire un `git push` de ce dépôt vers le dépôt original d'inès pour qu'elle ait une version stable de son application. 
 
 Comme vous l'aurait compris faudra toujours gardé en tête cette commande `git checkout <nom de la branche>` dans laquelle vous devrez à nouveau créer une nouvelle branche en rapport avec ce que vous devrez faire.
 ----------
