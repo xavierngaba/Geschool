@@ -14,6 +14,10 @@
     cursor: pointer;
 }
 
+body{
+    background-image: url(img/image3.jpeg);
+}
+
 .icheckbox_square-blue {
     background-position: 0 0;
 }
