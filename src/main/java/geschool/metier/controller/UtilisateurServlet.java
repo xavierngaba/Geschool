@@ -141,6 +141,8 @@ public class UtilisateurServlet extends HttpServlet {
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_ADMIN ).forward( request, response );
                         }else if(utilisateur.getGroupeUtilisateur() == 2){
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_SECRETAIRE ).forward( request, response );
+                        }else if(utilisateur.getGroupeUtilisateur() == 3){
+                            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_CAISSIERE ).forward( request, response );
                         }else{
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
                         }
