@@ -34,7 +34,7 @@
         <![endif]-->
     </head>
     <body class="hold-transition login-page" >
-        
+
         <div class="login-box">
             <div class="login-logo">
                 <a href="<c:url value="/UtilisateurServlet?action=login"/>"><b>Geschool</b></a>
@@ -73,17 +73,21 @@
                 <!-- /.social-auth-links -->
             </div>
             <!-- /.login-box-body -->
+
         </div>
         <!-- /.login-box -->
+        
+    
+      
+    
+    <!-- jQuery 2.2.3 -->
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
 
-        <!-- jQuery 2.2.3 -->
-        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-        <!-- Bootstrap 3.3.6 -->
-        <script src="js/bootstrap.min.js"></script>
-        <script>
-            $(function () {
-                
-            });
-        </script>
-    </body>
+        });
+    </script>
+</body>
 </html>

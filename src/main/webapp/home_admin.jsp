@@ -84,8 +84,13 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
+                        
+                        
+                        
+                        
+                        
+<!--    PARTIE DES ENFANTS SCOLARISES                    <div class="col-lg-3 col-xs-6">
+                             small box 
                             <div class="small-box bg-yellow">
                                 <div class="inner">
                                     <h3>44</h3>
@@ -96,7 +101,11 @@
                                 </div>
                                 <a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
-                        </div>
+                        </div>-->
+
+
+
+
                         <!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->

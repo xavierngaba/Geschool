@@ -47,9 +47,9 @@
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
 
-            <c:import url="vue/header.jsp"/>
+            <c:import url="vue/header_secretaire.jsp"/>
             <!-- Left side column. contains the logo and sidebar -->
-            <c:import url="vue/navbar.jsp"/>
+            <c:import url="vue/navbar_secretaire.jsp"/>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
@@ -84,19 +84,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3>44</h3>
-                                    <p>&Eacute;l&egrave;ves scolaris&eacute;s</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
+                      
                         <!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->

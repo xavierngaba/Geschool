@@ -1,7 +1,7 @@
 <%-- 
     Document   : header
     Created on : 20 juil. 2017, 22:06:27
-    Author     : Ines.G
+    Author     : xavier_ng
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

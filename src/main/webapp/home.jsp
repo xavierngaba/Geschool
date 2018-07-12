@@ -2,7 +2,7 @@
     Document   : home
     Created on : 4 juil. 2017, 07:15:00
     Author     : Ines.G
---%>
+--%> 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -73,7 +73,7 @@
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                    <h3>100<sup style="font-size: 20px">%</sup></h3>
 
                                     <p>Inscriptions termin&eacute;es</p>
                                 </div>
@@ -84,25 +84,13 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3>44</h3>
-                                    <p>&Eacute;l&egrave;ves scolaris&eacute;s</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="small-box-footer">D&eacute;tails... <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
+                       
                         <!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                    <h3>0<sup style="font-size: 20px">%</sup></h3>
 
                                     <p>Inscriptions en cours...</p>
                                 </div>
