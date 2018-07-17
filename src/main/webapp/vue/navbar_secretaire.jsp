@@ -1,7 +1,7 @@
 <%-- 
     Document   : navbar
     Created on : 20 juil. 2017, 22:06:43
-    Author     : ines gnaly
+    Author     : ines gnali
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -72,7 +72,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i> Liste Paiement</a></li>
                     <li><a href="<c:url value="/AutoServlet?action=ajoutinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Inscription</a></li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=null&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>
+<!--                    <li><a href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=null&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>-->
                 </ul>
             </li>
             <li class="treeview">
@@ -92,10 +92,10 @@
                             </span>
                         </a>
                     </li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Classes</a></li>
+<!--                    <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Classes</a></li>-->
                 </ul>
             </li>
-            <li class="treeview">
+<!--            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-calendar-o"></i>
                     <span>Ann&eacute;e Scolaire</span>
@@ -111,7 +111,7 @@
                     </li>
                     <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
                 </ul>
-            </li>
+            </li>-->
 
             <li class="treeview">
                 <a href="#">
@@ -131,8 +131,8 @@
                             </span>
                         </a>
                     </li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajoutprofesseur&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
-                        <i class="fa fa-user-plus"></i> Nouv. Professeur</a></li>
+<!--                    <li><a href="<c:url value="/AutoServlet?action=ajoutprofesseur&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
+                        <i class="fa fa-user-plus"></i> Nouv. Professeur</a></li>-->
                 </ul>
             </li>
 
@@ -154,8 +154,8 @@
                             </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<c:url value="/AutoServlet?action=ajoutmatiere&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i>Nouv. Mati&egrave;re</a></li>
+<!--                    <li>
+                        <a href="<c:url value="/AutoServlet?action=ajoutmatiere&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i>Nouv. Mati&egrave;re</a></li>-->
                 </ul>
             </li>
             <li class="treeview">
@@ -168,7 +168,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-search"></i> Recherche Notes</a></li>
-                    <li><a href="#"><i class="fa fa-plus-square"></i> Nouv. Note</a></li>
+<!--                    <li><a href="#"><i class="fa fa-plus-square"></i> Nouv. Note</a></li>-->
                 </ul>
             </li>
         </ul>

@@ -21,6 +21,8 @@ public final class MatiereValidationForm {
     
     private static final String CHAMP_libelle = "libelleMatiere";
     //private static String CHAMP_NbrEleve = "nombreEleveMax";
+    private static final String ID_MATIERE = "idmatiere";
+
 
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
