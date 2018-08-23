@@ -20,13 +20,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "niveau", catalog = "geschool", schema = "")
+@Table(name = "niveau")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Niveau.findAll", query = "SELECT n FROM Niveau n"),
     @NamedQuery(name = "Niveau.findByIdNiveau", query = "SELECT n FROM Niveau n WHERE n.idNiveau = :idNiveau"),
@@ -43,8 +46,6 @@ public class Niveau implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "libelle")
     private String libelle;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNiveau")
-    private List<Discipline> disciplineList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNiveau")
     private List<Groupe> groupeList;
 
@@ -76,14 +77,7 @@ public class Niveau implements Serializable {
         this.libelle = libelle;
     }
 
-    public List<Discipline> getDisciplineList() {
-        return disciplineList;
-    }
-
-    public void setDisciplineList(List<Discipline> disciplineList) {
-        this.disciplineList = disciplineList;
-    }
-
+    @XmlTransient
     public List<Groupe> getGroupeList() {
         return groupeList;
     }

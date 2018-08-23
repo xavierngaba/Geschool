@@ -19,13 +19,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author IGNES
+ * @author INES
  */
 @Entity
-@Table(name = "matiereclasse", catalog = "geschool", schema = "")
+@Table(name = "matiereclasse")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Matiereclasse.findAll", query = "SELECT m FROM Matiereclasse m"),
     @NamedQuery(name = "Matiereclasse.findByIdMClasse", query = "SELECT m FROM Matiereclasse m WHERE m.idMClasse = :idMClasse"),
@@ -52,12 +54,12 @@ public class Matiereclasse implements Serializable {
     @NotNull
     @Column(name = "Mat_Code")
     private int matCode;
-    @JoinColumn(name = "IdMatiere", referencedColumnName = "IdMatiere")
-    @ManyToOne(optional = false)
-    private Matiere idMatiere;
     @JoinColumn(name = "IdClasse", referencedColumnName = "IdClasse")
     @ManyToOne(optional = false)
     private Classe idClasse;
+    @JoinColumn(name = "IdMatiere", referencedColumnName = "IdMatiere")
+    @ManyToOne(optional = false)
+    private Matiere idMatiere;
 
     public Matiereclasse() {
     }
@@ -105,20 +107,20 @@ public class Matiereclasse implements Serializable {
         this.matCode = matCode;
     }
 
-    public Matiere getIdMatiere() {
-        return idMatiere;
-    }
-
-    public void setIdMatiere(Matiere idMatiere) {
-        this.idMatiere = idMatiere;
-    }
-
     public Classe getIdClasse() {
         return idClasse;
     }
 
     public void setIdClasse(Classe idClasse) {
         this.idClasse = idClasse;
+    }
+
+    public Matiere getIdMatiere() {
+        return idMatiere;
+    }
+
+    public void setIdMatiere(Matiere idMatiere) {
+        this.idMatiere = idMatiere;
     }
 
     @Override

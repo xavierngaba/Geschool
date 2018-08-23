@@ -6,9 +6,7 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +14,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author IGNES
+ * @author INES
  */
 @Entity
-@Table(name = "typenote", catalog = "geschool", schema = "")
+@Table(name = "typenote")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Typenote.findAll", query = "SELECT t FROM Typenote t"),
     @NamedQuery(name = "Typenote.findByIdTypeNote", query = "SELECT t FROM Typenote t WHERE t.idTypeNote = :idTypeNote"),
@@ -43,8 +42,6 @@ public class Typenote implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "TypeNote")
     private String typeNote;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTypeNote")
-    private List<Note> noteList;
 
     public Typenote() {
     }
@@ -72,14 +69,6 @@ public class Typenote implements Serializable {
 
     public void setTypeNote(String typeNote) {
         this.typeNote = typeNote;
-    }
-
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
     }
 
     @Override

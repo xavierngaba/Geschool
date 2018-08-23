@@ -59,7 +59,8 @@
                         </a>
                     </li>
                     <li><a href="<c:url value="/AutoServlet?action=ajouteleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-user-plus"></i> Nouv. Eleve</a></li>
-                </ul>
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-user-plus"></i> Nouv. Inscription</a></li>
+</ul>
             </li>
             <li class="treeview">
                 <a href="#">
@@ -93,6 +94,7 @@
                         </a>
                     </li>
 <!--                    <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Classes</a></li>-->
+
                 </ul>
             </li>
 <!--            <li class="treeview">

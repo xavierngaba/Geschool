@@ -8,7 +8,9 @@ package geschool.metier.controller;
 import geschool.metier.utils.AllUrl;
 import geschool.metier.utils.ConnexionValidationForm;
 import geschool.persistence.interfaces.ClasseDAO;
+import geschool.persistence.interfaces.CoursDAO;
 import geschool.persistence.interfaces.EleveDAO;
+import geschool.persistence.interfaces.EvaluationDAO;
 import geschool.persistence.interfaces.InscritDAO;
 import geschool.persistence.interfaces.ReglementDAO;
 import geschool.persistence.interfaces.SessionDAO;
@@ -19,6 +21,8 @@ import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
 import geschool.persistence.model.Reglement;
 import geschool.persistence.model.Utilisateur;
+import geschool.persistence.model.Evaluation;
+import geschool.persistence.model.Cours;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,10 @@ import javax.servlet.http.HttpSession;
 public class UtilisateurServlet extends HttpServlet {
     @EJB
     private ClasseDAO cDAO;
+     @EJB
+    private CoursDAO dDAO;
+      @EJB
+    private EvaluationDAO aDAO;
     @EJB
     private UtilisateurDAO uDAO;
     @EJB
@@ -94,31 +102,7 @@ public class UtilisateurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String action = request.getParameter("action");
-        List<Classe> listClasse = cDAO.rechercherToutesLesClasses();
-        List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
-        List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
-        List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
-        List<Reglement> listreglement = rDAO.rechercherTousLesElevesInscrits();
-        for (Inscrit inscrit : listInscrit) {
-            if(inscrit.getIdEleve().getDette() > 0 || inscrit.getIdEleve().getStatus().equals("Inscrit")){
-                    listeleveinscrit.add(inscrit);
-            }
-        }
-        if(listClasse != null){
-           request.setAttribute("nblistclasse", listClasse.size()); 
-        }else{
-           request.setAttribute("nblistclasse", 0); 
-        }
-        if(listeleve != null){
-           request.setAttribute("nblisteleve", listeleve.size());  
-        }else{
-            request.setAttribute("nblisteleve", 0);
-        }
-        if(listeleveinscrit != null){
-           request.setAttribute("nblistinscrit", listeleveinscrit.size());  
-        }else{
-            request.setAttribute("nblistinscrit", 0);
-        }
+        
         if(action.equals("login")){
             try {
                     ConnexionValidationForm form = new ConnexionValidationForm(uDAO);
@@ -137,11 +121,11 @@ public class UtilisateurServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute( ATT_SESSION_USER, utilisateur );
                         request.setAttribute("action", "");
-                        if (utilisateur.getGroupeUtilisateur() == 1) {
+                        if (utilisateur.getGroupeUtilisateur().getIdGroupeUtilisateur() == 1) {
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_ADMIN ).forward( request, response );
-                        }else if(utilisateur.getGroupeUtilisateur() == 2){
+                        }else if(utilisateur.getGroupeUtilisateur().getIdGroupeUtilisateur() == 2){
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_SECRETAIRE ).forward( request, response );
-                        }else if(utilisateur.getGroupeUtilisateur() == 3){
+                        }else if(utilisateur.getGroupeUtilisateur().getIdGroupeUtilisateur() == 3){
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_CAISSIERE ).forward( request, response );
                         }else{
                             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );

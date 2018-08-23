@@ -87,7 +87,8 @@ public final class InscriptionValidationForm {
         Inscrit i = new Inscrit();
         Reglement r = new Reglement();
         Date dateCr = new Date();
-        Typereglement tr = new Typereglement(TypeReglementEnum.rechercheTypeReglement(typeReglement));
+        // a revoir
+        //rechercheTypeReglementTypereglement tr = new Typereglement(TypeReglementEnum.rechercheTypeReglement(typeReglement));
         try {
             session = sDAO.rechercherUneAvecIdAnneeScolaire(Integer.parseInt(idAnnee));
         } catch (Exception e) {
@@ -115,7 +116,9 @@ public final class InscriptionValidationForm {
         }
         r.setIdEleves(eleve);
         r.setRegMontant(Integer.parseInt(montant));
-        r.setRegType(tr);
+        // a revoir
+        //
+        r.setRegType(null);
         r.setRegDate(dateCr);
         r.setRegref(commentaire);
         r.setRegCode(CreerId.creerCodeReglement(rDAO.rechercherTousLesRgelement().size()));
@@ -145,7 +148,8 @@ public final class InscriptionValidationForm {
         Eleve eleve = new Eleve();
         Reglement r = new Reglement();
         Date dateCr = new Date();
-        Typereglement tr = new Typereglement(TypeReglementEnum.rechercheTypeReglement(typeReglement));
+        // a revoir
+        //Typereglement tr = new Typereglement(TypeReglementEnum.rechercheTypeReglement(typeReglement));
         try {
             eleve = eDAO.rechercherUnEleveAvecId(Integer.parseInt(idEleve));
         } catch (Exception e) {
@@ -153,9 +157,10 @@ public final class InscriptionValidationForm {
         }
         r.setIdEleves(eleve);
         r.setRegMontant(Integer.parseInt(montant));
-        r.setRegType(tr);
+        //a revoir
+        r.setRegType(null);
         r.setRegDate(dateCr);
-        commentaire = commentaire+" Prochain paiement le "+ConvertDateYear.AjoutDateReglement(tr, dateCr)+"";
+        commentaire = commentaire+" Prochain paiement le "+ConvertDateYear.AjoutDateReglement(null, dateCr)+"";
         r.setRegref(commentaire);
         r.setRegCode(CreerId.creerCodeReglement(rDAO.rechercherTousLesRgelement().size()));
         try {

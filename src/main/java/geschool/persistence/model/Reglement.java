@@ -22,22 +22,26 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author xavier_ng
+ * @author INES
  */
 @Entity
-@Table(name = "reglement", catalog = "geschool", schema = "")
+@Table(name = "reglement")
+@XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Reglement.findByEleveInscrit", query = "SELECT r FROM Reglement r WHERE r.regMontant != 0"),
+    @NamedQuery(name = "Reglement.findByIdEleve", query = "SELECT r FROM Reglement r WHERE r.idEleves.idEleve = :idEleve"),
+
+
     @NamedQuery(name = "Reglement.findAll", query = "SELECT r FROM Reglement r"),
     @NamedQuery(name = "Reglement.findByIdReglement", query = "SELECT r FROM Reglement r WHERE r.idReglement = :idReglement"),
     @NamedQuery(name = "Reglement.findByRegCode", query = "SELECT r FROM Reglement r WHERE r.regCode = :regCode"),
     @NamedQuery(name = "Reglement.findByRegDate", query = "SELECT r FROM Reglement r WHERE r.regDate = :regDate"),
     @NamedQuery(name = "Reglement.findByRegMontant", query = "SELECT r FROM Reglement r WHERE r.regMontant = :regMontant"),
-    @NamedQuery(name = "Reglement.findByEleveInscrit", query = "SELECT r FROM Reglement r WHERE r.regMontant != 0"),
     @NamedQuery(name = "Reglement.findByRegref", query = "SELECT r FROM Reglement r WHERE r.regref = :regref"),
-    @NamedQuery(name = "Reglement.findByIdEleve", query = "SELECT r FROM Reglement r WHERE r.idEleves.idEleve = :idEleve"),
     @NamedQuery(name = "Reglement.findByRegCategories", query = "SELECT r FROM Reglement r WHERE r.regCategories = :regCategories")})
 public class Reglement implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,6 +52,7 @@ public class Reglement implements Serializable {
     private Integer idReglement;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 11)
     @Column(name = "Reg_Code")
     private String regCode;
     @Basic(optional = false)
@@ -59,32 +64,31 @@ public class Reglement implements Serializable {
     @NotNull
     @Column(name = "Reg_Montant")
     private int regMontant;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Reg_ref")
     private String regref;
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Reg_Categories")
     private String regCategories;
-    @JoinColumn(name = "Reg_Type", referencedColumnName = "idTypeReglement")
-    @ManyToOne(optional = false)
-    private Typereglement regType;
     @JoinColumn(name = "IdEleves", referencedColumnName = "IdEleve")
     @ManyToOne(optional = false)
     private Eleve idEleves;
+    @JoinColumn(name = "Reg_Type", referencedColumnName = "idTypeReglement")
+    @ManyToOne(optional = false)
+    private Typereglement regType;
 
     public Reglement() {
     }
 
-    public Reglement(Integer idReglement, String regCode, Date regDate, int regMontant, String regref, String regCategories) {
+    public Reglement(Integer idReglement) {
+        this.idReglement = idReglement;
+    }
+
+    public Reglement(Integer idReglement, String regCode, Date regDate, int regMontant) {
         this.idReglement = idReglement;
         this.regCode = regCode;
         this.regDate = regDate;
         this.regMontant = regMontant;
-        this.regref = regref;
-        this.regCategories = regCategories;
     }
 
     public Integer getIdReglement() {
@@ -135,20 +139,20 @@ public class Reglement implements Serializable {
         this.regCategories = regCategories;
     }
 
-    public Typereglement getRegType() {
-        return regType;
-    }
-
-    public void setRegType(Typereglement regType) {
-        this.regType = regType;
-    }
-
     public Eleve getIdEleves() {
         return idEleves;
     }
 
     public void setIdEleves(Eleve idEleves) {
         this.idEleves = idEleves;
+    }
+
+    public Typereglement getRegType() {
+        return regType;
+    }
+
+    public void setRegType(Typereglement regType) {
+        this.regType = regType;
     }
 
     @Override

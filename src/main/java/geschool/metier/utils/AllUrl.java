@@ -17,6 +17,15 @@ public final class AllUrl {
     public static final String URL_PAGE_ACCUEIL_ADMIN = "/home_admin.jsp";
     public static final String URL_PAGE_ACCUEIL_SECRETAIRE = "/home_secretaire.jsp";
     public static final String URL_PAGE_ACCUEIL_CAISSIERE = "/home_caissiere.jsp";
+    public static final String URL_PAGE_ACCUEIL_ETUDE = "/home_admin.jsp";
+    
+    public static final String URL_PAGE_AJOUT_COURS="/ajoutcours.jsp";
+    public static final String URL_PAGE_MODIF_COURS="/modifcours.jsp";
+    public static final String URL_PAGE_TABLEAU_COURS="/listcours.jsp";
+    
+    public static final String URL_PAGE_AJOUT_EVALUATION="/ajoutevaluation.jsp";
+    public static final String URL_PAGE_MODIF_EVALUATION="/modifevaluation.jsp";
+    public static final String URL_PAGE_TABLEAU_EVALUATION="/listevaluation.jsp";
 
     public static final String URL_PAGE_LOCKSCREEN = "/lockscreen.jsp";
     public static final String URL_PAGE_AJOUT_SESSION_ACADEMIQUE = "/ajoutSessionAcademique.jsp";

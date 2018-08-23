@@ -6,7 +6,9 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,16 +16,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "groupe_utilisateur", catalog = "geschool", schema = "")
+@Table(name = "groupe_utilisateur")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GroupeUtilisateur.findAll", query = "SELECT g FROM GroupeUtilisateur g"),
     @NamedQuery(name = "GroupeUtilisateur.findByIdGroupeUtilisateur", query = "SELECT g FROM GroupeUtilisateur g WHERE g.idGroupeUtilisateur = :idGroupeUtilisateur"),
@@ -40,6 +46,8 @@ public class GroupeUtilisateur implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "LibelleGroupeUtilisateur")
     private String libelleGroupeUtilisateur;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupeUtilisateur")
+    private List<Utilisateur> utilisateurList;
 
     public GroupeUtilisateur() {
     }
@@ -67,6 +75,15 @@ public class GroupeUtilisateur implements Serializable {
 
     public void setLibelleGroupeUtilisateur(String libelleGroupeUtilisateur) {
         this.libelleGroupeUtilisateur = libelleGroupeUtilisateur;
+    }
+
+    @XmlTransient
+    public List<Utilisateur> getUtilisateurList() {
+        return utilisateurList;
+    }
+
+    public void setUtilisateurList(List<Utilisateur> utilisateurList) {
+        this.utilisateurList = utilisateurList;
     }
 
     @Override

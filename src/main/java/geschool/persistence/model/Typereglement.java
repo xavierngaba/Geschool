@@ -5,7 +5,6 @@
  */
 package geschool.persistence.model;
 
-import geschool.metier.utils.TypeReglementEnum;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -21,13 +20,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author xavier_ng
+ * @author INES
  */
 @Entity
-@Table(name = "typereglement", catalog = "geschool", schema = "")
+@Table(name = "typereglement")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Typereglement.findAll", query = "SELECT t FROM Typereglement t"),
     @NamedQuery(name = "Typereglement.findByIdTypeReglement", query = "SELECT t FROM Typereglement t WHERE t.idTypeReglement = :idTypeReglement"),
@@ -49,15 +51,14 @@ public class Typereglement implements Serializable {
 
     public Typereglement() {
     }
-    
+
+    public Typereglement(Integer idTypeReglement) {
+        this.idTypeReglement = idTypeReglement;
+    }
+
     public Typereglement(Integer idTypeReglement, String libelle) {
         this.idTypeReglement = idTypeReglement;
         this.libelle = libelle;
-    }
-    
-    public Typereglement(TypeReglementEnum typeReglement){
-        this.idTypeReglement = Integer.parseInt(typeReglement.getId());
-        this.libelle = typeReglement.getLibelle();
     }
 
     public Integer getIdTypeReglement() {
@@ -76,6 +77,7 @@ public class Typereglement implements Serializable {
         this.libelle = libelle;
     }
 
+    @XmlTransient
     public List<Reglement> getReglementList() {
         return reglementList;
     }

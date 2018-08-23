@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Nouvelle Elève</title>
+        <title>Geschool | Pragrammation Cours</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -56,8 +56,8 @@
                 <section class="content-header">
                     <ol class="breadcrumb">
                         <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<c:url value="/AutoServlet?action=listeleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste des élèves</a></li>
-                        <li class="active">Nouvel Élève</li>
+                        <li><a href="<c:url value="/AutoServlet?action=listcours&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>Liste des évaluations</a></li>
+                        <li class="active">Nouveau Cours</li>
                     </ol>
                 </section>
                 <br/>
@@ -66,110 +66,74 @@
                     <!-- SELECT2 EXAMPLE -->
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Formulaire d'enregistrement d'un nouvelle élève</h3>
+                            <h3 class="box-title">Formulaire d'enregistrement d'un cours</h3>
                         </div>
-                        <form action="<c:url value="/InscriptionServlet"/>" method="post">
-                            <input type="hidden" name="action" value="ajouteleve"/>
+                        <form action="<c:url value="/CoursServlet"/>" method="post">
+                            <input type="hidden" name="action" value="ajoutcours"/>
                             <input type="hidden" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">les informations de l'élève</h3>
+                                    <h3 class="box-title">les informations du cours</h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="col-md-6">
+                                            
+                                           
                                             <div class="form-group">
-                                                <label>Nom de l'élève</label>
-                                                <input type="text" class="form-control" id="nom" name="Nom" placeholder="Saisisser le nom">&nbsp;
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Date de Naissance</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </div>
-                                                    <input type="text" name="Date_Naiss" id="datemask" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
-                                                </div>&nbsp;
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Sexe</label>
-                                                <select class="form-control" name="sexe">
+                                                <label>Trimestre</label>
+                                                <select class="form-control" name="Trimestre">
                                                     <option value="null" selected="selected"></option>
-                                                    <option value="Masculin">Masculin</option>
-                                                    <option value="Feminin">Féminin</option>
-                                                </select>&nbsp;
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3s</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Prénom de l'élève</label>
-                                                <input type="text" class="form-control" id="prenom" name="Prenom" placeholder="Saisisser le prénom">&nbsp;
+                                                <label>désignation</label>
+                                                <input type="text" class="form-control" id="prenom" name="Prenom" placeholder="Saisisser une désignation">
                                             </div>
                                             <div class="form-group">
-                                                <label>Nationalité </label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-map"></i>
-                                                    </div>
-                                                    <input type="text" class="form-control" name="nationalite" id="nationalite" placeholder="Saisisser la nationalité">
-                                                </div>&nbsp;
+                                                <label>Classe</label>
+                                                <select name="classe" class="form-control">                                                    
+                                                <c:if test="${nblistclasse > 0}">                                                    
+                                                    <c:forEach items="${listeclasse}" var="classe">
+                                                        <option value="${classe.idClasse}">${classe.libelle}</option>
+                                                    </c:forEach>
+                                                </c:if>
+                                                </select>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Professeur</label>
+                                                <select name="classe" class="form-control">                                                    
+                                                <c:if test="${nblistprofesseur > 0}">                                                    
+                                                    <c:forEach items="${listprofesseur}" var="professeur">
+                                                        <option value="${professeur.idProfesseur}">${professeur.nomPrenom}</option>
+                                                    </c:forEach>
+                                                </c:if>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Matiere</label>
+                                                 <select name="classe" class="form-control">                                                    
+                                                <c:if test="${nblistmatiere > 0}">                                                    
+                                                    <c:forEach items="${listmatiere}" var="matiere">
+                                                        <option value="${matiere.idMatiere}">${matiere.designation}</option>
+                                                    </c:forEach>
+                                                </c:if>
+                                                </select>
+                                            </div>
+                                            
                                         </div>
                                         <!-- /.form-group -->
                                     </div> 
                                 </div>
                             </div>
-                            <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">les informations du tuteur</h3>
-                                    <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Nom du tuteur</label>
-                                                    <input type="text" class="form-control" id="nom" name="NomTuteur" placeholder="Saisisser le nom du tuteur">&nbsp;
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Prénom du tuteur</label>
-                                                    <input type="text" class="form-control" id="nom" name="PrenomTuteur" placeholder="Saisisser le prénom du tuteur">&nbsp;
-                                                </div>
-                                                <div class="form-group"></div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Telephone </label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-phone"></i>
-                                                    </div>
-                                                    <input type="text" name="telephone" class="form-control" data-inputmask="'mask': ['+99 99 999 9999']" data-mask>
-                                                </div>&nbsp;
-                                                <div class="form-group">
-                                                    <label>Adresse </label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-map-marker"></i>
-                                                        </div>
-                                                        <input type="text" name="Adresse" class="form-control" id="lieu" placeholder="Adresse du tuteur">
-                                                    </div>&nbsp;
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Relation </label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-map-marker"></i>
-                                                        </div>
-                                                        <input type="text" name="Relation" class="form-control" id="lieu" placeholder="Saisisser la relation du tuteur">
-                                                    </div>&nbsp;
-                                                </div>
-                                            </div>
-                                            <!-- /.form-group -->
-                                        </div>
-                                        <div class="row"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.box-header -->
-                            <!-- /.box-body -->
+                            
+                            
+                            
                             <div class="box-footer">
                                 <button type="reset" class="btn btn-default">Cancel</button>
                                 <button type="submit" class="btn btn-info pull-right">valider</button>

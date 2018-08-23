@@ -18,17 +18,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author IGNES
+ * @author INES
  */
 @Entity
-@Table(name = "note", catalog = "geschool", schema = "")
+@Table(name = "note")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Note.findAll", query = "SELECT n FROM Note n"),
     @NamedQuery(name = "Note.findByIdNote", query = "SELECT n FROM Note n WHERE n.idNote = :idNote"),
-    @NamedQuery(name = "Note.findByNote", query = "SELECT n FROM Note n WHERE n.note = :note")})
+    @NamedQuery(name = "Note.findByNote", query = "SELECT n FROM Note n WHERE n.note = :note"),
+    @NamedQuery(name = "Note.findByIdTypeNote", query = "SELECT n FROM Note n WHERE n.idTypeNote = :idTypeNote")})
 public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,15 +44,17 @@ public class Note implements Serializable {
     @NotNull
     @Column(name = "Note")
     private int note;
-    @JoinColumn(name = "IdTypeNote", referencedColumnName = "IdTypeNote")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "IdTypeNote")
+    private String idTypeNote;
+    @JoinColumn(name = "IdMatiereClasse", referencedColumnName = "IdMatiere")
     @ManyToOne(optional = false)
-    private Typenote idTypeNote;
-    @JoinColumn(name = "IdMatiereClasse", referencedColumnName = "IdMClasse")
+    private Matiere idMatiereClasse;
+    @JoinColumn(name = "IdEleve", referencedColumnName = "IdInscrit")
     @ManyToOne(optional = false)
-    private Matiereclasse idMatiereClasse;
-    @JoinColumn(name = "IdEleve", referencedColumnName = "IdEleve")
-    @ManyToOne(optional = false)
-    private Eleve idEleve;
+    private Inscrit idEleve;
 
     public Note() {
     }
@@ -57,9 +63,10 @@ public class Note implements Serializable {
         this.idNote = idNote;
     }
 
-    public Note(Integer idNote, int note) {
+    public Note(Integer idNote, int note, String idTypeNote) {
         this.idNote = idNote;
         this.note = note;
+        this.idTypeNote = idTypeNote;
     }
 
     public Integer getIdNote() {
@@ -78,27 +85,27 @@ public class Note implements Serializable {
         this.note = note;
     }
 
-    public Typenote getIdTypeNote() {
+    public String getIdTypeNote() {
         return idTypeNote;
     }
 
-    public void setIdTypeNote(Typenote idTypeNote) {
+    public void setIdTypeNote(String idTypeNote) {
         this.idTypeNote = idTypeNote;
     }
 
-    public Matiereclasse getIdMatiereClasse() {
+    public Matiere getIdMatiereClasse() {
         return idMatiereClasse;
     }
 
-    public void setIdMatiereClasse(Matiereclasse idMatiereClasse) {
+    public void setIdMatiereClasse(Matiere idMatiereClasse) {
         this.idMatiereClasse = idMatiereClasse;
     }
 
-    public Eleve getIdEleve() {
+    public Inscrit getIdEleve() {
         return idEleve;
     }
 
-    public void setIdEleve(Eleve idEleve) {
+    public void setIdEleve(Inscrit idEleve) {
         this.idEleve = idEleve;
     }
 

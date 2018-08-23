@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,13 +24,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "groupe", catalog = "geschool", schema = "")
+@Table(name = "groupe")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Groupe.findAll", query = "SELECT g FROM Groupe g"),
     @NamedQuery(name = "Groupe.findByIdGroupe", query = "SELECT g FROM Groupe g WHERE g.idGroupe = :idGroupe"),
@@ -75,7 +77,7 @@ public class Groupe implements Serializable {
     @Column(name = "group_date_fermeture")
     @Temporal(TemporalType.DATE)
     private Date groupDateFermeture;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idGroupe")
+    @OneToMany(mappedBy = "idGroupe")
     private List<Classe> classeList;
     @JoinColumn(name = "IdNiveau", referencedColumnName = "IdNiveau")
     @ManyToOne(optional = false)
@@ -154,6 +156,7 @@ public class Groupe implements Serializable {
         this.groupDateFermeture = groupDateFermeture;
     }
 
+    @XmlTransient
     public List<Classe> getClasseList() {
         return classeList;
     }

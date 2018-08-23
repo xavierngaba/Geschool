@@ -117,6 +117,14 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("action", "listinscription");
                 this.getServletContext().getRequestDispatcher("/InscriptionServlet").forward(request, response);
             }
+            if (action.equals("listcours")) {
+                request.setAttribute("action", "listcours");
+                this.getServletContext().getRequestDispatcher("/CoursServlet").forward(request, response);
+            }
+            if (action.equals("listevaluation")) {
+                request.setAttribute("action", "listevaluation");
+                this.getServletContext().getRequestDispatcher("/EvaluationServlet").forward(request, response);
+            }
             if (action.equals("detaileleve")) {
                 String idEleve = request.getParameter("ideleve");
                 Eleve e = eDAO.rechercherUnEleveAvecId(Integer.parseInt(idEleve));
@@ -159,8 +167,21 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("ajoutsession")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_SESSION_ACADEMIQUE).forward(request, response);
             }
+           
+            if (action.equals("ajoutevaluation")) {
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_EVALUATION).forward(request, response);
+            }
             if (action.equals("ajoutclasse")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_CLASSE).forward(request, response);
+            }
+            if (action.equals("ajoutcours")) {
+                request.setAttribute("listeclasse", listClasse);
+                request.setAttribute("listprofesseur", listprofesseur);
+                request.setAttribute("listmatiere", listmatiere);
+                for(Classe c : listClasse){
+                    System.out.println(c.getLibelle());
+                }
+                this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_COURS).forward(request, response);
             }
             if (action.equals("ajouteleve")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_ELEVE).forward(request, response);
@@ -230,6 +251,18 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("action", "modifclasse");
                 request.setAttribute("idclasse", idclasse);
                 this.getServletContext().getRequestDispatcher("/ClasseServlet").forward(request, response);
+            }
+            if (action.equals("modifcours")) {
+                String idcours = request.getParameter("idcours");
+                request.setAttribute("action", "modifcours");
+                request.setAttribute("idcours", idcours);
+                this.getServletContext().getRequestDispatcher("/CoursServlet").forward(request, response);
+            }
+            if (action.equals("modifevaluation")) {
+                String idevaluation = request.getParameter("idevaluation");
+                request.setAttribute("action", "modifevaluation");
+                request.setAttribute("idevaluation", idevaluation);
+                this.getServletContext().getRequestDispatcher("/EvaluationServlet").forward(request, response);
             }
             if (action.equals("modifeleve")) {
                 String ideleve = request.getParameter("ideleve");

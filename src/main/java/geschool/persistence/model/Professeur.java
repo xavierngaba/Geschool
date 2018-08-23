@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author IGNES
+ * @author INES
  */
 @Entity
 @Table(name = "professeur")
@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Professeur.findByIdProfesseur", query = "SELECT p FROM Professeur p WHERE p.idProfesseur = :idProfesseur"),
     @NamedQuery(name = "Professeur.findByNomPrenom", query = "SELECT p FROM Professeur p WHERE p.nomPrenom = :nomPrenom"),
     @NamedQuery(name = "Professeur.verifiernom_prenom", query = "SELECT COUNT(p) FROM Professeur p WHERE p.nomPrenom = :nomPrenom"),
+    
+    @NamedQuery(name = "Professeur.findAll", query = "SELECT p FROM Professeur p"),
     @NamedQuery(name = "Professeur.findByCodeprof", query = "SELECT p FROM Professeur p WHERE p.codeprof = :codeprof")})
 public class Professeur implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -52,9 +54,14 @@ public class Professeur implements Serializable {
     public Professeur() {
     }
 
-    public Professeur(Integer idProfesseur, String nomPrenom) {
+    public Professeur(Integer idProfesseur) {
+        this.idProfesseur = idProfesseur;
+    }
+
+    public Professeur(Integer idProfesseur, String nomPrenom, int codeprof) {
         this.idProfesseur = idProfesseur;
         this.nomPrenom = nomPrenom;
+        this.codeprof = codeprof;
     }
 
     public Integer getIdProfesseur() {

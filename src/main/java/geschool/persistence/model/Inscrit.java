@@ -20,20 +20,25 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "inscrit", catalog = "geschool", schema = "")
+@Table(name = "inscrit")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptions", query = "SELECT i FROM Inscrit i"),
     @NamedQuery(name = "Inscrit.rechercherInscritAvecId", query = "SELECT i FROM Inscrit i WHERE i.idInscrit = :idInscrit "),
     @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritsDansUneClasseUneAnnee", query = "SELECT i FROM Inscrit i WHERE i.idClasse.idClasse = :idClasse AND i.idAnnee.id = :idAnnee"),
     @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritsPourUneAnnee", query = "SELECT i FROM Inscrit i WHERE i.idAnnee.id = :idAnnee"),
     @NamedQuery(name = "Inscrit.verifierInscriptionEleve", query = "SELECT COUNT(i) FROM Inscrit i WHERE i.idEleve.idEleve = :idEleve"),
-    @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptionsEleve", query = "SELECT i FROM Inscrit i WHERE i.idEleve.idEleve = :idEleve")})
+    @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptionsEleve", query = "SELECT i FROM Inscrit i WHERE i.idEleve.idEleve = :idEleve"),
+    @NamedQuery(name = "Inscrit.findAll", query = "SELECT i FROM Inscrit i"),
+    @NamedQuery(name = "Inscrit.findByIdInscrit", query = "SELECT i FROM Inscrit i WHERE i.idInscrit = :idInscrit")})
 public class Inscrit implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,17 +46,23 @@ public class Inscrit implements Serializable {
     @Basic(optional = false)
     @Column(name = "IdInscrit")
     private Integer idInscrit;
-    @JoinColumn(name = "IdClasse", referencedColumnName = "IdClasse")
-    @ManyToOne(optional = false)
-    private Classe idClasse;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
+    private List<Note> noteList;
     @JoinColumn(name = "IdEleve", referencedColumnName = "IdEleve")
     @ManyToOne(optional = false)
     private Eleve idEleve;
+    @JoinColumn(name = "IdClasse", referencedColumnName = "IdClasse")
+    @ManyToOne(optional = false)
+    private Classe idClasse;
     @JoinColumn(name = "IdAnnee", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Anneescolaire idAnnee;
 
     public Inscrit() {
+    }
+
+    public Inscrit(Integer idInscrit) {
+        this.idInscrit = idInscrit;
     }
 
     public Integer getIdInscrit() {
@@ -62,12 +73,13 @@ public class Inscrit implements Serializable {
         this.idInscrit = idInscrit;
     }
 
-    public Classe getIdClasse() {
-        return idClasse;
+    @XmlTransient
+    public List<Note> getNoteList() {
+        return noteList;
     }
 
-    public void setIdClasse(Classe idClasse) {
-        this.idClasse = idClasse;
+    public void setNoteList(List<Note> noteList) {
+        this.noteList = noteList;
     }
 
     public Eleve getIdEleve() {
@@ -76,6 +88,14 @@ public class Inscrit implements Serializable {
 
     public void setIdEleve(Eleve idEleve) {
         this.idEleve = idEleve;
+    }
+
+    public Classe getIdClasse() {
+        return idClasse;
+    }
+
+    public void setIdClasse(Classe idClasse) {
+        this.idClasse = idClasse;
     }
 
     public Anneescolaire getIdAnnee() {

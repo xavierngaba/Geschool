@@ -20,18 +20,31 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "tuteur", catalog = "geschool", schema = "")
+@Table(name = "tuteur")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tuteur.rechercherTousLesTuteurs", query = "SELECT t FROM Tuteur t"),
     @NamedQuery(name = "Tuteur.rechercherTuteurAvecId", query = "SELECT t FROM Tuteur t WHERE t.idTuteur = :idTuteur"),
     @NamedQuery(name = "Tuteur.rechercherLeDernierTuteurAjoute", query = "SELECT MAX(t.idTuteur) FROM Tuteur t"),
-    @NamedQuery(name = "Tuteur.rechercherTuteurAvecTutCode", query = "SELECT t FROM Tuteur t WHERE t.tutCode = :tutCode")})
+    @NamedQuery(name = "Tuteur.rechercherTuteurAvecTutCode", query = "SELECT t FROM Tuteur t WHERE t.tutCode = :tutCode"),
+    
+    @NamedQuery(name = "Tuteur.findAll", query = "SELECT t FROM Tuteur t"),
+    @NamedQuery(name = "Tuteur.findByIdTuteur", query = "SELECT t FROM Tuteur t WHERE t.idTuteur = :idTuteur"),
+    @NamedQuery(name = "Tuteur.findByTutCode", query = "SELECT t FROM Tuteur t WHERE t.tutCode = :tutCode"),
+    @NamedQuery(name = "Tuteur.findByNomPrenom", query = "SELECT t FROM Tuteur t WHERE t.nomPrenom = :nomPrenom"),
+    @NamedQuery(name = "Tuteur.findByTelephone", query = "SELECT t FROM Tuteur t WHERE t.telephone = :telephone"),
+    @NamedQuery(name = "Tuteur.findByEmail", query = "SELECT t FROM Tuteur t WHERE t.email = :email"),
+    @NamedQuery(name = "Tuteur.findByAdresse", query = "SELECT t FROM Tuteur t WHERE t.adresse = :adresse"),
+    @NamedQuery(name = "Tuteur.findByRelation", query = "SELECT t FROM Tuteur t WHERE t.relation = :relation"),
+    @NamedQuery(name = "Tuteur.findByProfession", query = "SELECT t FROM Tuteur t WHERE t.profession = :profession")})
 public class Tuteur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,8 +68,7 @@ public class Tuteur implements Serializable {
     @Column(name = "telephone")
     private String telephone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Email")
     private String email;
     @Basic(optional = false)
@@ -69,14 +81,26 @@ public class Tuteur implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Relation")
     private String relation;
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "profession")
     private String profession;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTuteur")
     private List<Eleve> eleveList;
 
     public Tuteur() {
+    }
+
+    public Tuteur(Integer idTuteur) {
+        this.idTuteur = idTuteur;
+    }
+
+    public Tuteur(Integer idTuteur, String tutCode, String nomPrenom, String telephone, String adresse, String relation) {
+        this.idTuteur = idTuteur;
+        this.tutCode = tutCode;
+        this.nomPrenom = nomPrenom;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.relation = relation;
     }
 
     public Integer getIdTuteur() {
@@ -143,6 +167,7 @@ public class Tuteur implements Serializable {
         this.profession = profession;
     }
 
+    @XmlTransient
     public List<Eleve> getEleveList() {
         return eleveList;
     }
@@ -173,6 +198,7 @@ public class Tuteur implements Serializable {
 
     @Override
     public String toString() {
-        return "Tuteur[ idTuteur=" + idTuteur + " ]";
+        return "geschool.persistence.model.Tuteur[ idTuteur=" + idTuteur + " ]";
     }
+    
 }

@@ -1,7 +1,7 @@
 <%-- 
     Document   : navbar
     Created on : 20 juil. 2017, 22:06:43
-    Author     : ines gnaly
+    Author     : ines gnali
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,6 +50,7 @@
                             </span>
                         </a>
                     </li>
+                    
                     <li>
                         <a href="<c:url value="/AutoServlet?action=listinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i>
                             <span>Liste des inscriptions</span>
@@ -58,7 +59,7 @@
                             </span>
                         </a>
                     </li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajouteleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-user-plus"></i> Nouv. Eleve</a></li>
+<!--                    <li><a href="<c:url value="/AutoServlet?action=ajouteleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-user-plus"></i> Nouv. Eleve</a></li>-->
                 </ul>
             </li>
             <li class="treeview">
@@ -72,7 +73,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<c:url value="/AutoServlet?action=listefacture&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-table"></i> Liste Paiement</a></li>
                     <li><a href="<c:url value="/AutoServlet?action=ajoutinscription&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Inscription</a></li>
-                    <li><a href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=null&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>
+<!--                    <li><a href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=null&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Paiement</a></li>-->
                 </ul>
             </li>
             <li class="treeview">
@@ -93,6 +94,7 @@
                         </a>
                     </li>
                     <li><a href="<c:url value="/AutoServlet?action=ajoutclasse&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Classes</a></li>
+
                 </ul>
             </li>
             <li class="treeview">
@@ -167,8 +169,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-search"></i> Recherche Notes</a></li>
-                    <li><a href="#"><i class="fa fa-plus-square"></i> Nouv. Note</a></li>
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutcours&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-search"></i> Programmation Cours</a></li>
+<!--                    <li><a href="#"><i class="fa fa-search"></i> Recherche Notes</a></li>-->
+                    <li><a href="<c:url value="/AutoServlet?action=ajoutnote&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-plus-square"></i> Nouv. Note</a></li>
                 </ul>
             </li>
         </ul>

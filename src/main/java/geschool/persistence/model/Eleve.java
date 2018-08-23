@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,24 +25,38 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "eleve", catalog = "geschool", schema = "")
+@Table(name = "eleve")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Eleve.rechercherTousLesEleves", query = "SELECT e FROM Eleve e"),
+       @NamedQuery(name = "Eleve.rechercherTousLesEleves", query = "SELECT e FROM Eleve e"),
     @NamedQuery(name = "Eleve.rechercherUnEleveAvecId", query = "SELECT e FROM Eleve e WHERE e.idEleve = :idEleve"),
     @NamedQuery(name = "Eleve.rechercherUnEleveAvecMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
-    @NamedQuery(name = "Eleve.rechercherUnEleveAvecNomEtPrenom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom AND e.prenom = :prenom")})
+    @NamedQuery(name = "Eleve.rechercherUnEleveAvecNomEtPrenom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom AND e.prenom = :prenom"),
+
+    @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
+    @NamedQuery(name = "Eleve.findByIdEleve", query = "SELECT e FROM Eleve e WHERE e.idEleve = :idEleve"),
+    @NamedQuery(name = "Eleve.findByMatricule", query = "SELECT e FROM Eleve e WHERE e.matricule = :matricule"),
+    @NamedQuery(name = "Eleve.findByNom", query = "SELECT e FROM Eleve e WHERE e.nom = :nom"),
+    @NamedQuery(name = "Eleve.findByPrenom", query = "SELECT e FROM Eleve e WHERE e.prenom = :prenom"),
+    @NamedQuery(name = "Eleve.findByDateNaiss", query = "SELECT e FROM Eleve e WHERE e.dateNaiss = :dateNaiss"),
+    @NamedQuery(name = "Eleve.findByAdresses", query = "SELECT e FROM Eleve e WHERE e.adresses = :adresses"),
+    @NamedQuery(name = "Eleve.findByTelephone", query = "SELECT e FROM Eleve e WHERE e.telephone = :telephone"),
+    @NamedQuery(name = "Eleve.findByDette", query = "SELECT e FROM Eleve e WHERE e.dette = :dette"),
+    @NamedQuery(name = "Eleve.findByStatus", query = "SELECT e FROM Eleve e WHERE e.status = :status"),
+    @NamedQuery(name = "Eleve.findByQuantine", query = "SELECT e FROM Eleve e WHERE e.quantine = :quantine"),
+    @NamedQuery(name = "Eleve.findByNationalite", query = "SELECT e FROM Eleve e WHERE e.nationalite = :nationalite"),
+    @NamedQuery(name = "Eleve.findBySexe", query = "SELECT e FROM Eleve e WHERE e.sexe = :sexe"),
+    @NamedQuery(name = "Eleve.findByEmail", query = "SELECT e FROM Eleve e WHERE e.email = :email"),
+    @NamedQuery(name = "Eleve.findByDateinscription", query = "SELECT e FROM Eleve e WHERE e.dateinscription = :dateinscription")})
 public class Eleve implements Serializable {
-    @Column(name = "dette")
-    private Integer dette;
-    @Column(name = "quantine")
-    private Integer quantine;
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,19 +83,21 @@ public class Eleve implements Serializable {
     @Column(name = "Date_Naiss")
     @Temporal(TemporalType.DATE)
     private Date dateNaiss;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "adresses")
     private String adresses;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 25)
+    @Size(max = 25)
     @Column(name = "telephone")
     private String telephone;
+    @Column(name = "dette")
+    private Integer dette;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "status")
     private String status;
+    @Column(name = "quantine")
+    private Integer quantine;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -94,8 +109,7 @@ public class Eleve implements Serializable {
     @Column(name = "sexe")
     private String sexe;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
@@ -112,16 +126,26 @@ public class Eleve implements Serializable {
     private List<Reglement> reglementList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve")
     private List<Facture> factureList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEleve", fetch = FetchType.LAZY)
-    private List<Note> noteList;
 
     public Eleve() {
     }
-  
+
     public Eleve(Integer idEleve) {
         this.idEleve = idEleve;
     }
-    
+
+    public Eleve(Integer idEleve, String matricule, String nom, String prenom, Date dateNaiss, String status, String nationalite, String sexe, Date dateinscription) {
+        this.idEleve = idEleve;
+        this.matricule = matricule;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaiss = dateNaiss;
+        this.status = status;
+        this.nationalite = nationalite;
+        this.sexe = sexe;
+        this.dateinscription = dateinscription;
+    }
+
     public Integer getIdEleve() {
         return idEleve;
     }
@@ -178,6 +202,13 @@ public class Eleve implements Serializable {
         this.telephone = telephone;
     }
 
+    public Integer getDette() {
+        return dette;
+    }
+
+    public void setDette(Integer dette) {
+        this.dette = dette;
+    }
 
     public String getStatus() {
         return status;
@@ -187,6 +218,13 @@ public class Eleve implements Serializable {
         this.status = status;
     }
 
+    public Integer getQuantine() {
+        return quantine;
+    }
+
+    public void setQuantine(Integer quantine) {
+        this.quantine = quantine;
+    }
 
     public String getNationalite() {
         return nationalite;
@@ -228,6 +266,7 @@ public class Eleve implements Serializable {
         this.idTuteur = idTuteur;
     }
 
+    @XmlTransient
     public List<Inscrit> getInscritList() {
         return inscritList;
     }
@@ -236,6 +275,7 @@ public class Eleve implements Serializable {
         this.inscritList = inscritList;
     }
 
+    @XmlTransient
     public List<Reglement> getReglementList() {
         return reglementList;
     }
@@ -244,6 +284,7 @@ public class Eleve implements Serializable {
         this.reglementList = reglementList;
     }
 
+    @XmlTransient
     public List<Facture> getFactureList() {
         return factureList;
     }
@@ -274,31 +315,7 @@ public class Eleve implements Serializable {
 
     @Override
     public String toString() {
-        return "Eleve[ idEleve=" + idEleve + " ]";
-    }
-
-    public List<Note> getNoteList() {
-        return noteList;
-    }
-
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
-    }
-
-    public Integer getDette() {
-        return dette;
-    }
-
-    public void setDette(Integer dette) {
-        this.dette = dette;
-    }
-
-    public Integer getQuantine() {
-        return quantine;
-    }
-
-    public void setQuantine(Integer quantine) {
-        this.quantine = quantine;
+        return "geschool.persistence.model.Eleve[ idEleve=" + idEleve + " ]";
     }
     
 }

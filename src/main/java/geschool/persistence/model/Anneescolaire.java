@@ -23,17 +23,23 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ines.G
+ * @author INES
  */
 @Entity
-@Table(name = "anneescolaire", catalog = "geschool", schema = "")
+@Table(name = "anneescolaire")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Anneescolaire.rechercherToutesLesAnneesScolaire", query = "SELECT a FROM Anneescolaire a"),
-    @NamedQuery(name = "Anneescolaire.rechercherUneAvecIdAnneeScolaire", query = "SELECT a FROM Anneescolaire a WHERE a.id = :id"),
-    @NamedQuery(name = "Anneescolaire.rechercherParLibelle", query = "SELECT a FROM Anneescolaire a WHERE a.libelle = :libelle")})
+    @NamedQuery(name = "Anneescolaire.findAll", query = "SELECT a FROM Anneescolaire a"),
+    @NamedQuery(name = "Anneescolaire.findById", query = "SELECT a FROM Anneescolaire a WHERE a.id = :id"),
+    @NamedQuery(name = "Anneescolaire.findByLibelle", query = "SELECT a FROM Anneescolaire a WHERE a.libelle = :libelle"),
+    @NamedQuery(name = "Anneescolaire.findByDatedebut", query = "SELECT a FROM Anneescolaire a WHERE a.datedebut = :datedebut"),
+    @NamedQuery(name = "Anneescolaire.findByDatefin", query = "SELECT a FROM Anneescolaire a WHERE a.datefin = :datefin"),
+    @NamedQuery(name = "Anneescolaire.findByActif", query = "SELECT a FROM Anneescolaire a WHERE a.actif = :actif")})
 public class Anneescolaire implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,6 +68,10 @@ public class Anneescolaire implements Serializable {
     private List<Inscrit> inscritList;
 
     public Anneescolaire() {
+    }
+
+    public Anneescolaire(Integer id) {
+        this.id = id;
     }
 
     public Anneescolaire(Integer id, String libelle, Date datedebut, Date datefin) {
@@ -111,6 +121,7 @@ public class Anneescolaire implements Serializable {
         this.actif = actif;
     }
 
+    @XmlTransient
     public List<Inscrit> getInscritList() {
         return inscritList;
     }

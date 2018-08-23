@@ -12,6 +12,14 @@
         <servlet-class>geschool.metier.controller.SessionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CoursServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.CoursServlet</servlet-class>
+    </servlet>
+      <servlet>
+        <servlet-name>EvaluationServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.EvaluationServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProfServlet</servlet-name>
         <servlet-class>geschool.metier.controller.ProfServlet</servlet-class>
     </servlet>
@@ -50,6 +58,14 @@
     <servlet-mapping>
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CoursServlet</servlet-name>
+        <url-pattern>/CoursServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EvaluationServlet</servlet-name>
+        <url-pattern>/EvaluationServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfServlet</servlet-name>
