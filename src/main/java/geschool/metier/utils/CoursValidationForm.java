@@ -80,7 +80,7 @@ public final class CoursValidationForm {
     public void modifCours(HttpServletRequest request) throws Exception {
         Integer idCours = Integer.parseInt(getValeurChamp(request, ID_COURS));
         String designationCours = getValeurChamp(request, CHAMP_DESIGNATION);
-        Cours c = cDAO.rechercherCoursParId(idCours);
+        Cours c = cDAO.findByIdCours(idCours);
         c.setDesignation(designationCours);
             try {
                 cDAO.modifierCours(c);

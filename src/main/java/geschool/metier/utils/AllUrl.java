@@ -31,7 +31,7 @@ public final class AllUrl {
     public static final String URL_PAGE_AJOUT_SESSION_ACADEMIQUE = "/ajoutSessionAcademique.jsp";
     public static final String URL_PAGE_TABLEAU_SESSION = "/listsession.jsp";
     public static final String URL_PAGE_TABLEAU_INSCRIPTION = "/listinscription.jsp";
-    public static final String URL_PAGE_AJOUT_INSCRIPTION = "/ajoutinscription.jsp";
+    public static final String URL_PAGE_AJOUT_INSCRIPTION = "/addInscription.jsp";
     public static final String URL_PAGE_MODIFIER_INSCRIPTION = "/modifinscription.jsp";
     public static final String URL_ = "/";
     public static final String URL_PAGE_TABLEAU_CLASSE="/listclasse.jsp";

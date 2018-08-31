@@ -19,7 +19,7 @@ public interface EvaluationDAO {
     void modifierEvaluation(Evaluation c);
     List<Evaluation> rechercherToutesLesEvaluation();
     Evaluation rechercherEvaluationParId (Integer id);
-    Evaluation rechercherEvaluationParLibelleClasse(String l);
+    Evaluation rechercherEvaluationParLibelleCours(String l);
     Long verifEvaluationExist(String l);
-    Integer rechercherLeNombreCoursEvaluation(Integer id);
+//    Integer rechercherLeNombreCoursEvaluation(Integer id);
 }   

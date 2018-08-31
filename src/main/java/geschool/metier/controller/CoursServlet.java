@@ -52,7 +52,7 @@ public class CoursServlet extends HttpServlet {
         String action = request.getParameter("action");
         if(action.equals("listecours")){
             session.setAttribute( ATT_SESSION_USER, u );
-            List<Cours> listCours = cDAO.rechercherTousLesCours();
+            List<Cours> listCours = cDAO.findAll();
             request.setAttribute("listecours", listCours); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_COURS ).forward( request, response );
         }
@@ -60,7 +60,7 @@ public class CoursServlet extends HttpServlet {
         if(action.equals("modifcours")){
             session.setAttribute( ATT_SESSION_USER, u );
             String idcours = request.getParameter("idcours");
-            Cours c = cDAO.rechercherCoursParId(Integer.parseInt(idcours));
+            Cours c = cDAO.findByIdCours(Integer.parseInt(idcours));
             request.setAttribute("cours", c); 
             this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_MODIF_COURS ).forward( request, response );
         }

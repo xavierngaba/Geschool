@@ -4,6 +4,7 @@ import geschool.metier.utils.AllUrl;
 import geschool.metier.utils.TypeReglementEnum;
 import geschool.persistence.interfaces.SessionDAO;
 import geschool.persistence.interfaces.ClasseDAO;
+import geschool.persistence.interfaces.CoursDAO;
 import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.interfaces.InscritDAO;
 import geschool.persistence.interfaces.TuteurDAO;
@@ -15,6 +16,7 @@ import geschool.persistence.model.Professeur;
 import geschool.persistence.interfaces.ReglementDAO;
 import geschool.persistence.model.Anneescolaire;
 import geschool.persistence.model.Classe;
+import geschool.persistence.model.Cours;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
 import geschool.persistence.model.Reglement;
@@ -45,6 +47,8 @@ public class AutoServlet extends HttpServlet {
     @EJB
     private ClasseDAO cDAO;
     @EJB
+    private CoursDAO dDAO;
+    @EJB
     private MatiereDAO mDAO;
     @EJB
     private ProfesseurDAO pDAO;
@@ -60,6 +64,7 @@ public class AutoServlet extends HttpServlet {
         List<Eleve> listeleve = eDAO.rechercherTousLesEleves();
         List<Inscrit> listInscrit = iDAO.rechercherToutesLesInscriptions();
         List<Inscrit> listeleveinscrit = new ArrayList<Inscrit>();
+        List<Cours> listCours = dDAO.findAll();
         List<Reglement> listreglement = rDAO.rechercherTousLesElevesInscrits();
         for (Inscrit inscrit : listInscrit) {
             if(inscrit.getIdEleve().getDette() > 0 || inscrit.getIdEleve().getStatus().equals("Inscrit")){
@@ -169,6 +174,10 @@ public class AutoServlet extends HttpServlet {
             }
            
             if (action.equals("ajoutevaluation")) {
+                request.setAttribute("listecours", listCours);
+                for(Classe c : listClasse){
+                    System.out.println(c.getLibelle());
+                }
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_EVALUATION).forward(request, response);
             }
             if (action.equals("ajoutclasse")) {

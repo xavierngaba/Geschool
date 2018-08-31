@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
     @NamedQuery(name = "Evaluation.findByIdEvaluation", query = "SELECT e FROM Evaluation e WHERE e.idEvaluation = :idEvaluation"),
     @NamedQuery(name = "Evaluation.findByDesignation", query = "SELECT e FROM Evaluation e WHERE e.designation = :designation"),
+    @NamedQuery(name = "Evaluation.rechercherEvaluationParLibelleCours", query = "SELECT e FROM Evaluation e WHERE e.idCours.designation = :designation"),
     @NamedQuery(name = "Evaluation.findByDate", query = "SELECT e FROM Evaluation e WHERE e.date = :date"),
     @NamedQuery(name = "Evaluation.findByTypeEvaluation", query = "SELECT e FROM Evaluation e WHERE e.typeEvaluation = :typeEvaluation")})
 public class Evaluation implements Serializable {

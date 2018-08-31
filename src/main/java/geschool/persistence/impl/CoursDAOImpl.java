@@ -35,22 +35,25 @@ public class CoursDAOImpl implements CoursDAO{
 
     @Override
     public void modifierCours(Cours c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if (c != null) {
+            em.merge(c);
+        }    }
+
+    @Override
+    public List<Cours> findAll() {
+        return em.createNamedQuery("Cours.findAll").getResultList();
     }
 
     @Override
-    public List<Cours> rechercherTousLesCours() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Cours rechercherCoursParId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cours findByIdCours(Integer id) {
+    return em.find(Cours.class, id); 
     }
 
     @Override
     public Cours rechercherCoursParLibelleClasse(String l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return (Cours) em.createNamedQuery("Evaluation.rechercherCoursParLibelleClasse")
+                 .setParameter("designation", l)
+                 .getSingleResult();     
     }
 
     @Override
@@ -58,8 +61,8 @@ public class CoursDAOImpl implements CoursDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Integer rechercherLeNombreClasseCours(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public Integer rechercherLeNombreClasseCours(Integer id) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

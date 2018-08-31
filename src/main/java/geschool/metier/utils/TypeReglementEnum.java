@@ -70,3 +70,4 @@ public enum TypeReglementEnum {
         return id;
     }
 }
+

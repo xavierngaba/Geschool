@@ -17,9 +17,9 @@ import javax.ejb.Local;
 public interface CoursDAO {
     void creerCours(Cours c);
     void modifierCours(Cours c);
-    List<Cours> rechercherTousLesCours();
-    Cours rechercherCoursParId (Integer id);
+    List<Cours> findAll();
+    Cours findByIdCours (Integer id);
     Cours rechercherCoursParLibelleClasse(String l);
     Long verifCoursExist(String l);
-    Integer rechercherLeNombreClasseCours(Integer id);
+//    Integer rechercherLeNombreClasseCours(Integer id);
 }   

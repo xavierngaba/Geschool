@@ -35,31 +35,34 @@ public class EvaluationDAOImpl implements EvaluationDAO{
 
     @Override
     public void modifierEvaluation(Evaluation c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (c != null){
+            em.merge(c);
+        }
     }
 
     @Override
     public List<Evaluation> rechercherToutesLesEvaluation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createNamedQuery("Evaluation.findAll").getResultList();
     }
 
     @Override
     public Evaluation rechercherEvaluationParId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+return (Evaluation) em.createNamedQuery("Evaluation.findByIdEvaluation")
+                 .setParameter("idEvaluation", id)
+                 .getSingleResult();    
     }
 
     @Override
-    public Evaluation rechercherEvaluationParLibelleClasse(String l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Evaluation rechercherEvaluationParLibelleCours(String l) {
+    return (Evaluation) em.createNamedQuery("Evaluation.rechercherEvaluationParLibelleCours")
+                 .setParameter("designation", l)
+                 .getSingleResult();     
     }
 
     @Override
     public Long verifEvaluationExist(String l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+return (Long) em.createQuery("SELECT count(e.IdEvaluation) FROM Evaluation e").getSingleResult();    
     }
 
-    @Override
-    public Integer rechercherLeNombreCoursEvaluation(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }
