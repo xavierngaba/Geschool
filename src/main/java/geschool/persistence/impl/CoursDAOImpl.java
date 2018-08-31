@@ -57,8 +57,15 @@ public class CoursDAOImpl implements CoursDAO{
     }
 
     @Override
-    public Long verifCoursExist(String l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int verifCoursExist(String l) {
+        try {
+            Cours c=  (Cours) em.createNamedQuery("Evaluation.rechercherCoursParLibelleClasse")
+                 .setParameter("designation", l)
+                 .getSingleResult();
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 //    @Override

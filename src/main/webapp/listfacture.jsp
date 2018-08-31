@@ -72,7 +72,7 @@
                                                 <th>Eleve</th>
                                                 <th>Montant</th>
                                                 <th>Date</th>
-                                                <th>Type r&eacute;glement</th>
+                                                <th>R&eacute;glement</th>
                                                 <th>Commentaire</th>
                                                 <th>Action</th>
                                             </tr>
@@ -85,7 +85,7 @@
                                                         <td><c:out value="${reglement.idEleves.prenom}"/> <c:out value="${reglement.idEleves.nom}"/></td>
                                                         <td><c:out value="${reglement.regMontant}"/> Frs CFA</td>
                                                         <td><fmt:formatDate value="${reglement.regDate}" pattern="dd MMMM yyyy" /></td>
-                                                        <td><c:out value="${reglement.regType.getLibelle()}"/></td>
+                                                        <td><c:out value="${reglement.regType.libelle}"/></td>
                                                         <td><c:out value="${reglement.regref}"/></td>
                                                         <td> 
                                                             <a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=printfacture&idreglement=${reglement.idReglement}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Reçu <i class="fa fa-print"></i></a>   

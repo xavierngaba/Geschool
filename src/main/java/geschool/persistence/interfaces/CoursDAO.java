@@ -20,6 +20,6 @@ public interface CoursDAO {
     List<Cours> findAll();
     Cours findByIdCours (Integer id);
     Cours rechercherCoursParLibelleClasse(String l);
-    Long verifCoursExist(String l);
+    int verifCoursExist(String l);
 //    Integer rechercherLeNombreClasseCours(Integer id);
 }   

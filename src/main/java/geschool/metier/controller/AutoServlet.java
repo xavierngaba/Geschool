@@ -187,9 +187,6 @@ public class AutoServlet extends HttpServlet {
                 request.setAttribute("listeclasse", listClasse);
                 request.setAttribute("listprofesseur", listprofesseur);
                 request.setAttribute("listmatiere", listmatiere);
-                for(Classe c : listClasse){
-                    System.out.println(c.getLibelle());
-                }
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_COURS).forward(request, response);
             }
             if (action.equals("ajouteleve")) {

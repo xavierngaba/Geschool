@@ -121,15 +121,8 @@ public class UtilisateurServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute( ATT_SESSION_USER, utilisateur );
                         request.setAttribute("action", "");
-                        if (utilisateur.getGroupeUtilisateur().getIdGroupeUtilisateur() == 1) {
-                            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_ADMIN ).forward( request, response );
-                        }else if(utilisateur.getGroupeUtilisateur().getIdGroupeUtilisateur() == 2){
-                            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_SECRETAIRE ).forward( request, response );
-                        }else if(utilisateur.getGroupeUtilisateur().getIdGroupeUtilisateur() == 3){
-                            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL_CAISSIERE ).forward( request, response );
-                        }else{
-                            this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
-                        }
+                        this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
+                        
                         
                     } else {
                         request.setAttribute(MESSAGE, "error");

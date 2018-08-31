@@ -77,23 +77,11 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            
-                                           
-                                            <div class="form-group">
-                                                <label>Trimestre</label>
-                                                <select class="form-control" name="Trimestre">
-                                                    <option value="null" selected="selected"></option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3s</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>désignation</label>
-                                                <input type="text" class="form-control" id="prenom" name="Prenom" placeholder="Saisisser une désignation">
+                                                <input type="text" class="form-control" id="prenom" name="designationCours" placeholder="Saisisser une désignation">
                                             </div>
                                             <div class="form-group">
                                                 <label>Classe</label>
@@ -107,7 +95,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Professeur</label>
-                                                <select name="classe" class="form-control">                                                    
+                                                <select name="professeur" class="form-control">                                                    
                                                 <c:if test="${nblistprofesseur > 0}">                                                    
                                                     <c:forEach items="${listprofesseur}" var="professeur">
                                                         <option value="${professeur.idProfesseur}">${professeur.nomPrenom}</option>
@@ -117,7 +105,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Matiere</label>
-                                                 <select name="classe" class="form-control">                                                    
+                                                 <select name="matiere" class="form-control">                                                    
                                                 <c:if test="${nblistmatiere > 0}">                                                    
                                                     <c:forEach items="${listmatiere}" var="matiere">
                                                         <option value="${matiere.idMatiere}">${matiere.designation}</option>

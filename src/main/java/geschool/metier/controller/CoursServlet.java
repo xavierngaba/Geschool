@@ -98,9 +98,7 @@ public class CoursServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(CoursServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        if(action.equals("modifcours")){
+        }else if(action.equals("modifcours")){
             try {
                 CoursValidationForm form = new CoursValidationForm(cDAO);
                 Utilisateur u = uDAO.rechercheUtilisateurAvecId(sessionId);
@@ -118,6 +116,8 @@ public class CoursServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(CoursServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            System.out.println("******************Pas de recup à l'action...");
         }
 
             

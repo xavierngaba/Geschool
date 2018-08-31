@@ -54,12 +54,21 @@ public final class CoursValidationForm {
     public void ajoutCours(HttpServletRequest request) throws Exception {
         String designationCours = getValeurChamp(request, CHAMP_DESIGNATION);
         String matiere = getValeurChamp(request, CHAMP_MATIERE);
+        System.out.println("matiere***************"+matiere);
+        int id_matier = Integer.parseInt(matiere);
         String professeur = getValeurChamp(request, CHAMP_PROFESSEUR);
+        System.out.println("matiere***************"+professeur);
+        int id_professeur = Integer.parseInt(professeur);
         String classe = getValeurChamp(request, CHAMP_CLASSE);
+        System.out.println("matiere***************"+classe);
+        int id_classe = Integer.parseInt(classe);
       
 
         Cours c = new Cours();
         c.setDesignation(designationCours);
+        c.setIdClasse(new Classe(id_classe));
+        c.setIdMatiere(new Matiere(id_matier));
+        c.setIdProfesseur(new Professeur(id_professeur));
         
         
         
