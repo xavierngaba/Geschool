@@ -43,6 +43,10 @@
         <servlet-name>AjaxReglementServlet</servlet-name>
         <servlet-class>geschool.metier.controller.AjaxReglementServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.AjaxServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UtilisateurServlet</servlet-name>
         <url-pattern>/UtilisateurServlet</url-pattern>
@@ -83,6 +87,10 @@
         <servlet-name>AjaxReglementServlet</servlet-name>
         <url-pattern>/AjaxReglementServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxServlet</servlet-name>
+        <url-pattern>/AjaxServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>20</session-timeout>
     </session-config>
@@ -90,6 +98,9 @@
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>messages</param-value>
     </context-param>
+    <listener>
+        <listener-class>geschool.metier.controller.InscriptionListener</listener-class>
+    </listener>
     <error-page>
         <error-code>404</error-code>
         <location>/404.jsp</location>

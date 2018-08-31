@@ -1,6 +1,7 @@
 package geschool.metier.controller;
 
 import geschool.metier.utils.AllUrl;
+import geschool.metier.utils.InscriptionPdf;
 import geschool.metier.utils.TypeReglementEnum;
 import geschool.persistence.interfaces.SessionDAO;
 import geschool.persistence.interfaces.ClasseDAO;
@@ -8,6 +9,7 @@ import geschool.persistence.interfaces.EleveDAO;
 import geschool.persistence.interfaces.InscritDAO;
 import geschool.persistence.interfaces.TuteurDAO;
 import geschool.persistence.interfaces.MatiereDAO;
+import geschool.persistence.interfaces.NotificationDAO;
 import geschool.persistence.interfaces.ProfesseurDAO;
 import geschool.persistence.interfaces.UtilisateurDAO;
 import geschool.persistence.model.Matiere;
@@ -17,6 +19,7 @@ import geschool.persistence.model.Anneescolaire;
 import geschool.persistence.model.Classe;
 import geschool.persistence.model.Eleve;
 import geschool.persistence.model.Inscrit;
+import geschool.persistence.model.Notification;
 import geschool.persistence.model.Reglement;
 import geschool.persistence.model.Utilisateur;
 import java.io.IOException;
@@ -50,6 +53,8 @@ public class AutoServlet extends HttpServlet {
     private ProfesseurDAO pDAO;
     @EJB
     private ReglementDAO rDAO;
+    @EJB
+    private NotificationDAO nDAO;
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
     @Override
@@ -193,7 +198,7 @@ public class AutoServlet extends HttpServlet {
                         this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_PAIEMENT).forward(request, response);
                    }else{
                         //Envoie de la liste de toutes les classes disponibles en BDD
-                        request.setAttribute("listeleve", eDAO.rechercherTousLesEleves());
+                        request.setAttribute("eleve", eleve);
                         //Envoie de la liste de tous les élèves enregistrés en BDD
                         request.setAttribute("listclasse", cDAO.rechercherToutesLesClasses());
                         request.setAttribute("Annee", sDAO.chercherSessionEnCours());
@@ -216,7 +221,21 @@ public class AutoServlet extends HttpServlet {
             if (action.equals("ajoutmatiere")) {
                 this.getServletContext().getRequestDispatcher(AllUrl.URL_PAGE_AJOUT_MATIERE).forward(request, response);
             }
-
+            if(action.equals("printlisteleve")){
+                Date d = new Date();
+                Notification notif = new Notification();
+                List<Notification> listeNotif = nDAO.rechercherTouteLesNotifications();
+                for (Notification notific : listeNotif) {
+                    if(notific.getDateCr().equals(d)){
+                        notif = notific;
+                        break;
+                    }
+                }
+                notif.setStatus("Lus");
+                nDAO.modifierNotification(notif);
+                InscriptionPdf iPDF = new InscriptionPdf();
+                iPDF.genererPDF(iDAO,sDAO,response); 
+            }
             if (action.equals("ajoutfacture")) {
                 request.setAttribute("action", "ajoutfacture");
                 this.getServletContext().getRequestDispatcher("/FactureServlet").forward(request, response);

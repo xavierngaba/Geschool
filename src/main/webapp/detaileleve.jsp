@@ -85,6 +85,9 @@
                                     <ul class="list-group list-group-unbordered">
                                         <li class="list-group-item">
                                             <b>Scolarit&eacute; &agrave; ce jour</b>
+                                            <c:if test="${eleve.dette != 0 and eleve.status =='Inscrit'}">
+                                                <span class="label label-success pull-right"><c:out value="${requestScope.scolarite}"/> Frs CFA</span>
+                                            </c:if>
                                             <c:if test="${eleve.dette == 0 and eleve.status =='Inscrit'}">
                                                 <span class="label label-success pull-right"><c:out value="${requestScope.scolarite}"/> Frs CFA</span>
                                             </c:if>

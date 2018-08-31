@@ -31,6 +31,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptions", query = "SELECT i FROM Inscrit i"),
     @NamedQuery(name = "Inscrit.rechercherInscritAvecId", query = "SELECT i FROM Inscrit i WHERE i.idInscrit = :idInscrit "),
     @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritsDansUneClasseUneAnnee", query = "SELECT i FROM Inscrit i WHERE i.idClasse.idClasse = :idClasse AND i.idAnnee.id = :idAnnee"),
+    @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritPasFiniUneAnnee", query = "SELECT i FROM Inscrit i WHERE (i.idEleve.dette > 0 AND i.idEleve.dette < i.idClasse.Montant) AND i.idAnnee.id = :idAnnee"),
     @NamedQuery(name = "Inscrit.rechercherToutesLesElevesInscritsPourUneAnnee", query = "SELECT i FROM Inscrit i WHERE i.idAnnee.id = :idAnnee"),
     @NamedQuery(name = "Inscrit.verifierInscriptionEleve", query = "SELECT COUNT(i) FROM Inscrit i WHERE i.idEleve.idEleve = :idEleve"),
     @NamedQuery(name = "Inscrit.rechercherToutesLesInscriptionsEleve", query = "SELECT i FROM Inscrit i WHERE i.idEleve.idEleve = :idEleve")})

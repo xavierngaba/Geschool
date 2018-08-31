@@ -60,7 +60,7 @@
                         <li class="active">Inscription élève</li>
                     </ol>
                 </section>
-                <br/>
+
                 <!-- Main content -->
                 <section class="content">
                     <!-- SELECT2 EXAMPLE -->
@@ -70,61 +70,36 @@
                         </div>
                         <form action="<c:url value="/InscriptionServlet"/>" method="post">
                             <input type="hidden"  name="action" value="ajoutinscription"/>
-                            <input type="hidden"  name="idAnnee" value="<c:out value="${requestScope.Annee.id}"/>"/>
-                            <input type="hidden"  name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
+                            <input type="hidden"  name="idAnnee" value="<c:out value=""/>"/>
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Inscription pour l'année scolaire <c:out value="${requestScope.Annee.libelle}"/></h3>
+                                    <h3 class="box-title">Inscription pour l'année scolaire <c:out value=""/></h3>
                                 </div>
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Nom de l'élève</label>
                                                         <select name="idEleve" class="form-control select2" style="width: 100%;">
                                                             <option value="null" selected="selected"></option>
                                                             <c:if test="${listeleve.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
-                                                                    <option value="<c:out value="${eleve.idEleve}"/>"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></option>
+                                                                    <option value="<c:out value=""/>"><c:out value=""/> <c:out value=""/></option>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group" id="messageMontant">
-                                                        <p id="message" class="lead" style="font-size: 16px;"></p>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Commenatire</label>
-                                                        <textarea class="form-control" name="commentaire" rows="5" placeholder="Commentaire..."></textarea>
-                                                    </div>
                                                 </div>
-                                                <div class="col-md-4"></div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Salle de Classe</label>
-                                                        <select name="idClasse" id="idClasse" class="form-control select2" style="width: 80%;">
+                                                        <select name="idClasse" class="form-control select2" style="width: 100%;">
                                                             <option value="null" selected="selected"></option>
                                                             <c:if test="${listclasse.size() != 0}">
                                                                 <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
-                                                                    <option value="<c:out value="${classe.idClasse}"/>"><c:out value="${classe.libelle}"/></option>
-                                                                </c:forEach>
-                                                            </c:if>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Frais d'inscription</label>                                          
-                                                        <input type="text" class="form-control pull-right" id="montant" name="montant"/>
-                                                        <input type="hidden" class="form-control pull-right" id="reste" name="reste"/>
-                                                        <p id="calcul" class="lead" style="font-size: 16px;"></p>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Type réglement</label>                                          
-                                                        <select name="typeReglement" class="form-control select2" style="width: 80%;">
-                                                            <c:if test="${listetypereglement.size() != 0}">
-                                                                <c:forEach items="${ requestScope.listetypereglement }" var="typereglement" varStatus="i">
-                                                                    <option value="<c:out value="${typereglement.getLibelle()}"/>"><c:out value="${typereglement.getLibelle()}"/></option>
+                                                                    <option value="<c:out value=""/>"><c:out value=""/></option>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </select>
@@ -186,8 +161,6 @@
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
         <script src="js/bootstrap.min.js"></script>
-        <!-- Script Ajax -->
-        <script src="js/ajaxScript.js"></script>
         <!-- Select2 -->
         <script src="plugins/select2/select2.full.min.js"></script>
         <!-- InputMask -->

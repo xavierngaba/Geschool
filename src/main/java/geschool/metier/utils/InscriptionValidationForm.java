@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author ines gnaly
  */
 public final class InscriptionValidationForm {
+
     @EJB
     private final EleveDAO eDAO;
     @EJB
@@ -38,7 +39,7 @@ public final class InscriptionValidationForm {
     private final InscritDAO iDAO;
     @EJB
     private final ReglementDAO rDAO;
-    
+
     private static final String CHAMP_ID_INSCRIT = "idInscrit";
     private static final String CHAMP_ID_ANNEE = "idAnnee";
     private static final String CHAMP_ID_ELEVE = "idEleve";
@@ -47,7 +48,7 @@ public final class InscriptionValidationForm {
     private static final String CHAMP_RESTE = "reste";
     private static final String CHAMP_COMMENTAIRE = "commentaire";
     private static final String CHAMP_TYPE_REGLEMENT = "typeReglement";
-    
+
     private String resultat;
     private final Map<String, String> erreurs = new HashMap<>();
     private static final Logger LOG = Logger.getLogger(EleveTuteurValidationForm.class.getName());
@@ -59,7 +60,7 @@ public final class InscriptionValidationForm {
         this.iDAO = iDAO;
         this.rDAO = rDAO;
     }
-    
+
     public String getResultat() {
         return resultat;
     }
@@ -71,8 +72,8 @@ public final class InscriptionValidationForm {
     private void setErreur(String champ, String message) {
         erreurs.put(champ, message);
     }
-    
-    public void ajouterInscription(HttpServletRequest request) throws Exception{
+
+    public void ajouterInscription(HttpServletRequest request) throws Exception {
         String idAnnee = getValeurChamp(request, CHAMP_ID_ANNEE);
         String idEleve = getValeurChamp(request, CHAMP_ID_ELEVE);
         String idClasse = getValeurChamp(request, CHAMP_ID_CLASSE);
@@ -80,7 +81,7 @@ public final class InscriptionValidationForm {
         String reste = getValeurChamp(request, CHAMP_RESTE);
         String commentaire = getValeurChamp(request, CHAMP_COMMENTAIRE);
         String typeReglement = getValeurChamp(request, CHAMP_TYPE_REGLEMENT);
-        
+
         Anneescolaire session = new Anneescolaire();
         Eleve eleve = new Eleve();
         Classe classe = new Classe();
@@ -108,8 +109,8 @@ public final class InscriptionValidationForm {
         i.setIdEleve(eleve);
         try {
             iDAO.creerUneInscription(i);
-            resultat = "L'élève "+eleve.getPrenom()+" "+eleve.getNom()+" "
-                    + "a été bien ajouté dans la salle de classe "+classe.getLibelle()+" pour l'année "+session.getLibelle();
+            resultat = "L'élève " + eleve.getPrenom() + " " + eleve.getNom() + " "
+                    + "a été bien ajouté dans la salle de classe " + classe.getLibelle() + " pour l'année " + session.getLibelle();
         } catch (Exception e) {
             setErreur("Inscription", "Erreur lors de l'ajout d'une nouvelle inscription");
         }
@@ -121,27 +122,35 @@ public final class InscriptionValidationForm {
         r.setRegCode(CreerId.creerCodeReglement(rDAO.rechercherTousLesRgelement().size()));
         try {
             rDAO.creerReglement(r);
-            resultat = resultat + "\n Le paiement de la somme de "+r.getRegMontant()+" a été bien enregistré pour cette élève";
-        }catch (Exception e) {
+            resultat ="\n Le paiement de la somme de " + r.getRegMontant() + " a été bien enregistré pour cette élève";
+        } catch (Exception e) {
             setErreur("Reglement", "Erreur l'enregistrement du paiement de l'inscription");
         }
         eleve.setDette(Integer.parseInt(reste));
         eleve.setStatus("Inscrit");
-        try{
-           eDAO.modifEleve(eleve);
-           resultat = resultat + "\n Mise à jour des informations de l'élève";
-        }catch (Exception e) {
+        try {
+            eDAO.modifEleve(eleve);
+            resultat = resultat + "\n Mise à jour des informations de l'élève";
+        } catch (Exception e) {
             setErreur("Eleve", "Erreur lors de la mise à jour des informations de l'élève");
         }
     }
-    
-    public void ajouterReglement(HttpServletRequest request) throws Exception{
+
+    public void ajouterReglement(HttpServletRequest request) throws Exception {
         String idEleve = getValeurChamp(request, CHAMP_ID_ELEVE);
         String montant = getValeurChamp(request, CHAMP_MONTANT);
         String reste = getValeurChamp(request, CHAMP_RESTE);
+        String idClasse = getValeurChamp(request, CHAMP_ID_CLASSE);
+        String idAnnee = getValeurChamp(request, CHAMP_ID_ANNEE);
         String commentaire = getValeurChamp(request, CHAMP_COMMENTAIRE);
+        if (commentaire == null) {
+            commentaire = "";
+        }
         String typeReglement = getValeurChamp(request, CHAMP_TYPE_REGLEMENT);
         
+        Anneescolaire session = new Anneescolaire();
+        Classe classe = new Classe();
+        Inscrit i = new Inscrit();
         Eleve eleve = new Eleve();
         Reglement r = new Reglement();
         Date dateCr = new Date();
@@ -155,26 +164,53 @@ public final class InscriptionValidationForm {
         r.setRegMontant(Integer.parseInt(montant));
         r.setRegType(tr);
         r.setRegDate(dateCr);
-        commentaire = commentaire+" Prochain paiement le "+ConvertDateYear.AjoutDateReglement(tr, dateCr)+"";
+        if (!tr.getLibelle().equals("Annuel")) {
+            commentaire = commentaire + " Prochain paiement le " + ConvertDateYear.DateTransformString(ConvertDateYear.AjoutDateReglement(tr, dateCr)) + "";
+        }else{
+            commentaire = "Scolarité terminée!!";
+        }
         r.setRegref(commentaire);
         r.setRegCode(CreerId.creerCodeReglement(rDAO.rechercherTousLesRgelement().size()));
         try {
             rDAO.creerReglement(r);
-            resultat = resultat + "\n Le paiement de la somme de "+r.getRegMontant()+" a été bien enregistré pour cette élève";
-        }catch (Exception e) {
+            resultat ="\n Le paiement de la somme de " + r.getRegMontant() + " a été bien enregistré pour cette élève";
+        } catch (Exception e) {
             setErreur("Reglement", "Erreur l'enregistrement du paiement de l'inscription");
+        }
+        if(iDAO.verifierInscriptionEleve(eleve.getIdEleve()) == 0L){
+            try {
+                session = sDAO.rechercherUneAvecIdAnneeScolaire(Integer.parseInt(idAnnee));
+            } catch (Exception e) {
+                setErreur("date", "Erreur lors de la récupération de l'année scolaire en cours");
+            }
+            try {
+                classe = cDAO.rechercherClasseParId(Integer.parseInt(idClasse));
+            } catch (Exception e) {
+                setErreur("classe", "Erreur lors de la récupération de la classe");
+            }
+            
+            i.setIdAnnee(session);
+            i.setIdClasse(classe);
+            i.setIdEleve(eleve);
+            try {
+                iDAO.creerUneInscription(i);
+                resultat = resultat + " L'élève " + eleve.getPrenom() + " " + eleve.getNom() + " "
+                        + "a été bien ajouté dans la salle de classe " + classe.getLibelle() + " pour l'année " + session.getLibelle();
+            } catch (Exception e) {
+                setErreur("Inscription", "Erreur lors de l'ajout d'une nouvelle inscription");
+            }
         }
         eleve.setDette(Integer.parseInt(reste));
         eleve.setStatus("Inscrit");
-        try{
-           eDAO.modifEleve(eleve);
-           resultat = resultat + "\n Mise à jour des informations de l'élève";
-        }catch (Exception e) {
+        try {
+            eDAO.modifEleve(eleve);
+            resultat = resultat + "\n Mise à jour des informations de l'élève";
+        } catch (Exception e) {
             setErreur("Eleve", "Erreur lors de la mise à jour des informations de l'élève");
         }
     }
-    
-    public void modifierInscription(HttpServletRequest request) throws Exception{
+
+    public void modifierInscription(HttpServletRequest request) throws Exception {
         String idInscrit = getValeurChamp(request, CHAMP_ID_INSCRIT);
         String idAnnee = getValeurChamp(request, CHAMP_ID_ANNEE);
         String idEleve = getValeurChamp(request, CHAMP_ID_ELEVE);
@@ -207,7 +243,7 @@ public final class InscriptionValidationForm {
             setErreur("Inscription", "Erreur lors de la modification de l'inscription");
         }
     }
-    
+
     /*
      * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
      * sinon.

@@ -5,12 +5,14 @@
  */
 package geschool.metier.controller;
 
-import geschool.persistence.interfaces.ClasseDAO;
-import geschool.persistence.model.Classe;
+import geschool.persistence.interfaces.NotificationDAO;
+import geschool.persistence.model.Notification;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,31 +20,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author xavier_ng
  */
-public class AjaxReglementServlet extends HttpServlet {
-
+public class AjaxServlet extends HttpServlet {
     @EJB
-    private ClasseDAO cDAO;
-    
+    private NotificationDAO nDAO;
+  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        String montant = request.getParameter("montant");
-        if(montant.equals("recherche")){
-            Integer idClasse = Integer.parseInt(request.getParameter("idClasse"));
-            Classe c = cDAO.rechercherClasseParId(idClasse);
-            String reponseText = ""+c.getMontant()+"";
+        String notification = request.getParameter("notification");
+        
+        if(notification.equals("recherche")){
+            Date d = new Date();
+            String reponse = "";
+            List<Notification> listNotif = nDAO.rechercherTouteLesNotifications();
+            for (Notification notific : listNotif) {
+                if(notific.getDateCr().equals(d)){
+                    reponse = "oui";
+                    break;
+                }
+            }
             response.setContentType("text/plain");
-            response.getWriter().write(reponseText);
+            response.getWriter().write(reponse);
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         

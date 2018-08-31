@@ -9,8 +9,8 @@
 <header class="main-header">
     <!-- Logo -->
     <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
-       <!-- mini logo for sidebar mini 50x50 pixels -->
-       <span class="logo-mini"><b>G</b></span>
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>G</b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>Geschool</b></span>
     </a>
@@ -26,7 +26,24 @@
                 <!-- Messages: style can be found in dropdown.less-->
 
                 <!-- Notifications: style can be found in dropdown.less -->
-
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span id="nombreNotif" class="label label-danger"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li id="messageNotif" class="header"></li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="<c:url value="/AutoServlet?action=printlisteleve&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">
+                                        <i class="fa fa-print text-aqua"></i> Liste des &eacute;l&egrave;ves inscriptions en cours...
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <!-- Tasks: style can be found in dropdown.less -->
 
                 <!-- User Account: style can be found in dropdown.less -->
@@ -40,20 +57,20 @@
                         <li class="user-header">
                             <img src="img/avatar.png" class="img-circle" alt="User Image">
                             <p>
-                        <c:out value="${sessionScope.sessionUtilisateur.login}"/>
-                        </p>
-                </li>
-                <!-- Menu Body -->
+                                <c:out value="${sessionScope.sessionUtilisateur.login}"/>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
 
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                    <div class="pull-left">
-                        <a href="<c:url value="/UtilisateurServlet?action=logout"/>" class="btn btn-default btn-flat">Sign out</a>
-                    </div>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="<c:url value="/UtilisateurServlet?action=logout"/>" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
-            </ul>
-            </li>
-            <!-- Control Sidebar Toggle Button -->
+                <!-- Control Sidebar Toggle Button -->
 
             </ul>
         </div>

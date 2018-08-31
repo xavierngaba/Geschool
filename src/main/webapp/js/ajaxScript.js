@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $montantInitiale = 0;
     $("#idClasse").change(function (){
-        $idClasse = $( "select#idClasse option:checked" ).val();
+        $idClasse = $( "select#idClasse" ).val();
         $.get('AjaxReglementServlet',{
             idClasse : $idClasse,
             montant : "recherche"
@@ -18,6 +18,7 @@ $(document).ready(function() {
         $montantRestant = $montantInitiale - $montantSaisi;
         $("#calcul").text("Reste à payer : "+$montantRestant+" Frs CFA");
         $("#reste").val($montantRestant);
+        console.log($("#reste").val($montantRestant));
     });
     $("#montant2").keyup(function(){
         //console.log($("#montantinitial").val());
@@ -29,6 +30,20 @@ $(document).ready(function() {
         $("#calcul").text("Reste à payer : "+$montantRestant+" Frs CFA");
         $("#reste").val($montantRestant);
     });
+    
+    function checkForNotifications(){
+        $.get('AjaxServlet',{
+            notification : "recherche"
+        }, function(reponseText){
+            $resultat = reponseText;
+            $nombre = 1;
+            if ($resultat === "oui"){
+                $("#nombreNotif").text("1");
+                $("#messageNotif").text($nombre+" Notification");
+            }
+        });
+    }
+    setInterval(checkForNotifications, 600000);
 });
 
 

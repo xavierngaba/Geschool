@@ -101,7 +101,10 @@
                                                         <td><a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=detaileleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">détail <i class="fa fa-eye"></i></a></td>
                                                         <td><a class="btn btn-block btn-default btn-xs" href="<c:url value="/AutoServlet?action=modifeleve&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Modifier <i class="fa fa-edit"></i></a><br/>
                                                             <c:if test="${eleve.status == 'Préinscrit'}">
-                                                            <a class="btn btn-block btn-danger btn-xs" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement</a>
+                                                               <a class="btn btn-block btn-danger btn-xs" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement</a>
+                                                            </c:if>
+                                                            <c:if test="${eleve.dette != 0 and eleve.status =='Inscrit'}">
+                                                               <a class="btn btn-block btn-danger btn-xs" href="<c:url value="/AutoServlet?action=ajoutpaiement&ideleve=${eleve.idEleve}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Paiement</a>
                                                             </c:if>
                                                         </td>
                                                     </tr>

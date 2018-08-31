@@ -70,4 +70,11 @@ public class InscritDAOImpl implements InscritDAO{
     public Long verifierInscriptionEleve(Integer idEleve) {
         return (Long) em.createNamedQuery("Inscrit.verifierInscriptionEleve").setParameter("idEleve", idEleve).getSingleResult();
     }
+
+    @Override
+    public List<Inscrit> rechercherToutesLesElevesInscritPasFiniUneAnnee(Integer idAnnee) {
+        return em.createNamedQuery("Inscrit.rechercherToutesLesElevesInscritPasFiniUneAnnee")
+                 .setParameter("idAnnee", idAnnee)
+                 .getResultList();
+    }
 }

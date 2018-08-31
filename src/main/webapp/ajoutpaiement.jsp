@@ -68,7 +68,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Formulaire de paiement</h3>
                         </div>
-                        <c:if test="${!empty requestScope.eleve}">
+                        <c:if test="${!empty requestScope.eleve and requestScope.eleve.status == 'Inscrit'}">
                             <form action="<c:url value="/InscriptionServlet"/>" method="post">
                                 <input type="hidden"  name="action" value="ajoutpaiement"/>
                                 <input type="hidden"  name="idAnnee" value="<c:out value="${requestScope.Annee.id}"/>"/>
@@ -146,6 +146,77 @@
                                 </div>
                             </form>
                         </c:if>
+                        <c:if test="${!empty requestScope.eleve and requestScope.eleve.status == 'Préinscrit'}">
+                            <form action="<c:url value="/InscriptionServlet"/>" method="post">
+                                <input type="hidden"  name="action" value="ajoutpaiement"/>
+                                <input type="hidden"  name="idAnnee" value="<c:out value="${requestScope.Annee.id}"/>"/>
+                                <input type="hidden"  name="idEleve" value="<c:out value="${requestScope.eleve.idEleve}"/>"/>
+                                <input type="hidden"  name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Paiement de la scolarit&eacute; pour l'année scolaire <c:out value="${requestScope.Annee.libelle}"/></h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Nom & Pr&eacute;nom de l'élève : </label>
+                                                            <label><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></label>
+                                                        </div>
+                                                        <div class="form-group" id="messageMontant">
+                                                            <p id="message" class="lead" style="font-size: 16px;"></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Commenatire</label>
+                                                            <textarea class="form-control" name="commentaire" rows="5" placeholder="Commentaire..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4"></div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Salle de Classe</label>
+                                                            <select name="idClasse" id="idClasse" class="form-control select2" style="width: 80%;">
+                                                                <option value="null"></option>
+                                                                <c:if test="${listclasse.size() != 0}">
+                                                                    <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
+                                                                        <option value="<c:out value="${classe.idClasse}"/>"><c:out value="${classe.libelle}"/></option>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Frais d'inscription</label>                                          
+                                                            <input type="text" class="form-control pull-right" id="montant" name="montant"/>
+                                                            <input type="hidden" class="form-control pull-right" id="reste" name="reste"/>
+                                                            <p id="calcul" class="lead" style="font-size: 16px;"></p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Type réglement</label>                                          
+                                                            <select name="typeReglement" class="form-control select2" style="width: 80%;">
+                                                                <c:if test="${listetypereglement.size() != 0}">
+                                                                    <c:forEach items="${ requestScope.listetypereglement }" var="typereglement" varStatus="i">
+                                                                        <option value="<c:out value="${typereglement.getLibelle()}"/>"><c:out value="${typereglement.getLibelle()}"/></option>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="reset" class="btn btn-default">Cancel</button>
+                                    <button type="submit" class="btn btn-info pull-right">valider</button>
+                                </div>
+                            </form>
+                        </c:if>
                         <c:if test="${empty requestScope.eleve}">
                             <form action="<c:url value="/InscriptionServlet"/>" method="post">
                                 <input type="hidden"  name="action" value="ajoutpaiement"/>
@@ -164,7 +235,7 @@
                                                         <div class="form-group">
                                                             <label>Nom de l'élève</label>
                                                             <select name="idEleve" class="form-control select2" style="width: 100%;">
-                                                                <option value="null" selected="selected"></option>
+                                                                <option value="null"></option>
                                                                 <c:if test="${listeleve.size() != 0}">
                                                                     <c:forEach items="${ requestScope.listeleve }" var="eleve" varStatus="boucle">
                                                                         <option value="<c:out value="${eleve.idEleve}"/>"><c:out value="${eleve.nom}"/> <c:out value="${eleve.prenom}"/></option>
@@ -185,7 +256,7 @@
                                                         <div class="form-group">
                                                             <label>Salle de Classe</label>
                                                             <select name="idClasse" id="idClasse" class="form-control select2" style="width: 80%;">
-                                                                <option value="null" selected="selected"></option>
+                                                                <option value="null"></option>
                                                                 <c:if test="${listclasse.size() != 0}">
                                                                     <c:forEach items="${ requestScope.listclasse }" var="classe" varStatus="boucle">
                                                                         <option value="<c:out value="${classe.idClasse}"/>"><c:out value="${classe.libelle}"/></option>
@@ -249,13 +320,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 1.0
-                </div>
-                <strong>Copyright &copy; 2017 Geschool</strong> All rights
-                reserved.
-            </footer>
+            <c:import url="vue/footer.jsp"/>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
                  immediately after the control sidebar -->

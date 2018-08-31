@@ -20,6 +20,7 @@ public interface InscritDAO {
     Inscrit rechercherInscritAvecId(Integer idInscrit);
     List<Inscrit> rechercherToutesLesInscriptions();
     List<Inscrit> rechercherToutesLesElevesInscritsDansUneClasseUneAnnee(Integer idClasse,Integer idAnnee);
+    List<Inscrit> rechercherToutesLesElevesInscritPasFiniUneAnnee(Integer idAnnee);
     List<Inscrit> rechercherToutesLesElevesInscritsPourUneAnnee(Integer idAnnee);
     List<Inscrit> rechercherToutesLesInscriptionsEleve(Integer idEleve);
     Long verifierInscriptionEleve(Integer idEleve) ;
